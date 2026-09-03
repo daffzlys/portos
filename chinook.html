@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Chinook Sales & Performance Dashboard — interactive Tableau business intelligence project by Daffa Fazly.">
+<title>Chinook — Daffa Fazly</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.chinook-page{background:var(--black);color:var(--cream);cursor:none}.chinook-main{background:var(--black)}
+.chinook-hero{min-height:92svh;position:relative;padding:0 3vw;display:flex;align-items:flex-end;overflow:hidden}
+.chinook-meta{position:absolute;top:102px;left:3vw;right:3vw;display:flex;justify-content:space-between;font:9px var(--mono);text-transform:uppercase}
+.chinook-back{position:absolute;top:145px;left:3vw;font:9px var(--mono);text-transform:uppercase;opacity:.7}
+.chinook-heading{padding-bottom:10vh;max-width:1200px}.chinook-heading p{font:8px var(--mono);text-transform:uppercase;letter-spacing:.08em}.chinook-heading h1{margin:18px 0 24px;font-size:clamp(82px,15vw,250px);line-height:.68;letter-spacing:-.11em}.chinook-heading>p:last-child{max-width:610px;font:15px/1.4 var(--sans);color:#aaa;text-transform:none;letter-spacing:-.02em}
+.chinook-content{background:var(--cream);color:var(--black);padding:10vh 3vw 14vh}.chinook-intro{display:grid;grid-template-columns:1.35fr .85fr;gap:9vw;padding-bottom:9vh}.chinook-intro h2{font-size:clamp(55px,7vw,120px);line-height:.78;letter-spacing:-.08em;margin:0 0 28px}.chinook-intro p{max-width:720px;font-size:20px;line-height:1.25;letter-spacing:-.03em}.chinook-facts{display:grid;align-content:start}.chinook-facts div{border-top:1px solid #111;padding:10px 0;display:flex;justify-content:space-between;gap:20px;font:9px var(--mono);text-transform:uppercase}.chinook-facts b{font-weight:500;text-align:right}
+.chinook-dashboard{margin-top:4vh;border-top:1px solid #111;padding-top:12px}.chinook-dashboard-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:18px}.chinook-dashboard-head span{font:8px var(--mono);text-transform:uppercase}.tableau-link{display:inline-flex;align-items:center;gap:8px;border:1px solid #111;padding:12px 15px;font:9px var(--mono);text-transform:uppercase;transition:background .2s,color .2s}.tableau-link:hover{background:#111;color:var(--cream)}
+.tableau-shell{background:#ddd;border:1px solid #111;position:relative;overflow:hidden;width:100%;aspect-ratio:2 / 1}.tableau-viewport{position:absolute;inset:0;overflow:hidden;background:#eee}.tableau-frame{position:absolute;left:0;top:0;width:1500px;height:750px;transform-origin:top left;will-change:transform}.tableau-frame iframe{display:block;width:1500px;height:750px;border:0}.tableau-fallback{display:none;padding:10px;font:9px var(--mono)}
+.chinook-takeaway{margin-top:14vh;border-top:1px solid #111;padding-top:10vh;display:grid;grid-template-columns:1.2fr .8fr;gap:9vw}.chinook-takeaway h2{font-size:clamp(60px,9vw,150px);line-height:.7;letter-spacing:-.1em;margin:0}.chinook-takeaway p{font-size:18px;line-height:1.4;max-width:600px}
+@media(max-width:800px){.chinook-hero{padding:0 5vw}.chinook-meta{left:5vw;right:5vw}.chinook-back{left:5vw}.chinook-heading{padding-bottom:9vh}.chinook-heading h1{font-size:24vw}.chinook-content{padding:9vh 5vw 12vh}.chinook-intro,.chinook-takeaway{grid-template-columns:1fr}.chinook-dashboard-head{align-items:start;flex-direction:column}}
+</style>
+</head>
+<body class="project-page chinook-page">
+<div class="cursor" id="cursor"><div class="cursor-core"></div><div class="cursor-ring"></div><div class="cursor-word">VIEW</div></div>
+<div class="spotify-player" id="spotifyPlayer" aria-hidden="true">
+  <div class="spotify-player-head"><span>NOW PLAYING</span><button class="spotify-close" type="button" aria-label="Close Spotify player">×</button></div>
+  <iframe title="Spotify playlist" src="https://open.spotify.com/embed/playlist/6gwqYtj0OmXuu1uK5KG71b?utm_source=generator&theme=0" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+</div>
+
+<header class="topbar">
+  <a class="brand magnetic" href="index.html">DFR<span>.</span></a>
+  <nav><a class="magnetic" href="index.html#about">About</a><a class="magnetic" href="index.html#work">Work</a><a class="magnetic" href="index.html#stack">Stack</a><a class="magnetic" href="certifications.html">Certifications</a><a class="magnetic" href="index.html#contact">Contact</a></nav>
+  <div class="open"><i></i><span>Available for opportunities</span><a class="cv-trigger magnetic" href="assets/docs/Daffa-Fazly-Rashidan-CV.pdf" download="Daffa-Fazly-Rashidan-CV.pdf" aria-label="Download Daffa Fazly Rashidan CV"><span>CV</span><b aria-hidden="true">↓</b></a><button class="music-trigger magnetic" type="button" aria-label="Open Spotify playlist" aria-expanded="false">♫</button></div>
+</header>
+<main class="chinook-main">
+<section class="chinook-hero">
+  <div class="chinook-meta"><span>02 — SELECTED WORK</span><span>BUSINESS INTELLIGENCE / TABLEAU</span></div>
+  <a class="chinook-back magnetic" href="index.html#work">← BACK TO WORK</a>
+  <div class="chinook-heading reveal reveal-up"><p>CASE STUDY / BUSINESS INTELLIGENCE</p><h1>CHINOOK.</h1><p>An interactive sales and performance dashboard built from the Chinook dataset, designed to turn transactional data into clear business signals.</p></div>
+  <div class="hero-scroll-note">SCROLL TO EXPLORE ↓</div>
+</section>
+<section class="chinook-content">
+  <div class="chinook-intro reveal reveal-up">
+    <div><span class="small-label">THE DASHBOARD</span><h2>DATA INTO<br>DECISIONS.</h2><p>The project combines SQL-based data analysis with Tableau dashboarding to explore sales, customers, artists, albums, genres, geography, and quarterly performance.</p></div>
+    <div class="chinook-facts"><div><span>TOOLS</span><b>SQL · Tableau</b></div><div><span>PROJECT</span><b>Sales & Performance Analytics</b></div><div><span>OUTPUT</span><b>Interactive BI Dashboard</b></div><div><span>DATASET</span><b>Chinook</b></div></div>
+  </div>
+  <section class="chinook-dashboard reveal reveal-up">
+    <div class="chinook-dashboard-head"><span>01 / LIVE TABLEAU VIEW</span><a class="tableau-link magnetic" target="_blank" rel="noreferrer" href="https://public.tableau.com/views/Chinook-SalesPerformance/dashboardv2?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link">OPEN IN TABLEAU ↗</a></div>
+    <div class="tableau-shell" id="tableauShell">
+      <div class="tableau-viewport">
+        <div class="tableau-frame" id="tableauFrame">
+          <iframe title="Chinook Sales & Performance Dashboard" src="https://public.tableau.com/views/Chinook-SalesPerformance/dashboardv2?:language=en-US&:display_count=n&:origin=viz_share_link&:showVizHome=no&:embed=y" loading="lazy" allowfullscreen></iframe>
+        </div>
+      </div>
+      <div class="tableau-fallback">If the interactive dashboard does not load, use the OPEN IN TABLEAU button above.</div>
+    </div>
+  </section>
+  <section class="chinook-takeaway reveal reveal-up"><div><span class="small-label">02 / TAKEAWAY</span><h2>SALES.<br>PERFORMANCE.<br>CONTEXT.</h2></div><div><p>The dashboard provides a compact view of where sales come from, which genres and artists contribute most, how performance changes over time, and how customer geography is distributed.</p><p>The interactive Tableau version is intentionally linked directly so visitors can filter and explore the dashboard instead of only viewing a static chart.</p></div></section>
+</section>
+</main>
+<footer><span>DAFFA FAZLY RASHIDAN</span><span>CHINOOK / SALES & PERFORMANCE</span><span>© 2026</span></footer>
+<script>
+(function(){
+  const shell=document.getElementById('tableauShell');
+  const frame=document.getElementById('tableauFrame');
+  if(!shell||!frame)return;
+  const fit=()=>{
+    const w=shell.clientWidth;
+    const h=shell.clientHeight;
+    const scale=Math.min(w/1500,h/750);
+    frame.style.transform=`scale(${scale})`;
+  };
+  new ResizeObserver(fit).observe(shell);
+  window.addEventListener('load',fit,{once:true});
+  fit();
+})();
+</script>
+<script src="project.js"></script>
+<script src="subpage-motion.js"></script>
+<script>
+(() => {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  const targets = [
+    ...document.querySelectorAll('.panel'),
+    ...document.querySelectorAll('.project-hero, .chinook-hero, .unesa-hero, .majadigi-hero, .cert-hero')
+  ];
+
+  const uniqueTargets = [...new Set(targets)];
+
+  function inferTheme(el) {
+    if (el.classList.contains('hero')) return 'light';
+    if (el.dataset.theme) return el.dataset.theme;
+    if (el.classList.contains('cert-hero') || el.classList.contains('majadigi-hero')) return 'light';
+    if (el.closest('.cert-page') || el.closest('.majadigi-page')) return 'light';
+    return 'dark';
+  }
+
+  uniqueTargets.forEach((el, index) => {
+    if (el.querySelector(':scope > .ambient-sky')) return;
+
+    el.classList.add('has-ambient-sky');
+    el.dataset.ambientTheme = inferTheme(el);
+    el.style.setProperty('--ambient-seed', String(index % 5));
+
+    const layer = document.createElement('div');
+    layer.className = 'ambient-sky';
+    layer.setAttribute('aria-hidden', 'true');
+    layer.innerHTML = `
+      <div class="ambient-sky__field">
+        <i class="ambient-sky__blob ambient-sky__blob--a"></i>
+        <i class="ambient-sky__blob ambient-sky__blob--b"></i>
+        <i class="ambient-sky__blob ambient-sky__blob--c"></i>
+        <i class="ambient-sky__blob ambient-sky__blob--d"></i>
+      </div>`;
+    el.prepend(layer);
+  });
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        entry.target.classList.toggle('ambient-active', entry.isIntersecting);
+      });
+    }, { rootMargin: '18% 0px', threshold: 0.01 });
+    uniqueTargets.forEach((el) => observer.observe(el));
+  } else {
+    uniqueTargets.forEach((el) => el.classList.add('ambient-active'));
+  }
+
+  if (reducedMotion.matches || window.matchMedia('(pointer: coarse)').matches) return;
+
+  let raf = 0;
+  let nextX = 0;
+  let nextY = 0;
+  const root = document.documentElement;
+
+  function commitPointer() {
+    root.style.setProperty('--ambient-pointer-x', `${(nextX * 10).toFixed(2)}px`);
+    root.style.setProperty('--ambient-pointer-y', `${(nextY * 7).toFixed(2)}px`);
+    raf = 0;
+  }
+
+  window.addEventListener('pointermove', (event) => {
+    nextX = (event.clientX / Math.max(1, window.innerWidth) - 0.5) * 2;
+    nextY = (event.clientY / Math.max(1, window.innerHeight) - 0.5) * 2;
+    if (!raf) raf = requestAnimationFrame(commitPointer);
+  }, { passive: true });
+})();
+
+</script>
+</body></html>

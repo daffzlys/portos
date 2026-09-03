@@ -1,0 +1,5628 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+/* =========================================================
+   ROOT / GLOBAL
+   ========================================================= */
+
+:root {
+    --red: #b8b8b5;
+    --cream: #eeeeeb;
+    --black: #111111;
+    --mid: #8e8e8a;
+    --paper: #d4d4d0;
+
+    --mono: "DM Mono", monospace;
+    --sans: "Space Grotesk", Arial, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--paper);
+    font-family: var(--sans);
+    overflow-x: hidden;
+    cursor: none;
+}
+
+body.light {
+    --ink: var(--black);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    cursor: none;
+}
+
+::selection {
+    background: var(--black);
+    color: var(--cream);
+}
+
+
+/* =========================================================
+   SVG FILTERS
+   ========================================================= */
+
+.filters {
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+
+/* =========================================================
+   PRELOADER
+   ========================================================= */
+
+.preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    background: var(--black);
+    color: var(--cream);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding: 24px 3vw;
+
+    transition:
+        transform 1.15s cubic-bezier(.76, 0, .16, 1);
+}
+
+.preloader.hide {
+    transform: translateY(-100%);
+}
+
+.preloader-top,
+.preloader-bottom {
+    display: flex;
+    justify-content: space-between;
+
+    font: 9px var(--mono);
+    text-transform: uppercase;
+}
+
+.preloader-top span:first-child {
+    font: 700 20px var(--sans);
+    letter-spacing: -0.1em;
+}
+
+.preloader-center {
+    position: absolute;
+    left: 3vw;
+    right: 3vw;
+    top: 50%;
+
+    transform: translateY(-50%);
+}
+
+.counter {
+    font: clamp(100px, 17vw, 280px) var(--sans);
+    font-weight: 700;
+    letter-spacing: -0.1em;
+    line-height: 0.7;
+}
+
+.line {
+    height: 2px;
+    background: #333;
+    margin-top: 35px;
+}
+
+.line i {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: var(--cream);
+}
+
+
+/* =========================================================
+   TOP BAR / NAVIGATION
+   ========================================================= */
+
+.topbar {
+    position: fixed;
+    z-index: 200;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 72px;
+    padding: 24px 3vw;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+
+    /*
+       Semua elemen UI header menggunakan difference blend.
+       Sumbernya putih, sehingga otomatis menjadi inverse
+       terhadap background di bawahnya.
+
+       Putih + background terang  -> gelap
+       Putih + background hitam  -> putih
+       Di batas dua section       -> berubah per-pixel
+    */
+    color: #ffffff;
+    mix-blend-mode: difference;
+}
+
+.brand {
+    position: relative;
+    z-index: 1;
+
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.1em;
+    justify-self: start;
+}
+
+.brand span {
+    color: inherit;
+}
+
+.topbar nav {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+
+    color: #ffffff;
+    font: 10px var(--mono);
+    text-transform: uppercase;
+}
+
+.topbar nav a {
+    color: inherit;
+}
+
+.open {
+    justify-self: end;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: #ffffff;
+    font: 9px var(--mono);
+    text-transform: uppercase;
+}
+
+.open i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.2);
+}
+
+
+/* =========================================================
+   SCROLL PROGRESS
+   ========================================================= */
+
+.scroll-progress {
+    position: fixed;
+    z-index: 210;
+
+    right: 3vw;
+    top: 100px;
+
+    height: 80px;
+    width: 1px;
+
+    background: #1113;
+}
+
+.scroll-progress i {
+    display: block;
+    width: 100%;
+    height: 0;
+
+    background: #111;
+    transform-origin: top;
+}
+
+
+/* =========================================================
+   CUSTOM CURSOR
+   ========================================================= */
+
+.cursor {
+    position: fixed;
+    z-index: 900;
+
+    left: 0;
+    top: 0;
+
+    pointer-events: none;
+    mix-blend-mode: normal;
+
+    will-change: transform;
+}
+
+.cursor-core,
+.cursor-ring,
+.cursor-word {
+    position: absolute;
+
+    transform: translate(-50%, -50%);
+    will-change: transform;
+}
+
+.cursor-core {
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+    background: var(--black);
+}
+
+.cursor-ring {
+    width: 30px;
+    height: 30px;
+
+    border: 1px solid var(--black);
+    border-radius: 50%;
+
+    transition:
+        width 0.16s ease,
+        height 0.16s ease,
+        background 0.16s ease,
+        border-color 0.16s ease;
+}
+
+.cursor-word {
+    width: 72px;
+    height: 72px;
+
+    border-radius: 50%;
+
+    display: grid;
+    place-items: center;
+
+    background: var(--cream);
+    color: var(--black);
+
+    font: 7px var(--mono);
+
+    opacity: 0;
+
+    transition: 0.25s;
+}
+
+.cursor.active .cursor-ring {
+    width: 48px;
+    height: 48px;
+
+    background: var(--cream);
+    border-color: var(--cream);
+}
+
+.cursor.active .cursor-core {
+    opacity: 0;
+}
+
+.cursor.view .cursor-word {
+    opacity: 1;
+}
+
+.cursor-trail {
+    position: fixed;
+    z-index: 899;
+
+    left: 0;
+    top: 0;
+
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: var(--mid);
+
+    pointer-events: none;
+    opacity: 0.18;
+}
+
+
+/* =========================================================
+   GENERIC PANEL
+   ========================================================= */
+
+.panel {
+    position: relative;
+    min-height: 100svh;
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+    height: 100svh;
+
+    background: var(--paper);
+    color: var(--black);
+
+    isolation: isolate;
+}
+
+.hero-label {
+    position: absolute;
+    top: 105px;
+    left: 3vw;
+
+    color: #555;
+
+    font: 9px var(--mono);
+    letter-spacing: 0.1em;
+}
+
+.hero-word {
+    position: absolute;
+    z-index: 4;
+
+    left: 0.9vw;
+    top: 15vh;
+
+    font-size: clamp(150px, 23vw, 430px);
+    font-weight: 700;
+    line-height: 0.72;
+    letter-spacing: -0.11em;
+
+    white-space: nowrap;
+    /* White + difference = automatic inverse against the portrait/background. */
+    color: #ffffff;
+    mix-blend-mode: difference;
+
+    will-change: transform;
+}
+
+.hero-word.second {
+    top: 44vh;
+    left: 11vw;
+}
+
+.hero-word.third {
+    top: 69vh;
+    left: 3vw;
+
+    font-size: clamp(105px, 16.2vw, 325px);
+    letter-spacing: -0.105em;
+}
+
+/* =========================================================
+   HERO PORTRAIT
+   ========================================================= */
+
+.hero-portrait {
+    position: absolute;
+    z-index: 2;
+    right: 3vw;
+    bottom: -2px;
+    width: clamp(380px, 48vw, 760px);
+    margin: 0;
+    pointer-events: none;
+    transform: translate3d(0, 0, 0);
+    transform-origin: 50% 100%;
+    will-change: transform, opacity;
+}
+
+.hero-portrait::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 8%;
+    bottom: 0;
+    left: -18px;
+    width: 1px;
+    background: currentColor;
+    opacity: 0.24;
+}
+
+.hero-portrait img {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: contrast(1.08) grayscale(1);
+    mix-blend-mode: multiply;
+    user-select: none;
+}
+
+.hero-portrait figcaption {
+    position: absolute;
+    top: 8%;
+    right: -2px;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font: 7px var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.55;
+}
+
+.hero-word::after {
+    content: none;
+}
+
+.hero-word .letter {
+    display: inline;
+
+    transform: none !important;
+    transform-origin: 50% 80%;
+
+    position: relative;
+
+    will-change: transform, filter;
+
+    backface-visibility: hidden;
+}
+
+.hero-word .letter-wave {
+    transition: none;
+    filter: url(#liquid);
+}
+
+.hero-copy {
+    position: absolute;
+    z-index: 8;
+
+    left: 3vw;
+    bottom: 42px;
+
+    color: var(--black);
+
+    font-size: 11px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-location {
+    position: absolute;
+    z-index: 8;
+
+    right: 3vw;
+    bottom: 42px;
+
+    color: var(--black);
+
+    font-size: 10px;
+
+    display: flex;
+    flex-direction: column;
+
+    text-align: right;
+}
+
+.hero-location span {
+    opacity: 0.6;
+
+    font: 8px var(--mono);
+    text-transform: uppercase;
+
+    margin-bottom: 4px;
+}
+
+.hero-location b {
+    font-weight: 500;
+}
+
+.hero-scroll {
+    position: absolute;
+    z-index: 8;
+
+    bottom: 42px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    color: var(--black);
+
+    font: 8px var(--mono);
+    white-space: nowrap;
+}
+
+.hero-scroll b {
+    margin-left: 8px;
+}
+
+.hero-corner {
+    position: absolute;
+    z-index: 8;
+
+    right: 3vw;
+    top: 105px;
+
+    color: #555;
+
+    font: 8px var(--mono);
+}
+
+
+/* =========================================================
+   PANEL META
+   ========================================================= */
+
+.panel-meta {
+    position: absolute;
+    z-index: 20;
+
+    top: 102px;
+    left: 3vw;
+    right: 3vw;
+
+    display: flex;
+    justify-content: space-between;
+
+    font: 9px var(--mono);
+    text-transform: uppercase;
+
+    /* Section labels also invert against light/dark pages. */
+    color: #ffffff;
+    mix-blend-mode: difference;
+}
+
+
+/* =========================================================
+   INTRO
+   ========================================================= */
+
+.intro {
+    background: var(--cream);
+    color: var(--black);
+
+    padding: 0 3vw;
+}
+
+.intro-stage {
+    height: 100svh;
+    position: relative;
+}
+
+.display {
+    position: absolute;
+
+    letter-spacing: -0.105em;
+    line-height: 0.7;
+
+    font-size: clamp(100px, 15.5vw, 280px);
+    font-weight: 700;
+
+    will-change: transform;
+}
+
+.display-serif {
+    font-family: Georgia, serif;
+    font-weight: 400;
+}
+
+.display-black {
+    top: 29%;
+    left: 0;
+}
+
+.display-serif {
+    top: 42%;
+    left: 20vw;
+}
+
+.display.right {
+    top: 55%;
+    right: 3vw;
+}
+
+.display.lower {
+    top: 68%;
+    right: 0;
+}
+
+.intro p {
+    position: absolute;
+    z-index: 5;
+
+    right: 3vw;
+    bottom: 18vh;
+
+    max-width: 380px;
+
+    font-size: 16px;
+    line-height: 1.35;
+}
+
+.edge-note {
+    position: absolute;
+
+    bottom: 18px;
+    left: 3vw;
+    right: 3vw;
+
+    border-top: 1px solid currentColor;
+
+    padding-top: 9px;
+
+    font: 8px var(--mono);
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   SELECTED WORK
+   ========================================================= */
+
+.work {
+    background: var(--black);
+    color: var(--cream);
+    padding: 0 3vw;
+}
+
+.work-stage {
+    min-height: 100svh;
+    padding-top: 16vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+}
+
+.work-item {
+    height: 20vh;
+    min-height: 125px;
+    display: grid;
+    grid-template-columns: 7% 1fr auto;
+    align-items: center;
+    border-top: 1px solid #444;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    color: #fff;
+    will-change: transform, opacity;
+    transition: padding 0.35s ease;
+}
+
+.work-item:last-child {
+    border-bottom: 1px solid #444;
+}
+
+/* The inverse band is the interaction itself. It stays invisible until hover. */
+.work-item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--cream);
+    transform: scaleY(0);
+    transform-origin: center;
+    transition: transform 0.35s cubic-bezier(.22,.61,.36,1);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.work-item:hover::before,
+.work-item:focus-visible::before {
+    transform: scaleY(1);
+}
+
+.work-item > .work-num,
+.work-item > .work-title,
+.work-item > .work-info {
+    position: relative;
+    z-index: 1;
+    color: #fff;
+    mix-blend-mode: difference;
+}
+
+.work-num {
+    font: 9px var(--mono);
+    color: #fff;
+}
+
+.work-title {
+    font-size: clamp(60px, 10.5vw, 190px);
+    font-weight: 700;
+    letter-spacing: -0.1em;
+    line-height: 0.65;
+    white-space: nowrap;
+    transition: transform 0.35s cubic-bezier(.22,.61,.36,1);
+}
+
+.work-item:hover .work-title,
+.work-item:focus-visible .work-title {
+    transform: translateX(0.6vw);
+}
+
+.work-info {
+    font: 8px var(--mono);
+    text-transform: uppercase;
+    text-align: right;
+    line-height: 1.7;
+    color: #aaa;
+}
+
+.work-item:hover,
+.work-item:focus-visible {
+    padding: 0 1.2vw;
+}
+
+.work-item:focus-visible {
+    outline: 1px solid #fff;
+    outline-offset: -1px;
+}
+
+/* =========================================================
+   WORK FOOTER
+   ========================================================= */
+
+.work-footer {
+    position: absolute;
+
+    bottom: 18px;
+    left: 3vw;
+    right: 3vw;
+
+    border-top: 1px solid #444;
+
+    padding-top: 8px;
+
+    display: flex;
+    justify-content: space-between;
+
+    font: 8px var(--mono);
+
+    color: #ffffff;
+    mix-blend-mode: difference;
+}
+
+
+/* =========================================================
+   EXPERIENCE
+   ========================================================= */
+
+.experience {
+    background: var(--cream);
+    color: var(--black);
+
+    padding: 0 3vw;
+}
+
+.experience-list {
+    height: 100svh;
+
+    padding-top: 20vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.exp {
+    display: grid;
+    grid-template-columns: 13% 37% 1fr;
+
+    gap: 30px;
+
+    border-top: 1px solid var(--black);
+
+    padding: 28px 0;
+
+    will-change: transform;
+}
+
+.exp:last-child {
+    border-bottom: 1px solid var(--black);
+}
+
+.exp-date,
+.exp-role {
+    font: 8px var(--mono);
+    text-transform: uppercase;
+}
+
+.exp-company {
+    font-size: 22px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+}
+
+.exp-text {
+    max-width: 470px;
+
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   STACK / SKILLS
+   ========================================================= */
+
+.stack {
+    background: var(--black);
+    color: var(--cream);
+
+    padding: 0 3vw;
+}
+
+.stack .panel-meta {
+    color: var(--cream);
+}
+
+.stack-title {
+    position: absolute;
+
+    left: 3vw;
+    top: 15%;
+
+    font-size: clamp(100px, 15vw, 250px);
+    font-weight: 700;
+
+    letter-spacing: -0.11em;
+    line-height: 0.62;
+
+    will-change: transform;
+}
+
+.stack-title em {
+    display: block;
+
+    font-family: Georgia, serif;
+    font-weight: 400;
+
+    margin-left: 8vw;
+}
+
+.skill-cloud {
+    position: absolute;
+    z-index: 5;
+
+    left: 3vw;
+    right: 3vw;
+    bottom: 7vh;
+
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.skill {
+    min-height: 82px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    color: var(--cream);
+    border: 1px solid rgba(242, 240, 236, 0.28);
+
+    padding: 8px;
+
+    transition:
+        transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+        border-color 0.35s ease;
+}
+
+.skill-icon {
+    width: 20px;
+    height: 20px;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid rgba(242, 240, 236, 0.55);
+    border-radius: 5px;
+    padding: 3px;
+
+    color: var(--cream);
+}
+
+.skill-icon img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+    object-fit: contain;
+    object-position: center;
+    filter: grayscale(1) brightness(0) invert(1);
+}
+
+.skill-name {
+    max-width: 100%;
+
+    font: 8px var(--mono);
+    line-height: 1.35;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.skill:hover {
+    border-color: rgba(242, 240, 236, 0.72);
+    transform: translateY(-5px);
+}
+
+.skill:hover .skill-icon,
+.skill:hover .skill-name {
+    color: var(--cream);
+}
+
+.stack-orb {
+    display: none;
+}
+
+
+/* =========================================================
+   CONTACT
+   ========================================================= */
+
+.contact {
+    background: var(--cream);
+    color: var(--black);
+
+    padding: 0 3vw;
+}
+
+.contact-title {
+    position: absolute;
+
+    top: 29%;
+    left: 3vw;
+
+    font-size: clamp(100px, 15vw, 270px);
+    font-weight: 700;
+
+    line-height: 0.66;
+    letter-spacing: -0.11em;
+}
+
+.contact-title em {
+    display: block;
+
+    font-family: Georgia, serif;
+    font-weight: 400;
+
+    margin-left: 5vw;
+}
+
+.contact-bottom {
+    position: absolute;
+
+    left: 3vw;
+    right: 3vw;
+    bottom: 18px;
+
+    border-top: 1px solid var(--black);
+
+    padding-top: 9px;
+
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+
+    gap: 25px;
+
+    font: 9px var(--mono);
+    text-transform: uppercase;
+}
+
+.contact-bottom a:first-child {
+    font-size: 12px;
+    text-transform: none;
+
+    border-bottom: 1px solid var(--black);
+
+    width: max-content;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer {
+    background: var(--cream);
+    color: var(--black);
+
+    display: flex;
+    justify-content: space-between;
+
+    padding: 13px 3vw 25px;
+
+    font: 8px var(--mono);
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   HERO TYPOGRAPHY
+   ========================================================= */
+
+.hero-word {
+    filter: none;
+    will-change: transform;
+}
+
+.hero-word .letter {
+    display: inline;
+    filter: none;
+}
+
+/* Cursor wave is disabled for the hero. */
+.hero-distort {
+    display: none !important;
+}
+
+.cursor {
+    will-change: transform;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+    .hero-portrait {
+        right: 3vw;
+        bottom: 3vh;
+        width: 38vw;
+        opacity: 0.86;
+    }
+
+    .hero-portrait figcaption {
+        display: none;
+    }
+
+    .hero-portrait::before {
+        left: -8px;
+    }
+
+    body {
+        cursor: auto;
+    }
+
+    a {
+        cursor: pointer;
+    }
+
+    .cursor,
+    .cursor-trail {
+        display: none;
+    }
+
+    .topbar {
+        grid-template-columns: 1fr auto;
+        padding: 18px 5vw;
+    }
+
+    .topbar nav {
+        display: none;
+    }
+
+    .panel-meta {
+        left: 5vw;
+        right: 5vw;
+    }
+
+    .hero-label {
+        left: 5vw;
+    }
+
+    .hero-word {
+        font-size: 27vw;
+        left: 1vw;
+        top: 20vh;
+    }
+
+    .hero-word.second {
+        left: 9vw;
+        top: 47vh;
+    }
+
+    .hero-word.third {
+        left: 3vw;
+        top: 70vh;
+        font-size: 15.5vw;
+    }
+
+    .hero-copy {
+        left: 5vw;
+    }
+
+    .hero-location {
+        right: 5vw;
+    }
+
+    .hero-scroll {
+        display: none;
+    }
+
+    .intro,
+    .work,
+    .experience,
+    .stack,
+    .contact {
+        padding-left: 5vw;
+        padding-right: 5vw;
+    }
+
+    .display {
+        font-size: 25vw;
+    }
+
+    .display-serif {
+        left: 15vw;
+    }
+
+    .display.right {
+        right: 0;
+    }
+
+    .intro p {
+        left: 5vw;
+        right: 5vw;
+        bottom: 12vh;
+    }
+
+    .work-stage {
+        padding-top: 17vh;
+    }
+
+    .work-item {
+        grid-template-columns: 10% 1fr;
+        height: 17vh;
+    }
+
+    .work-title {
+        font-size: 17vw;
+    }
+
+    .work-info {
+        display: none;
+    }
+
+    .experience-list {
+        padding-top: 18vh;
+    }
+
+    .exp {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .stack-title {
+        left: 5vw;
+        top: 20%;
+        font-size: 27vw;
+    }
+
+    .skill-cloud {
+        left: 5vw;
+        right: 5vw;
+        bottom: 10vh;
+        gap: 6px;
+    }
+
+    .skill {
+        min-height: 72px;
+    }
+
+    .skill-icon {
+        width: 20px;
+        height: 20px;
+        border-radius: 5px;
+        padding: 3px;
+    }
+
+    .stack-orb {
+        width: 70vw;
+        height: 70vw;
+        right: -20vw;
+    }
+
+    .contact-title {
+        left: 5vw;
+        font-size: 24vw;
+    }
+
+    .contact-bottom {
+        left: 5vw;
+        right: 5vw;
+
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .contact {
+        min-height: 100svh;
+    }
+
+    footer {
+        padding-left: 5vw;
+        padding-right: 5vw;
+
+        display: block;
+        line-height: 2;
+    }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY — REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    * {
+        scroll-behavior: auto !important;
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+
+/* =========================================================
+   HERO → ABOUT SCROLL TRANSITION
+   =========================================================
+
+   The hero remains visually stable while scrolling.
+   The next page rises over it, creating a clean editorial
+   hand-off into the cream About section.
+   ========================================================= */
+
+.hero {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+
+    /* Keeps the hero pinned without moving its typography. */
+    height: 100svh;
+}
+
+.hero::after {
+    content: "";
+
+    position: absolute;
+    z-index: 12;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: var(--hero-reveal, 0%);
+
+    background: var(--cream);
+    opacity: 0.08;
+
+    pointer-events: none;
+
+    transition: opacity 0.2s linear;
+}
+
+.hero.is-scrolling::after {
+    opacity: 0.12;
+}
+
+.intro,
+.work,
+.experience,
+.stack,
+.contact {
+    position: relative;
+    z-index: 2;
+}
+
+/* A slight top-edge lift makes the About page feel like it is
+   physically sliding over the hero instead of simply appearing. */
+.intro {
+    box-shadow: 0 -18px 35px rgba(17, 17, 17, 0.06);
+}
+
+@media (max-width: 800px) {
+    .hero {
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero::after {
+        display: none;
+    }
+}
+
+/* =========================================================
+   V7 — HERO SCROLL MOTION + BLUR TRANSITION
+   =========================================================
+
+   The hero remains pinned while scrolling into About.
+   Typography moves gently with scroll, using different trajectories
+   for DAFFA, FAZLY and RASHIDAN.
+
+   The cursor does not distort the hero typography. Cursor interaction
+   remains available elsewhere on the page.
+   ========================================================= */
+
+.hero {
+    --hero-blur: 0px;
+
+    filter: blur(var(--hero-blur));
+    transform: none;
+    transform-origin: center center;
+
+    will-change: filter;
+}
+
+.hero::after {
+    height: var(--hero-reveal, 0%);
+    opacity: 0.08;
+    transition: none;
+}
+
+.hero.is-scrolling::after {
+    opacity: 0.12;
+}
+
+.hero-word,
+.hero-word.second,
+.hero-word.third {
+    will-change: transform;
+    transition: none;
+}
+
+/* Disable the cursor-wave layer on the main page. */
+.hero-distort {
+    display: none !important;
+}
+
+@media (max-width: 800px) {
+    .hero {
+        filter: none;
+        transform: none;
+    }
+}
+
+
+/* =========================================================
+   V11 — HERO TYPOGRAPHY SCROLL STRETCH
+   =========================================================
+
+   The cursor no longer affects DAFFA / FAZLY / RASHIDAN.
+   Instead, the three words stretch horizontally as the page
+   scrolls toward About. The CSS variable is used so this rule
+   also overrides the earlier static transform declaration.
+   ========================================================= */
+
+.hero-word,
+.hero-word.second,
+.hero-word.third {
+    transform: var(--hero-transform, none) !important;
+
+    /* Anchor the lower edge and stretch upward, like the reference. */
+    transform-origin: 50% 100%;
+
+    transition: none;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+/* The longest name gets the strongest elongation. */
+.hero-word.third {
+    transform-origin: 50% 100%;
+}
+
+/* The hero itself can still blur during the hand-off to About. */
+.hero {
+    will-change: filter;
+}
+
+
+/* =========================================================
+   V13 — EDITORIAL PORTRAIT MOTION
+   ========================================================= */
+
+.hero-portrait {
+    --portrait-y: 0px;
+    --portrait-scale: 1;
+    --portrait-opacity: 1;
+    transform: translate3d(0, var(--portrait-y), 0)
+               scale(var(--portrait-scale));
+    opacity: var(--portrait-opacity);
+}
+
+/* =========================================================
+   PORTRAIT / TYPE OVERLAP
+   ========================================================= */
+
+/* The portrait is intentionally behind the hero type. The type uses
+   difference blending, so its white source color automatically becomes
+   the visual inverse of whatever is underneath it — including the portrait. */
+.hero-portrait {
+    overflow: visible;
+}
+
+@media (max-width: 900px) {
+    .hero-portrait {
+        right: 1vw;
+        width: min(72vw, 560px);
+    }
+
+    .hero-word {
+        mix-blend-mode: difference;
+    }
+}
+
+/* Selected Work inverse interaction is defined above. */
+
+/* =========================================================
+   TOOLKIT ICON GRID — RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1100px) {
+    .skill-cloud {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        bottom: 7vh;
+    }
+}
+
+@media (max-width: 700px) {
+    .skill-cloud {
+        position: absolute;
+        left: 5vw;
+        right: 5vw;
+        bottom: 7vh;
+
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .skill {
+        min-height: 92px;
+        padding: 10px 6px;
+        gap: 7px;
+    }
+
+    .skill-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .skill-name {
+        font-size: 7px;
+    }
+}
+
+/* =========================================================
+   TOOLKIT — LARGE EDITORIAL TITLE + SMALL ROUNDED ICON BOXES
+   ========================================================= */
+
+.stack-title {
+    top: 17%;
+    left: 3vw;
+    font-size: clamp(110px, 15vw, 255px);
+    line-height: 0.61;
+    letter-spacing: -0.115em;
+}
+
+.stack-title em {
+    margin-left: 7vw;
+}
+
+.skill-cloud {
+    left: 3vw;
+    right: 3vw;
+    bottom: 7vh;
+    gap: 8px;
+}
+
+.skill {
+    min-height: 82px;
+    padding: 11px 8px 9px;
+    gap: 7px;
+    border: 1px solid rgba(242, 240, 236, 0.24);
+    border-radius: 0;
+    justify-content: center;
+}
+
+.skill-icon {
+    width: 31px;
+    height: 31px;
+    border: 1px solid rgba(242, 240, 236, 0.42);
+    border-radius: 9px;
+    padding: 7px;
+    flex: 0 0 auto;
+}
+
+.skill-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: none;
+}
+
+.skill-name {
+    font-size: 7px;
+    letter-spacing: 0.025em;
+    line-height: 1.25;
+}
+
+.skill:hover {
+    transform: translateY(-3px);
+    border-color: rgba(242, 240, 236, 0.48);
+}
+
+.skill:hover .skill-icon,
+.skill:hover .skill-name {
+    color: var(--cream);
+}
+
+@media (max-width: 1100px) {
+    .stack-title {
+        top: 17%;
+        font-size: clamp(90px, 16vw, 190px);
+    }
+
+    .skill-cloud {
+        bottom: 6vh;
+    }
+}
+
+@media (max-width: 700px) {
+    .stack-title {
+        left: 5vw;
+        top: 19%;
+        font-size: 25vw;
+    }
+
+    .skill-cloud {
+        left: 5vw;
+        right: 5vw;
+        bottom: 6vh;
+        gap: 7px;
+    }
+
+    .skill {
+        min-height: 76px;
+        padding: 9px 5px 8px;
+    }
+
+    .skill-icon {
+        width: 28px;
+        height: 28px;
+        padding: 6px;
+        border-radius: 8px;
+    }
+
+    .skill-name {
+        font-size: 6px;
+    }
+}
+
+/* =========================================================
+   TOOLKIT V21 — TRANSPARENT / MODERN EDITORIAL REFINEMENT
+   ========================================================= */
+
+.stack {
+    overflow: hidden;
+}
+
+.stack-title {
+    top: 14%;
+    left: 3vw;
+    font-size: clamp(125px, 18vw, 310px);
+    line-height: 0.60;
+    letter-spacing: -0.12em;
+    z-index: 2;
+}
+
+.stack-title em {
+    margin-left: 7vw;
+}
+
+.skill-cloud {
+    left: 3vw;
+    right: 3vw;
+    bottom: 6vh;
+    gap: 7px;
+    z-index: 6;
+}
+
+.skill {
+    min-height: 76px;
+    padding: 10px 8px 9px;
+    gap: 6px;
+    background: transparent;
+    border: 1px solid rgba(242, 240, 236, 0.18);
+    border-radius: 0;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    transition:
+        transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+        border-color 0.35s ease,
+        background-color 0.35s ease;
+}
+
+.skill:hover {
+    transform: translateY(-4px);
+    border-color: rgba(242, 240, 236, 0.42);
+    background: rgba(242, 240, 236, 0.035);
+}
+
+.skill-icon {
+    width: 19px;
+    height: 19px;
+    padding: 3px;
+    border: 1px solid rgba(242, 240, 236, 0.42);
+    border-radius: 5px;
+    background: transparent;
+    flex: 0 0 auto;
+}
+
+.skill-icon img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    filter: none;
+}
+
+.skill-name {
+    font-size: 7px;
+    line-height: 1.2;
+    letter-spacing: 0.035em;
+}
+
+.skill:hover .skill-icon,
+.skill:hover .skill-name {
+    color: var(--cream);
+}
+
+@media (max-width: 1100px) {
+    .stack-title {
+        top: 15%;
+        font-size: clamp(100px, 18vw, 220px);
+    }
+
+    .skill-cloud {
+        bottom: 5vh;
+    }
+}
+
+@media (max-width: 700px) {
+    .stack-title {
+        left: 5vw;
+        top: 18%;
+        font-size: 25vw;
+        line-height: 0.62;
+    }
+
+    .skill-cloud {
+        left: 5vw;
+        right: 5vw;
+        bottom: 5vh;
+        gap: 6px;
+    }
+
+    .skill {
+        min-height: 70px;
+        padding: 8px 4px;
+    }
+
+    .skill-icon {
+        width: 18px;
+        height: 18px;
+        padding: 3px;
+        border-radius: 5px;
+    }
+
+    .skill-name {
+        font-size: 6px;
+    }
+}
+
+
+/* =========================================================
+   TOOLKIT V23 — MINIMAL ICON + LABEL ONLY
+   ========================================================= */
+
+.skill-cloud {
+    display: grid;
+}
+
+.skill {
+    min-height: 76px;
+    padding: 10px 8px 8px;
+    gap: 7px;
+    border: 0 !important;
+    outline: 0 !important;
+    border-radius: 0;
+    background: transparent !important;
+    box-shadow: none !important;
+    transform: none !important;
+    transition: opacity 0.25s ease;
+}
+
+.skill:hover {
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    transform: none !important;
+    opacity: 0.78;
+}
+
+.skill-icon {
+    width: 19px;
+    height: 19px;
+    padding: 3px;
+    border: 1px solid rgba(242, 240, 236, 0.42);
+    border-radius: 5px;
+    background: transparent;
+}
+
+.skill:hover .skill-icon,
+.skill:hover .skill-name {
+    color: var(--cream);
+}
+
+@media (max-width: 700px) {
+    .skill {
+        min-height: 62px;
+        padding: 7px 4px;
+        gap: 6px;
+    }
+
+    .skill-icon {
+        width: 18px;
+        height: 18px;
+        padding: 3px;
+        border-radius: 5px;
+    }
+}
+
+/* =========================================================
+   V24 — TOOL ICON SCALE + MODERN INVERSE CURSOR
+   ========================================================= */
+
+/* Keep the toolkit minimal: no card/hover box, just icon + label. */
+.skill {
+    border: 0 !important;
+    outline: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    transform: none !important;
+    opacity: 1;
+}
+
+.skill:hover {
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    transform: none !important;
+    opacity: 1;
+}
+
+/* Slightly larger icon while keeping the small rounded frame. */
+.skill-icon {
+    width: 28px;
+    height: 28px;
+    padding: 4px;
+    border: 1px solid rgba(242, 240, 236, 0.42);
+    border-radius: 7px;
+    transition: transform 0.35s cubic-bezier(.16, 1, .3, 1),
+                border-color 0.35s ease;
+}
+
+.skill-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.skill:hover .skill-icon {
+    transform: scale(1.08);
+    border-color: rgba(242, 240, 236, 0.72);
+}
+
+.skill-name {
+    font-size: 8px;
+    line-height: 1.25;
+    letter-spacing: 0.035em;
+}
+
+/* Modern cursor: white + difference makes it automatically inverse
+   on both the dark and light sections of the portfolio. */
+.cursor {
+    z-index: 9999;
+    mix-blend-mode: difference;
+}
+
+.cursor-core,
+.cursor-ring,
+.cursor-word {
+    background: #fff;
+}
+
+.cursor-core {
+    width: 5px;
+    height: 5px;
+}
+
+.cursor-ring {
+    width: 26px;
+    height: 26px;
+    border: 1px solid #fff;
+    background: transparent;
+    transition:
+        width 0.45s cubic-bezier(.16, 1, .3, 1),
+        height 0.45s cubic-bezier(.16, 1, .3, 1),
+        opacity 0.3s ease,
+        background 0.3s ease;
+}
+
+.cursor.active .cursor-ring {
+    width: 46px;
+    height: 46px;
+    background: #fff;
+    border-color: #fff;
+}
+
+.cursor.active .cursor-core {
+    opacity: 0;
+}
+
+.cursor-trail {
+    z-index: 9998;
+    mix-blend-mode: difference;
+    background: #fff;
+    opacity: 0.38;
+    transition: opacity 0.25s ease;
+}
+
+@media (max-width: 700px) {
+    .skill-icon {
+        width: 24px;
+        height: 24px;
+        padding: 3px;
+        border-radius: 6px;
+    }
+
+    .skill-name {
+        font-size: 6px;
+    }
+}
+
+
+/* =========================================================
+   V25 — TOOLKIT COMPACT GRID + SCROLL MOTION
+   ========================================================= */
+.skill-cloud {
+    left: 10vw;
+    right: 10vw;
+    bottom: 6vh;
+    gap: 2px;
+    z-index: 6;
+}
+
+.skill {
+    min-height: 70px;
+    padding: 8px 5px 7px;
+    gap: 7px;
+    transform: translate3d(var(--skill-x, 0px), var(--skill-y, 0px), 0)
+               rotate(var(--skill-r, 0deg))
+               scale(var(--skill-s, 1));
+    transition: opacity 0.3s ease, transform 0.2s ease;
+    will-change: transform;
+}
+
+.skill:hover {
+    opacity: 1;
+    transform: translate3d(var(--skill-x, 0px), var(--skill-y, 0px), 0)
+               rotate(var(--skill-r, 0deg))
+               scale(1.06);
+}
+
+.skill-icon {
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    border-radius: 8px;
+    transition: transform 0.35s cubic-bezier(.16, 1, .3, 1);
+}
+
+.skill:hover .skill-icon {
+    transform: scale(1.08);
+}
+
+.skill-name {
+    font-size: 7px;
+}
+
+@media (max-width: 1100px) {
+    .skill-cloud {
+        left: 7vw;
+        right: 7vw;
+    }
+}
+
+@media (max-width: 700px) {
+    .skill-cloud {
+        left: 5vw;
+        right: 5vw;
+        gap: 2px;
+    }
+
+    .skill {
+        min-height: 68px;
+        padding: 7px 3px;
+        gap: 5px;
+    }
+
+    .skill-icon {
+        width: 25px;
+        height: 25px;
+        padding: 4px;
+        border-radius: 7px;
+    }
+}
+
+
+/* =========================================================
+   V26 — DENSER TOOLKIT + VISIBLE SCROLL-DRIVEN ICON MOTION
+   ========================================================= */
+.skill-cloud {
+    left: 14vw;
+    right: 14vw;
+    bottom: 6vh;
+    gap: 1px;
+}
+
+.skill {
+    min-height: 64px;
+    padding: 5px 4px 6px;
+    gap: 6px;
+    transform: none !important;
+    transition: opacity 0.25s ease;
+}
+
+.skill:hover {
+    transform: none !important;
+    opacity: 1;
+}
+
+.skill-icon {
+    width: 36px;
+    height: 36px;
+    padding: 5px;
+    border-radius: 8px;
+    transform: translate3d(var(--icon-x, 0px), var(--icon-y, 0px), 0)
+               rotate(var(--icon-r, 0deg))
+               scale(var(--icon-s, 1));
+    transition: transform 0.12s linear, border-color 0.25s ease;
+    will-change: transform;
+}
+
+.skill:hover .skill-icon {
+    transform: translate3d(var(--icon-x, 0px), var(--icon-y, 0px), 0)
+               rotate(var(--icon-r, 0deg))
+               scale(calc(var(--icon-s, 1) * 1.08));
+}
+
+.skill-name {
+    font-size: 7px;
+    line-height: 1.2;
+}
+
+@media (max-width: 1100px) {
+    .skill-cloud {
+        left: 9vw;
+        right: 9vw;
+    }
+
+    .skill-icon {
+        width: 34px;
+        height: 34px;
+    }
+}
+
+@media (max-width: 700px) {
+    .skill-cloud {
+        left: 5vw;
+        right: 5vw;
+        gap: 1px;
+    }
+
+    .skill {
+        min-height: 62px;
+        padding: 5px 2px;
+    }
+
+    .skill-icon {
+        width: 28px;
+        height: 28px;
+        padding: 4px;
+        border-radius: 7px;
+    }
+
+    .skill-name {
+        font-size: 6px;
+    }
+}
+
+
+/* =========================================================
+   V27 — DENSE STATIC TOOLKIT + SELECTED WORK DETAIL
+   ========================================================= */
+
+/* Selected work rows are links, while the custom cursor handles pointer feedback. */
+.work-item {
+    text-decoration: none;
+    color: inherit;
+    cursor: none;
+}
+
+/* Dense toolkit: compact width, no visible cards, static icons. */
+.skill-cloud {
+    left: 50%;
+    right: auto;
+    width: min(900px, 82vw);
+    transform: translateX(-50%);
+    bottom: 6vh;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    column-gap: 22px;
+    row-gap: 22px;
+}
+
+.skill {
+    min-height: 68px;
+    padding: 5px 3px;
+    gap: 7px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    transition: none;
+}
+
+.skill:hover {
+    transform: none;
+    border: 0;
+    background: transparent;
+}
+
+.skill-icon {
+    width: 29px;
+    height: 29px;
+    padding: 5px;
+    border: 1px solid rgba(242, 240, 236, 0.42);
+    border-radius: 7px;
+    transition: none;
+}
+
+.skill:hover .skill-icon,
+.skill:hover .skill-name {
+    color: var(--cream);
+}
+
+.skill-name {
+    font-size: 7px;
+    line-height: 1.15;
+}
+
+/* Disable every scroll-driven transform variable for toolkit icons. */
+#skillCloud .skill,
+#skillCloud .skill:hover,
+#skillCloud .skill-icon,
+#skillCloud .skill-name {
+    transform: none !important;
+    transition: none !important;
+}
+
+/* =========================================================
+   SELECTED WORK DETAIL PAGE
+   ========================================================= */
+
+.project-page {
+    background: var(--black);
+    color: var(--cream);
+    cursor: none;
+}
+
+.project-main {
+    background: var(--black);
+}
+
+.project-hero {
+    min-height: 100svh;
+    position: relative;
+    padding: 0 3vw;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+}
+
+.project-meta {
+    position: absolute;
+    top: 102px;
+    left: 3vw;
+    right: 3vw;
+    display: flex;
+    justify-content: space-between;
+    font: 9px var(--mono);
+    text-transform: uppercase;
+    color: var(--cream);
+    opacity: .9;
+}
+
+.project-back {
+    position: absolute;
+    top: 145px;
+    left: 3vw;
+    font: 9px var(--mono);
+    text-transform: uppercase;
+    opacity: .65;
+}
+
+.project-heading {
+    padding-bottom: 10vh;
+    max-width: 1050px;
+}
+
+.project-heading p:first-child,
+.small-label,
+.visual-label {
+    font: 8px var(--mono);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+}
+
+.project-heading h1 {
+    margin: 18px 0 24px;
+    font-size: clamp(100px, 16vw, 270px);
+    line-height: .64;
+    letter-spacing: -.11em;
+    font-weight: 700;
+}
+
+.project-heading h1 br + * { display: none; }
+
+.project-heading > p:last-child {
+    max-width: 540px;
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.4;
+    color: #aaa;
+}
+
+.project-content {
+    background: var(--cream);
+    color: var(--black);
+    padding: 12vh 3vw 16vh;
+}
+
+.project-intro {
+    display: grid;
+    grid-template-columns: 1.5fr .8fr;
+    gap: 10vw;
+    padding-bottom: 12vh;
+}
+
+.project-intro p {
+    max-width: 700px;
+    margin: 18px 0 0;
+    font-size: clamp(20px, 2.2vw, 34px);
+    line-height: 1.12;
+    letter-spacing: -.04em;
+}
+
+.project-facts {
+    display: grid;
+    align-content: start;
+    gap: 18px;
+}
+
+.project-facts div {
+    border-top: 1px solid #111;
+    padding-top: 8px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    font: 9px var(--mono);
+    text-transform: uppercase;
+}
+
+.project-facts b { font-weight: 500; text-align: right; }
+
+.project-visual {
+    margin-bottom: 8vh;
+}
+
+.visual-label { margin-bottom: 10px; opacity: .55; }
+
+.fake-dashboard {
+    min-height: 560px;
+    background: #171717;
+    color: var(--cream);
+    display: grid;
+    grid-template-columns: 58px 1fr;
+    overflow: hidden;
+}
+
+.fake-sidebar {
+    border-right: 1px solid #383838;
+    padding: 22px 17px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.fake-sidebar i {
+    width: 22px;
+    height: 22px;
+    border: 1px solid #777;
+    border-radius: 50%;
+}
+
+.fake-dashboard-main { padding: 30px; }
+.fake-top { display:flex; justify-content:space-between; font:9px var(--mono); opacity:.75; }
+.fake-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:34px 0; }
+.fake-cards span { height:90px; border:1px solid #3d3d3d; }
+.fake-chart { height:230px; border-top:1px solid #444; border-bottom:1px solid #444; display:flex; align-items:flex-end; gap:3%; padding:15px 2%; }
+.fake-chart i { display:block; width:8%; height:var(--h); background:#e8e8e4; opacity:.85; }
+.fake-chart i:nth-child(1){--h:32%}.fake-chart i:nth-child(2){--h:48%}.fake-chart i:nth-child(3){--h:40%}.fake-chart i:nth-child(4){--h:71%}.fake-chart i:nth-child(5){--h:59%}.fake-chart i:nth-child(6){--h:82%}.fake-chart i:nth-child(7){--h:91%}.fake-chart i:nth-child(8){--h:76%}
+.fake-bars { display:grid; gap:10px; margin-top:26px; }
+.fake-bars i { display:block; height:7px; background:#6e6e6e; }
+.fake-bars i:nth-child(1){width:82%}.fake-bars i:nth-child(2){width:64%}.fake-bars i:nth-child(3){width:73%}.fake-bars i:nth-child(4){width:48%}
+
+.project-grid {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:14px;
+    margin-bottom: 14vh;
+}
+
+.dummy-image {
+    min-height: 430px;
+    margin:0;
+    background:#c8c8c4;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+.dummy-image::before,
+.dummy-image::after {
+    content:"";
+    position:absolute;
+    border:1px solid rgba(17,17,17,.35);
+    border-radius:50%;
+}
+.dummy-image::before { width:65%; aspect-ratio:1; }
+.dummy-image::after { width:28%; aspect-ratio:1; }
+.dummy-image div { position:relative; z-index:2; font:10px var(--mono); }
+.dummy-image figcaption { position:absolute; left:15px; bottom:13px; font:8px var(--mono); text-transform:uppercase; }
+.image-b { background:#b5b5b1; }
+
+.project-results { border-top:1px solid #111; padding-top:10vh; display:grid; grid-template-columns:1.2fr 1fr; gap:8vw; align-items:end; }
+.results-title { font-size:clamp(70px,10vw,170px); line-height:.65; letter-spacing:-.1em; font-weight:700; }
+.results-title em { display:block; font-family:Georgia,serif; font-weight:400; margin-left:4vw; }
+.metrics { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.metrics div { border-top:1px solid #111; padding-top:9px; }
+.metrics strong { display:block; font-size:clamp(34px,4vw,62px); letter-spacing:-.06em; }
+.metrics span { font:8px var(--mono); text-transform:uppercase; }
+
+.project-chart-section { margin-top:16vh; }
+.large-chart { margin-top:22px; display:grid; grid-template-columns:45px 1fr; min-height:340px; }
+.chart-y { display:flex; flex-direction:column; justify-content:space-between; font:7px var(--mono); opacity:.55; padding:4px 0 28px; }
+.chart-area { border-left:1px solid #111; border-bottom:1px solid #111; position:relative; }
+.chart-area svg { width:100%; height:290px; display:block; }
+.chart-x { display:flex; justify-content:space-between; padding:9px 0; font:7px var(--mono); }
+
+.project-page footer { background:var(--cream); }
+
+@media (max-width: 800px) {
+    .skill-cloud { width: 92vw; grid-template-columns: repeat(3, minmax(0,1fr)); column-gap: 8px; row-gap: 12px; bottom: 5vh; }
+    .skill { min-height: 65px; }
+    .skill-icon { width: 27px; height:27px; }
+    .project-hero { padding:0 5vw; }
+    .project-meta { left:5vw; right:5vw; }
+    .project-back { left:5vw; }
+    .project-heading { padding-bottom:9vh; }
+    .project-heading h1 { font-size:25vw; }
+    .project-content { padding:10vh 5vw 12vh; }
+    .project-intro, .project-results, .project-grid { grid-template-columns:1fr; }
+    .project-intro { gap:50px; }
+    .project-results { gap:70px; }
+    .fake-dashboard { min-height:420px; grid-template-columns:42px 1fr; }
+    .fake-sidebar { padding:18px 10px; }
+    .fake-sidebar i { width:18px;height:18px; }
+    .fake-dashboard-main { padding:20px; }
+    .fake-cards span { height:60px; }
+    .fake-chart { height:170px; }
+    .chart-area svg { height:240px; }
+}
+
+
+/* =========================================================
+   FINAL — SELECTED WORK INVERSE HOVER
+   ========================================================= */
+.work-item {
+    overflow: hidden;
+    transform: none !important;
+    will-change: auto;
+    transition: padding .32s ease;
+}
+
+.work-item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--cream);
+    transform: scaleY(0);
+    transform-origin: center;
+    transition: transform .38s cubic-bezier(.22,.61,.36,1);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.work-item:hover::before,
+.work-item:focus-visible::before {
+    transform: scaleY(1);
+}
+
+.work-item > .work-num,
+.work-item > .work-title,
+.work-item > .work-info {
+    position: relative;
+    z-index: 1;
+    color: #fff;
+    mix-blend-mode: difference;
+}
+
+.work-item:hover {
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+
+.work-item:hover .work-title {
+    transform: translateX(.5vw);
+}
+
+/* No scroll-time transform on work rows: native scrolling stays responsive. */
+.work-title {
+    will-change: auto;
+}
+
+/* =========================================================
+   SCROLL REVEAL — EDITORIAL / PERFORMANCE SAFE
+   =========================================================
+
+/*
+   Scroll effects on About, Selected Work, Experience, Toolkit and Contact
+   are intentionally class-based rather than continuously calculated on
+   every scroll frame. IntersectionObserver toggles .scroll-visible and the
+   browser handles the transform/opacity animation on the compositor.
+*/
+
+.intro .display,
+.intro p,
+.intro .edge-note,
+.work-item,
+.work-footer,
+.exp,
+.experience .edge-note,
+.stack-title,
+.skill,
+.stack .panel-meta,
+.contact-title,
+.contact-bottom {
+    --scroll-delay: 0ms;
+    opacity: 0;
+    transform: translate3d(0, 42px, 0);
+    transition:
+        opacity 0.72s cubic-bezier(.22, .61, .36, 1),
+        transform 0.85s cubic-bezier(.22, .61, .36, 1);
+    transition-delay: var(--scroll-delay);
+    will-change: transform, opacity;
+}
+
+/* About — oversized typography enters from alternating directions. */
+.intro .display:nth-child(1),
+.intro .display:nth-child(3) {
+    transform: translate3d(-6vw, 48px, 0);
+}
+
+.intro .display:nth-child(2),
+.intro .display:nth-child(4) {
+    transform: translate3d(6vw, 48px, 0);
+}
+
+.intro.scroll-visible .display,
+.intro.scroll-visible p,
+.intro.scroll-visible .edge-note,
+.work.scroll-visible .work-item,
+.work.scroll-visible .work-footer,
+.experience.scroll-visible .exp,
+.experience.scroll-visible .edge-note,
+.stack.scroll-visible .stack-title,
+.stack.scroll-visible .skill,
+.stack.scroll-visible .panel-meta,
+.contact.scroll-visible .contact-title,
+.contact.scroll-visible .contact-bottom {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+/* Selected Work — rows rise in sequence, while their existing hover inverse
+   remains completely independent from the scroll animation. */
+.work-item {
+    transition:
+        opacity 0.68s cubic-bezier(.22, .61, .36, 1),
+        transform 0.78s cubic-bezier(.22, .61, .36, 1),
+        padding 0.35s ease;
+}
+
+.work-item:nth-child(1) { --scroll-delay: 40ms; }
+.work-item:nth-child(2) { --scroll-delay: 100ms; }
+.work-item:nth-child(3) { --scroll-delay: 160ms; }
+.work-item:nth-child(4) { --scroll-delay: 220ms; }
+
+/* Experience — alternating lateral entrance keeps the editorial rhythm. */
+.exp:nth-child(odd) {
+    transform: translate3d(-45px, 0, 0);
+}
+
+.exp:nth-child(even) {
+    transform: translate3d(45px, 0, 0);
+}
+
+/* Toolkit — title first, icons follow in a compact cascade. */
+.stack-title {
+    transform: translate3d(-3vw, 35px, 0);
+}
+
+.skill {
+    transform: translate3d(0, 28px, 0) scale(.97);
+}
+
+.skill:nth-child(1) { --scroll-delay: 30ms; }
+.skill:nth-child(2) { --scroll-delay: 55ms; }
+.skill:nth-child(3) { --scroll-delay: 80ms; }
+.skill:nth-child(4) { --scroll-delay: 105ms; }
+.skill:nth-child(5) { --scroll-delay: 130ms; }
+.skill:nth-child(6) { --scroll-delay: 155ms; }
+.skill:nth-child(7) { --scroll-delay: 180ms; }
+.skill:nth-child(8) { --scroll-delay: 205ms; }
+.skill:nth-child(9) { --scroll-delay: 230ms; }
+.skill:nth-child(10) { --scroll-delay: 255ms; }
+.skill:nth-child(11) { --scroll-delay: 280ms; }
+.skill:nth-child(12) { --scroll-delay: 305ms; }
+.skill:nth-child(13) { --scroll-delay: 330ms; }
+.skill:nth-child(14) { --scroll-delay: 355ms; }
+.skill:nth-child(15) { --scroll-delay: 380ms; }
+.skill:nth-child(16) { --scroll-delay: 405ms; }
+.skill:nth-child(17) { --scroll-delay: 430ms; }
+.skill:nth-child(18) { --scroll-delay: 455ms; }
+
+.stack.scroll-visible .skill {
+    transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* Contact — large typography and contact line arrive separately. */
+.contact-title {
+    transform: translate3d(-5vw, 55px, 0);
+}
+
+.contact-bottom {
+    transform: translate3d(0, 35px, 0);
+    transition-delay: 160ms;
+}
+
+/* Keep the native hover movement of toolkit cards after they are visible. */
+.stack.scroll-visible .skill:hover {
+    transform: translate3d(0, -5px, 0) scale(1);
+}
+
+@media (max-width: 800px) {
+    .intro .display:nth-child(1),
+    .intro .display:nth-child(2),
+    .intro .display:nth-child(3),
+    .intro .display:nth-child(4),
+    .exp:nth-child(odd),
+    .exp:nth-child(even),
+    .contact-title {
+        transform: translate3d(0, 36px, 0);
+    }
+
+    .skill {
+        transform: translate3d(0, 22px, 0) scale(.98);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .intro .display,
+    .intro p,
+    .intro .edge-note,
+    .work-item,
+    .work-footer,
+    .exp,
+    .experience .edge-note,
+    .stack-title,
+    .skill,
+    .stack .panel-meta,
+    .contact-title,
+    .contact-bottom {
+        opacity: 1;
+        transform: none !important;
+        transition: none !important;
+    }
+}
+
+/* =========================================================
+   PUBLIC SENTIMENT — MBG CASE STUDY
+   Lightweight CSS-only motion for smooth, low-jank scrolling.
+   ========================================================= */
+.mbg-page { background:var(--black); color:var(--cream); }
+.mbg-hero { min-height:100svh; }
+.hero-scroll-note { position:absolute; right:3vw; bottom:3vh; font:8px var(--mono); text-transform:uppercase; opacity:.6; }
+
+.reveal { opacity:0; transform:translate3d(0,42px,0); transition:opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1); }
+.reveal-scale { transform:scale(.965) translate3d(0,24px,0); }
+.reveal.is-visible { opacity:1; transform:none; }
+@media (prefers-reduced-motion:reduce) {
+  .reveal { opacity:1; transform:none; transition:none; }
+  html { scroll-behavior:auto !important; }
+}
+
+.mbg-stat-strip { display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid #111; border-bottom:1px solid #111; margin-bottom:16vh; }
+.mbg-stat-strip > div { padding:28px 0 30px; border-right:1px solid #111; padding-left:18px; }
+.mbg-stat-strip > div:last-child { border-right:0; }
+.mbg-stat-strip strong { display:block; font-size:clamp(38px,5vw,78px); line-height:.9; letter-spacing:-.07em; }
+.mbg-stat-strip span { display:block; margin-top:14px; font:8px var(--mono); text-transform:uppercase; }
+
+.mbg-section { margin:0 0 18vh; }
+.mbg-section-head { display:flex; justify-content:space-between; border-top:1px solid #111; padding-top:9px; margin-bottom:8vh; font:8px var(--mono); text-transform:uppercase; }
+.mbg-two-col { display:grid; grid-template-columns:1fr 1fr; gap:8vw; align-items:center; }
+.mbg-copy h2 { margin:0 0 30px; font-size:clamp(60px,8vw,138px); line-height:.74; letter-spacing:-.085em; }
+.mbg-copy p { max-width:650px; margin:0 0 22px; font-size:18px; line-height:1.4; letter-spacing:-.025em; }
+.mbg-copy.wide { max-width:980px; }
+.mbg-copy.wide h2 { max-width:800px; }
+
+.mbg-figure { margin:0; background:#f1f1ed; color:#111; overflow:hidden; }
+.mbg-figure img { display:block; width:100%; height:auto; }
+.mbg-figure figcaption { padding:10px 13px 12px; font:7px var(--mono); text-transform:uppercase; border-top:1px solid #111; background:var(--cream); }
+.mbg-figure.full { width:100%; }
+.mbg-donut { max-width:680px; justify-self:end; }
+.chart-frame { padding-top:0; }
+
+.mbg-phase-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.mbg-phase-card { border-top:1px solid #111; padding-top:12px; opacity:0; transform:translateY(30px); transition:opacity .65s ease var(--delay), transform .65s cubic-bezier(.22,.61,.36,1) var(--delay); }
+.mbg-phase-card.phase-visible { opacity:1; transform:none; }
+.phase-number { font:8px var(--mono); opacity:.55; }
+.mbg-phase-card h3 { margin:20px 0 5px; font-size:clamp(28px,3vw,48px); line-height:.85; letter-spacing:-.06em; }
+.phase-date { display:block; font:7px var(--mono); margin-bottom:22px; }
+.mbg-phase-card strong { display:block; font-size:30px; letter-spacing:-.06em; margin-bottom:12px; }
+.mbg-phase-card p { font-size:15px; line-height:1.35; min-height:66px; margin:0 0 22px; }
+.mbg-phase-card img { width:100%; display:block; margin-top:8px; background:#f1f1ed; }
+
+.mbg-model-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:start; }
+.mbg-model-grid > .mbg-copy { grid-row:span 2; padding-right:3vw; }
+.metric-list { margin-top:50px; border-top:1px solid #111; }
+.metric-list div { display:flex; justify-content:space-between; align-items:baseline; padding:12px 0; border-bottom:1px solid #111; font:8px var(--mono); }
+.metric-list b { font-size:18px; font-weight:500; }
+
+.interpretation-copy { max-width:1050px; }
+.interpretation-copy h2 { font-size:clamp(70px,10vw,170px); }
+.mbg-method { margin-top:6vh; }
+.method-line { display:flex; flex-wrap:wrap; align-items:center; gap:12px; font:clamp(10px,1vw,14px) var(--mono); text-transform:uppercase; }
+.method-line i { font-style:normal; opacity:.45; }
+.method-line span { padding-bottom:4px; border-bottom:1px solid #111; }
+.method-note { max-width:750px; margin-top:35px; font-size:16px; line-height:1.45; opacity:.7; }
+
+.mbg-final { padding-top:2vh; }
+.final-line { display:flex; flex-wrap:wrap; align-items:baseline; gap:18px; border-top:1px solid #111; border-bottom:1px solid #111; padding:22px 0; font:clamp(13px,1.5vw,22px) var(--mono); text-transform:uppercase; }
+.final-line strong { font-size:clamp(50px,8vw,130px); line-height:.8; letter-spacing:-.08em; }
+.final-line em { font-style:normal; opacity:.4; }
+.final-note { margin:20px 0 0; font-size:14px; opacity:.55; }
+
+@media (max-width:800px) {
+  .hero-scroll-note { right:5vw; }
+  .mbg-stat-strip { grid-template-columns:1fr 1fr; }
+  .mbg-stat-strip > div:nth-child(2) { border-right:0; }
+  .mbg-stat-strip > div:nth-child(-n+2) { border-bottom:1px solid #111; }
+  .mbg-two-col, .mbg-phase-grid, .mbg-model-grid { grid-template-columns:1fr; }
+  .mbg-donut { max-width:none; justify-self:stretch; }
+  .mbg-model-grid > .mbg-copy { grid-row:auto; padding-right:0; }
+  .mbg-phase-card p { min-height:0; }
+  .mbg-section { margin-bottom:13vh; }
+  .mbg-section-head { margin-bottom:5vh; }
+  .mbg-copy h2 { font-size:18vw; }
+  .interpretation-copy h2 { font-size:17vw; }
+}
+
+
+/* =========================================================
+   MBG CASE STUDY — FLEXIBLE FIGURE SIZING
+   Figures keep their native aspect ratio and use a sensible
+   maximum width based on the visual density of each chart.
+   ========================================================= */
+.mbg-figure {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid rgba(17,17,17,.18);
+    background: #f1f1ed;
+}
+
+.mbg-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    object-fit: contain;
+    background: #f1f1ed;
+}
+
+/* Use the actual chart shape instead of forcing every figure
+   to fill the same visual area. */
+.mbg-figure--wide {
+    width: min(100%, 1180px);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mbg-figure--landscape {
+    width: min(100%, 980px);
+}
+
+.mbg-figure--square {
+    width: min(100%, 620px);
+}
+
+.mbg-figure--portrait {
+    width: min(100%, 700px);
+}
+
+.mbg-donut {
+    max-width: 560px;
+    justify-self: end;
+}
+
+.mbg-donut img {
+    padding: clamp(10px, 1.5vw, 24px);
+}
+
+.mbg-two-col--reverse {
+    align-items: center;
+}
+
+.mbg-two-col--reverse .mbg-figure {
+    justify-self: start;
+}
+
+.mbg-daily-figure {
+    width: min(100%, 1180px);
+}
+
+.mbg-daily-figure img {
+    width: 100%;
+    max-width: 100%;
+    max-height: none;
+    margin: 0 auto;
+}
+
+.mbg-model-grid {
+    align-items: start;
+}
+
+.mbg-model-grid .mbg-figure {
+    justify-self: stretch;
+}
+
+.mbg-model-grid .mbg-figure--portrait,
+.mbg-model-grid .mbg-figure--square {
+    width: 100%;
+}
+
+.mbg-model-grid .mbg-figure img {
+    min-height: 0;
+}
+
+.mbg-section + .mbg-section {
+    scroll-margin-top: 80px;
+}
+
+@media (min-width: 801px) {
+    /* Keep the model charts compact while preserving readability. */
+    .mbg-model-grid .mbg-figure--portrait {
+        width: min(100%, 760px);
+    }
+
+    .mbg-model-grid .mbg-figure--square {
+        width: min(100%, 760px);
+    }
+}
+
+@media (max-width: 800px) {
+    .mbg-figure--wide,
+    .mbg-figure--landscape,
+    .mbg-figure--square,
+    .mbg-figure--portrait,
+    .mbg-daily-figure,
+    .mbg-donut {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .mbg-donut {
+        justify-self: stretch;
+    }
+
+    .mbg-donut img {
+        padding: 3vw;
+    }
+}
+
+
+/* =========================================================
+   HOME — CERTIFICATIONS / CREDENTIAL ARCHIVE
+   Compact version of the dedicated certifications page.
+   ========================================================= */
+.certifications-home{
+  background:var(--black);
+  color:var(--cream);
+  min-height:100svh;
+  padding-bottom:5vh;
+}
+.certifications-home .panel-meta{color:var(--cream);border-color:#343434}
+.cert-home-head{
+  display:grid;
+  grid-template-columns:1.45fr .55fr;
+  gap:6vw;
+  align-items:end;
+  margin:8vh 0 7vh;
+}
+.cert-home-title{
+  font-size:clamp(80px,13vw,210px);
+  line-height:.72;
+  letter-spacing:-.095em;
+  font-weight:800;
+}
+.cert-home-title span{display:block}
+.cert-home-title em{
+  display:block;
+  font-family:Georgia,serif;
+  font-weight:400;
+  letter-spacing:-.08em;
+}
+.cert-home-copy{
+  max-width:470px;
+  font-size:14px;
+  line-height:1.55;
+  color:#c8c8c3;
+  padding-bottom:5px;
+}
+.cert-home-grid{
+  display:grid;
+  grid-template-columns:1.15fr .85fr .85fr 1.15fr;
+  gap:10px;
+}
+.cert-home-card{
+  min-height:300px;
+  border:1px solid #3b3b3b;
+  padding:14px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  position:relative;
+  overflow:hidden;
+  transition:transform .45s cubic-bezier(.2,.7,.2,1),background .3s ease,color .3s ease;
+}
+.cert-home-card:hover{transform:translateY(-7px);background:var(--cream);color:var(--black)}
+.cert-home-card:hover .cert-home-mark{opacity:.13}
+.cert-home-top,.cert-home-bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:12px;
+  position:relative;
+  z-index:2;
+  font:8px var(--mono);
+  text-transform:uppercase;
+}
+.cert-home-bottom strong{
+  font-size:clamp(25px,2.6vw,42px);
+  line-height:.82;
+  letter-spacing:-.055em;
+}
+.cert-home-bottom span,.cert-home-bottom a{font:8px var(--mono);text-transform:uppercase;text-align:right}
+.cert-home-bottom a{border-bottom:1px solid currentColor;padding-bottom:5px;color:inherit}
+.cert-home-mark{
+  position:absolute;
+  left:12px;
+  top:50%;
+  transform:translateY(-54%);
+  font-size:clamp(120px,15vw,240px);
+  font-weight:800;
+  line-height:.7;
+  letter-spacing:-.1em;
+  opacity:.08;
+  pointer-events:none;
+}
+.cert-home-mark.serif{
+  left:auto;right:12px;top:48%;
+  transform:translateY(-50%);
+  font-family:Georgia,serif;
+  font-size:clamp(46px,5vw,82px);
+  line-height:.78;
+  text-align:right;
+  letter-spacing:-.06em;
+  opacity:.2;
+}
+.cert-home-card.featured{background:#151515}
+.cert-home-card.featured:hover{background:var(--cream)}
+.cert-home-foot{
+  display:flex;
+  justify-content:space-between;
+  border-top:1px solid #343434;
+  margin-top:12px;
+  padding-top:9px;
+  font:8px var(--mono);
+  text-transform:uppercase;
+  color:#999;
+}
+
+/* The home archive participates in the same scroll-linked editorial motion. */
+.certifications-home .cert-home-head,
+.certifications-home .cert-home-card,
+.certifications-home .cert-home-foot{
+  --scroll-x:0vw;--scroll-y:0vh;
+  transform:translate3d(var(--scroll-x),var(--scroll-y),0);
+  will-change:transform;
+}
+
+@media (max-width:900px){
+  .cert-home-head{grid-template-columns:1fr;gap:25px;margin:7vh 0 5vh}
+  .cert-home-grid{grid-template-columns:1fr 1fr}
+  .cert-home-card{min-height:260px}
+}
+@media (max-width:600px){
+  .cert-home-grid{grid-template-columns:1fr}
+  .cert-home-card{min-height:230px}
+  .cert-home-foot{font-size:7px}
+}
+@media (prefers-reduced-motion:reduce){
+  .cert-home-card{transition:none}
+}
+
+
+/* =========================================================
+   V37 — CERTIFICATION RENDER FIX
+   ========================================================= */
+.certifications-home{
+  position:relative;
+  z-index:2;
+  isolation:isolate;
+  background:#111!important;
+  color:#eeeeeb;
+  overflow:hidden;
+}
+.certifications-home .cert-home-head,
+.certifications-home .cert-home-card,
+.certifications-home .cert-home-foot{
+  transform:translate3d(var(--scroll-x,0),var(--scroll-y,0),0);
+}
+.cert-home-card{
+  background:#151515;
+  contain:layout paint;
+}
+.cert-home-mark{
+  background:#171717;
+  isolation:isolate;
+}
+.cert-home-mark img{
+  filter:none!important;
+  mix-blend-mode:normal!important;
+  object-fit:contain!important;
+  max-width:100%;
+  max-height:100%;
+  backface-visibility:hidden;
+}
+.cert-home-foot a{
+  color:inherit;
+  text-decoration:none;
+  border-bottom:1px solid currentColor;
+  padding-bottom:4px;
+}
+
+
+/* =========================================================
+   V38 — CERTIFICATIONS LIGHT / CONTACT DARK
+   ========================================================= */
+
+/* CERTIFICATIONS: clean editorial light archive */
+.cert-page{
+  --cert-bg:#ececea;
+  --cert-ink:#111;
+  --cert-muted:#626262;
+  --cert-line:rgba(17,17,17,.22);
+  background:var(--cert-bg)!important;
+  color:var(--cert-ink)!important;
+  cursor:auto;
+}
+.cert-page .topbar{
+  background:rgba(236,236,234,.94)!important;
+  color:var(--cert-ink)!important;
+  border-bottom:1px solid var(--cert-line);
+}
+.cert-page .topbar a,
+.cert-page .topbar button,
+.cert-page .topbar span{
+  color:var(--cert-ink)!important;
+}
+.cert-page .cert-main,
+.cert-page .cert-hero,
+.cert-page .cert-intro,
+.cert-page .cert-archive,
+.cert-page .cert-footer{
+  background:transparent!important;
+}
+.cert-page .cert-hero{
+  min-height:62vh;
+  display:grid;
+  align-items:end;
+  padding-bottom:5vh;
+}
+.cert-page .cert-hero h1,
+.cert-page .cert-hero .display-title{
+  color:var(--cert-ink)!important;
+  mix-blend-mode:normal!important;
+  filter:none!important;
+}
+.cert-page .cert-intro p,
+.cert-page .cert-intro span,
+.cert-page .cert-meta,
+.cert-page .cert-card small{
+  color:var(--cert-muted)!important;
+}
+.cert-page .cert-archive{
+  border-top:1px solid var(--cert-line);
+  padding-top:20px;
+}
+.cert-page .cert-card{
+  background:#f7f7f5!important;
+  border:1px solid var(--cert-line)!important;
+  color:var(--cert-ink)!important;
+  box-shadow:0 10px 35px rgba(0,0,0,.06);
+}
+.cert-page .cert-card::before,
+.cert-page .cert-card::after{
+  background:transparent!important;
+}
+.cert-page .cert-card img{
+  background:#fff!important;
+  filter:none!important;
+  mix-blend-mode:normal!important;
+}
+.cert-page .cert-placeholder{
+  background:#fff!important;
+  border-color:var(--cert-line)!important;
+}
+.cert-page .cert-card h2,
+.cert-page .cert-card h3,
+.cert-page .cert-card strong{
+  color:var(--cert-ink)!important;
+}
+.cert-page .cert-footer{
+  border-top:1px solid var(--cert-line)!important;
+  color:var(--cert-muted)!important;
+}
+
+/* Remove any global black cursor/hero decoration from the cert page. */
+.cert-page .cursor,
+.cert-page .cursor-dot,
+.cert-page .custom-cursor{
+  display:none!important;
+}
+
+/* CONTACT: intentionally dark, spacious closing page */
+#contact{
+  background:#0d0d0d!important;
+  color:#f1f1ee!important;
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+}
+#contact::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 82% 18%, rgba(255,255,255,.075), transparent 28%),
+    linear-gradient(120deg, transparent 0 62%, rgba(255,255,255,.025) 62% 62.2%, transparent 62.2%);
+}
+#contact > *{
+  position:relative;
+  z-index:1;
+}
+#contact a,
+#contact h1,
+#contact h2,
+#contact h3,
+#contact p,
+#contact span,
+#contact small,
+#contact .section-label{
+  color:#f1f1ee!important;
+}
+#contact .section-label{
+  opacity:.62;
+}
+#contact .contact-grid,
+#contact .contact-inner{
+  border-color:rgba(255,255,255,.22)!important;
+}
+#contact a{
+  text-decoration:none;
+}
+#contact a:hover{
+  opacity:.65;
+}
+#contact .contact-cta{
+  border-color:rgba(255,255,255,.4)!important;
+  background:#f1f1ee!important;
+  color:#0d0d0d!important;
+}
+#contact .contact-cta:hover{
+  background:#d8d8d4!important;
+  color:#0d0d0d!important;
+}
+
+/* Main-page certification preview: light, compact, no oversized black block */
+.certifications-home{
+  background:#e9e9e6!important;
+  color:#111!important;
+  isolation:isolate;
+}
+.certifications-home .cert-home-head,
+.certifications-home .cert-home-foot,
+.certifications-home .cert-home-card{
+  color:#111!important;
+}
+.certifications-home .cert-home-card{
+  background:#f5f5f2!important;
+  border-color:rgba(17,17,17,.2)!important;
+}
+.certifications-home .cert-home-mark{
+  background:#fff!important;
+}
+.certifications-home .cert-home-foot{
+  border-color:rgba(17,17,17,.2)!important;
+}
+.certifications-home .cert-home-foot a{
+  color:#111!important;
+}
+
+/* =========================================================
+   FINAL POLISH — CALM SCROLL / DENSE EDITORIAL SYSTEM
+   No scroll hijacking, no per-card scroll transforms.
+   ========================================================= */
+
+html { scroll-behavior: smooth; }
+body { overflow-x: clip; }
+
+.hero {
+  --hero-p: 0;
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 680px;
+  z-index: 1;
+}
+.hero-word {
+  transform: translate3d(calc(var(--hero-p) * -1.1vw),0,0) scaleY(calc(1 + var(--hero-p) * .08));
+  will-change: transform;
+}
+.hero-word.second {
+  transform: translate3d(calc(var(--hero-p) * .7vw),0,0) scaleY(calc(1 + var(--hero-p) * .08));
+}
+.hero-word.third {
+  transform: translate3d(calc(var(--hero-p) * -.45vw),0,0) scaleY(calc(1 + var(--hero-p) * .08));
+}
+
+.intro, .work, .experience, .stack, .certifications-home, .contact {
+  position: relative;
+  z-index: 2;
+  contain: layout paint;
+}
+.intro { box-shadow: 0 -16px 35px rgba(0,0,0,.045); }
+
+/* One-shot section entrance: compositor-only after the observer fires. */
+.intro > *, .work > *, .experience > *, .stack > *, .certifications-home > *, .contact > * {
+  opacity: 0;
+  transform: translate3d(0,24px,0);
+  transition: opacity .65s cubic-bezier(.22,.61,.36,1), transform .72s cubic-bezier(.22,.61,.36,1);
+}
+.intro.scroll-visible > *, .work.scroll-visible > *, .experience.scroll-visible > *,
+.stack.scroll-visible > *, .certifications-home.scroll-visible > *, .contact.scroll-visible > * {
+  opacity: 1;
+  transform: none;
+}
+.intro.scroll-visible .display:nth-child(2),
+.intro.scroll-visible .display:nth-child(4) { transition-delay: 70ms; }
+.work.scroll-visible .work-item:nth-child(2) { transition-delay: 50ms; }
+.work.scroll-visible .work-item:nth-child(3) { transition-delay: 90ms; }
+.work.scroll-visible .work-item:nth-child(4) { transition-delay: 130ms; }
+.experience.scroll-visible .exp:nth-child(2) { transition-delay: 60ms; }
+.experience.scroll-visible .exp:nth-child(3) { transition-delay: 110ms; }
+
+/* Selected work: dense, readable rows. */
+.work-stage { padding-top: 14vh; }
+.work-item { height: 20vh; min-height: 132px; will-change: auto; }
+.work-title { will-change: auto; }
+.work-item:hover { transform: none; padding-left: 1.2vw; }
+.work-item:hover .work-title { transform: translate3d(.5vw,0,0); }
+.work-info { max-width: 310px; }
+
+/* Experience should feel like a compact editorial list, not a stretched void. */
+.experience-list {
+  height: auto;
+  min-height: 100svh;
+  padding: 17vh 0 10vh;
+  justify-content: center;
+}
+.exp {
+  transform: none !important;
+  will-change: auto;
+  padding: 24px 0;
+}
+.exp-company { font-size: clamp(18px,1.5vw,23px); }
+
+/* Toolkit: keep icons stable and the grid tight. */
+.stack { min-height: 100svh; }
+.skill-cloud { gap: 6px; }
+.skill { will-change: auto; }
+
+/* Certifications on the home page: LIGHT, quiet, and dense. */
+.certifications-home {
+  background: var(--cream) !important;
+  color: var(--black) !important;
+  min-height: auto;
+  padding: 11vh 3vw 7vh;
+}
+.certifications-home .panel-meta { color: var(--black); mix-blend-mode: normal; }
+.cert-home-head {
+  color: var(--black);
+  min-height: 31vh;
+  padding-top: 4vh;
+}
+.cert-home-copy { color: #555 !important; }
+.cert-home-grid {
+  gap: 8px;
+  align-items: stretch;
+}
+.cert-home-card {
+  background: #e3e3df !important;
+  color: var(--black) !important;
+  border-color: #111 !important;
+  min-height: 300px;
+  transform: none !important;
+  transition: background .3s ease, color .3s ease;
+}
+.cert-home-card:hover {
+  background: #111 !important;
+  color: var(--cream) !important;
+}
+.cert-home-mark {
+  background: #f3f3ef !important;
+  border-color: #111 !important;
+}
+.cert-home-mark img {
+  object-fit: contain !important;
+  padding: 8px;
+}
+.cert-home-bottom { color: inherit; }
+.cert-home-foot {
+  border-color: #111 !important;
+  color: #222 !important;
+  margin-top: 8px;
+}
+
+/* Contact is the final dark statement. */
+.contact {
+  background: var(--black) !important;
+  color: var(--cream) !important;
+  min-height: 82svh;
+}
+.contact .panel-meta { color: var(--cream); mix-blend-mode: normal; }
+.contact-title { color: var(--cream); }
+.contact-bottom {
+  border-color: #555 !important;
+}
+.contact-bottom a, .contact-bottom span { color: var(--cream) !important; }
+.contact-bottom a:hover { opacity: .65; }
+
+/* Footer stays visually attached to the contact section. */
+footer {
+  background: var(--black);
+  color: var(--cream);
+  border-top: 1px solid #333;
+}
+
+/* Keep certificate archive light and restrained. */
+.cert-page .topbar { color: var(--black); }
+.cert-page .cert-main { background: #ecece8; color: var(--black); }
+.cert-page .cert-hero {
+  background: #ecece8;
+  min-height: 78svh;
+}
+.cert-page .cert-heading h1 { color: var(--black); }
+.cert-page .cert-heading p, .cert-page .cert-meta, .cert-page .cert-back,
+.cert-page .cert-index, .cert-page .cert-scroll { color: #444; }
+.cert-page .cert-intro, .cert-page .cert-archive { background: #f2f2ee; }
+.cert-page .cert-card {
+  background: #e5e5e1;
+  color: var(--black);
+  min-height: 390px;
+}
+.cert-page .cert-card:hover { background: #111; color: var(--cream); }
+.cert-page .cert-placeholder { background: #f7f7f3; }
+.cert-page .cert-footer { background: var(--black); }
+
+/* Accessibility and low-power devices. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .hero-word { transform: none !important; }
+  .intro > *, .work > *, .experience > *, .stack > *, .certifications-home > *, .contact > * {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+@media (max-width: 800px) {
+  .hero { min-height: 100svh; }
+  .work-stage { padding-top: 16vh; }
+  .work-item { height: auto; min-height: 108px; padding: 18px 0; }
+  .experience-list { min-height: auto; padding-top: 16vh; padding-bottom: 12vh; }
+  .certifications-home { padding: 12vh 5vw 8vh; }
+  .cert-home-head { min-height: auto; padding: 6vh 0 8vh; }
+  .cert-home-grid { grid-template-columns: 1fr 1fr; }
+  .cert-home-card { min-height: 250px; }
+  .contact { min-height: 78svh; }
+}
+
+@media (max-width: 520px) {
+  .cert-home-grid { grid-template-columns: 1fr; }
+  .cert-home-card { min-height: 300px; }
+  .contact-title { font-size: 24vw; }
+}
+
+/* FINAL — neutralize legacy continuous transforms from older revisions. */
+.intro .display, .work-item, .work-footer, .exp, .experience .edge-note,
+.stack-title, .skill, .stack .panel-meta, .contact-title, .contact-bottom {
+  animation: none;
+}
+
+/* =========================================================
+   FINAL SCROLL MOTION — 60FPS EDITORIAL PASS
+   ========================================================= */
+
+/* The scroll handler only updates CSS variables on section wrappers.
+   Everything below is transform/opacity based, so the browser can keep
+   the animation on the compositor instead of triggering layout. */
+
+.hero {
+  --hero-blur: 0px;
+  filter: blur(var(--hero-blur));
+}
+
+.hero-word,
+.hero-word.second,
+.hero-word.third {
+  transform: var(--hero-transform, none) !important;
+  transition: none !important;
+  backface-visibility: hidden;
+}
+
+.hero-portrait {
+  transform: translate3d(0, var(--portrait-y, 0px), 0) scale(var(--portrait-scale, 1));
+  opacity: var(--portrait-opacity, 1);
+  will-change: transform, opacity;
+}
+
+/* ABOUT */
+.intro .display,
+.intro p,
+.intro .edge-note {
+  --reveal-y: 42px;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.intro .display {
+  transform: translate3d(var(--about-x, 0px), calc(var(--about-y, 0px) + var(--reveal-y)), 0)
+             skewX(var(--about-skew, 0deg));
+  transition: opacity .75s cubic-bezier(.22,.61,.36,1),
+              transform .9s cubic-bezier(.22,.61,.36,1);
+}
+
+.intro p,
+.intro .edge-note {
+  transform: translate3d(0, var(--reveal-y), 0);
+  transition: opacity .7s cubic-bezier(.22,.61,.36,1),
+              transform .8s cubic-bezier(.22,.61,.36,1);
+}
+
+.intro.scroll-visible .display,
+.intro.scroll-visible p,
+.intro.scroll-visible .edge-note {
+  --reveal-y: 0px;
+  opacity: 1;
+}
+
+.intro .display:nth-child(1) { transition-delay: 30ms; }
+.intro .display:nth-child(2) { transition-delay: 90ms; }
+.intro .display:nth-child(3) { transition-delay: 150ms; }
+.intro .display:nth-child(4) { transition-delay: 210ms; }
+.intro p { transition-delay: 150ms; }
+
+/* SELECTED WORK */
+.work-item,
+.work-footer {
+  --reveal-y: 44px;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.work-item {
+  --row-x: 0px;
+  transform: translate3d(var(--row-x), calc(var(--work-y, 0px) + var(--reveal-y)), 0)
+             skewX(var(--work-skew, 0deg));
+  transition: opacity .68s cubic-bezier(.22,.61,.36,1),
+              transform .82s cubic-bezier(.22,.61,.36,1),
+              padding .35s ease;
+}
+
+.work-item:nth-child(1) { --row-x: -22px; transition-delay: 40ms; }
+.work-item:nth-child(2) { --row-x: 14px; transition-delay: 95ms; }
+.work-item:nth-child(3) { --row-x: -12px; transition-delay: 150ms; }
+.work-item:nth-child(4) { --row-x: 20px; transition-delay: 205ms; }
+
+.work.scroll-visible .work-item {
+  --reveal-y: 0px;
+  opacity: 1;
+}
+
+.work-footer {
+  transform: translate3d(0, calc(var(--work-y, 0px) + var(--reveal-y)), 0);
+  transition: opacity .7s ease, transform .8s cubic-bezier(.22,.61,.36,1);
+  transition-delay: 240ms;
+}
+.work.scroll-visible .work-footer {
+  --reveal-y: 0px;
+  opacity: 1;
+}
+
+/* EXPERIENCE */
+.exp,
+.experience .edge-note {
+  --reveal-y: 36px;
+  --exp-x: 0px;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.exp {
+  transform: translate3d(calc(var(--experience-x, 0px) + var(--exp-x)),
+                          calc(var(--experience-y, 0px) + var(--reveal-y)), 0);
+  transition: opacity .68s cubic-bezier(.22,.61,.36,1),
+              transform .8s cubic-bezier(.22,.61,.36,1);
+}
+.exp:nth-child(odd) { --exp-x: -28px; }
+.exp:nth-child(even) { --exp-x: 28px; }
+.exp:nth-child(1) { transition-delay: 40ms; }
+.exp:nth-child(2) { transition-delay: 100ms; }
+.exp:nth-child(3) { transition-delay: 160ms; }
+.experience.scroll-visible .exp {
+  --reveal-y: 0px;
+  opacity: 1;
+}
+.experience .edge-note {
+  transform: translate3d(0, var(--reveal-y), 0);
+  transition: opacity .7s ease, transform .8s ease;
+  transition-delay: 220ms;
+}
+.experience.scroll-visible .edge-note {
+  --reveal-y: 0px;
+  opacity: 1;
+}
+
+/* TOOLKIT */
+.stack-title,
+.skill,
+.stack .panel-meta {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.stack-title {
+  transform: translate3d(var(--stack-x, 0px), calc(var(--stack-y, 0px) + 38px), 0);
+  transition: opacity .75s cubic-bezier(.22,.61,.36,1),
+              transform .9s cubic-bezier(.22,.61,.36,1);
+}
+
+.skill {
+  transform: translate3d(0, calc(var(--section-ease, 0) * -12px + 28px), 0) scale(.965);
+  transition: opacity .55s ease, transform .75s cubic-bezier(.22,.61,.36,1), border-color .3s ease;
+}
+
+.stack.scroll-visible .stack-title,
+.stack.scroll-visible .skill,
+.stack.scroll-visible .panel-meta {
+  opacity: 1;
+}
+.stack.scroll-visible .stack-title {
+  transform: translate3d(var(--stack-x, 0px), var(--stack-y, 0px), 0);
+}
+.stack.scroll-visible .skill {
+  transform: translate3d(0, calc(var(--section-ease, 0) * -12px), 0) scale(1);
+}
+
+/* CERTIFICATIONS */
+.certifications-home {
+  position: relative;
+  overflow: hidden;
+}
+.cert-home-head,
+.cert-home-grid,
+.cert-home-foot {
+  transform: translate3d(0, var(--cert-y, 0px), 0);
+  will-change: transform;
+}
+.cert-home-card {
+  opacity: 0;
+  transform: translate3d(0, 32px, 0) !important;
+  transition: opacity .65s ease, transform .8s cubic-bezier(.22,.61,.36,1), background .3s ease, color .3s ease !important;
+}
+.certifications-home.scroll-visible .cert-home-card {
+  opacity: 1;
+  transform: translate3d(0, var(--cert-y, 0px), 0) !important;
+}
+.cert-home-card:nth-child(1) { transition-delay: 40ms !important; }
+.cert-home-card:nth-child(2) { transition-delay: 90ms !important; }
+.cert-home-card:nth-child(3) { transition-delay: 140ms !important; }
+.cert-home-card:nth-child(4) { transition-delay: 190ms !important; }
+
+/* CONTACT */
+.contact-title,
+.contact-bottom {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+.contact-title {
+  transform: translate3d(var(--contact-x, 0px), calc(var(--contact-y, 0px) + 48px), 0);
+  transition: opacity .8s cubic-bezier(.22,.61,.36,1),
+              transform .95s cubic-bezier(.22,.61,.36,1);
+}
+.contact-bottom {
+  transform: translate3d(0, calc(var(--contact-y, 0px) + 28px), 0);
+  transition: opacity .7s ease, transform .8s cubic-bezier(.22,.61,.36,1);
+  transition-delay: 160ms;
+}
+.contact.scroll-visible .contact-title,
+.contact.scroll-visible .contact-bottom {
+  opacity: 1;
+}
+.contact.scroll-visible .contact-title {
+  transform: translate3d(var(--contact-x, 0px), var(--contact-y, 0px), 0);
+}
+.contact.scroll-visible .contact-bottom {
+  transform: translate3d(0, var(--contact-y, 0px), 0);
+}
+
+/* A little more breathing room at the final hand-off. */
+.certifications-home { padding-bottom: 9vh; }
+.contact {
+  min-height: 100svh;
+  display: block;
+}
+.contact-title {
+  top: 24%;
+  font-size: clamp(82px, 12.5vw, 220px);
+  max-width: 92vw;
+}
+.contact-bottom {
+  bottom: 32px;
+}
+
+@media (max-width: 800px) {
+  .contact-title {
+    top: 27%;
+    font-size: 22vw;
+    line-height: .72;
+  }
+  .certifications-home { padding-bottom: 8vh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero { filter: none !important; }
+  .hero-word, .hero-portrait,
+  .intro .display, .intro p, .intro .edge-note,
+  .work-item, .work-footer, .exp, .experience .edge-note,
+  .stack-title, .skill, .cert-home-card,
+  .contact-title, .contact-bottom {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* =========================================================
+   FINAL EDITORIAL SCROLL — VELOCITY TYPOGRAPHY
+   The reference effect is a continuous distortion: while the page moves,
+   large type stretches, shifts and briefly softens; when scrolling stops it
+   settles back to its clean state. No scroll snapping / hijacking.
+   ========================================================= */
+
+:root { --scroll-blur: 0px; --scroll-stretch: 1; --scroll-skew: 0deg; }
+
+.intro .display,
+.intro p,
+.intro .edge-note,
+.work-item,
+.work-footer,
+.exp,
+.experience .edge-note,
+.stack-title,
+.skill,
+.stack .panel-meta,
+.contact-title,
+.contact-bottom {
+  opacity: 1 !important;
+  will-change: transform, filter;
+  backface-visibility: hidden;
+}
+
+/* ABOUT — the large words follow the page like a printed sheet being pulled. */
+.intro .display {
+  transform:
+    translate3d(calc(var(--about-x, 0px) + var(--about-drift, 0px)),
+                var(--about-y, 0px), 0)
+    skewX(var(--about-skew, 0deg))
+    scaleY(var(--about-stretch, 1));
+  filter: blur(min(2.2px, var(--scroll-blur, 0px)));
+  transition: none !important;
+}
+.intro .display:nth-child(1) { --about-drift: calc(var(--scroll-velocity, 0) * -9px); }
+.intro .display:nth-child(2) { --about-drift: calc(var(--scroll-velocity, 0) * 7px); }
+.intro .display:nth-child(3) { --about-drift: calc(var(--scroll-velocity, 0) * -6px); }
+.intro .display:nth-child(4) { --about-drift: calc(var(--scroll-velocity, 0) * 10px); }
+.intro p {
+  transform: translate3d(calc(var(--scroll-velocity, 0) * -5px),
+                          calc(var(--section-center, 0) * -5px), 0);
+  filter: blur(min(1px, var(--scroll-blur, 0px)));
+  transition: none !important;
+}
+.intro .edge-note {
+  transform: translate3d(calc(var(--scroll-velocity, 0) * 3px),
+                          calc(var(--section-center, 0) * -3px), 0);
+  transition: none !important;
+}
+
+/* SELECTED WORK — each row travels on a slightly different rail. */
+.work-item {
+  transform:
+    translate3d(calc(var(--row-x, 0px) + var(--scroll-velocity, 0) * var(--row-drift, 8px)),
+                calc(var(--work-y, 0px) + var(--scroll-velocity, 0) * -7px), 0)
+    skewX(var(--work-skew, 0deg))
+    scaleY(var(--scroll-stretch, 1));
+  filter: blur(min(1.7px, var(--scroll-blur, 0px)));
+  transition: padding .35s ease !important;
+}
+.work-item:nth-child(1) { --row-drift: -10px; }
+.work-item:nth-child(2) { --row-drift: 8px; }
+.work-item:nth-child(3) { --row-drift: -7px; }
+.work-item:nth-child(4) { --row-drift: 12px; }
+.work-footer {
+  transform: translate3d(calc(var(--scroll-velocity, 0) * -3px),
+                          calc(var(--work-y, 0px) + var(--scroll-velocity, 0) * -4px), 0);
+  filter: blur(min(1px, var(--scroll-blur, 0px)));
+  transition: none !important;
+}
+
+/* EXPERIENCE — rows alternate direction and become slightly condensed in motion. */
+.exp {
+  transform:
+    translate3d(calc(var(--experience-x, 0px) + var(--exp-x, 0px) + var(--scroll-velocity, 0) * var(--exp-drift, 7px)),
+                calc(var(--experience-y, 0px) + var(--scroll-velocity, 0) * -5px), 0)
+    skewX(calc(var(--scroll-skew, 0deg) * .35))
+    scaleY(calc(2 - var(--scroll-stretch, 1)));
+  filter: blur(min(1.25px, var(--scroll-blur, 0px)));
+  transition: none !important;
+}
+.exp:nth-child(odd) { --exp-drift: -7px; }
+.exp:nth-child(even) { --exp-drift: 9px; }
+.experience .edge-note {
+  transform: translate3d(calc(var(--scroll-velocity, 0) * 4px),
+                          calc(var(--experience-y, 0px) + var(--scroll-velocity, 0) * -3px), 0);
+  transition: none !important;
+}
+
+/* TOOLKIT — the wordmark moves more than the small tools, creating depth. */
+.stack-title {
+  transform:
+    translate3d(calc(var(--stack-x, 0px) + var(--scroll-velocity, 0) * -7px),
+                calc(var(--stack-y, 0px) + var(--scroll-velocity, 0) * -10px), 0)
+    skewX(calc(var(--scroll-skew, 0deg) * .55))
+    scaleY(var(--scroll-stretch, 1));
+  filter: blur(min(1.8px, var(--scroll-blur, 0px)));
+  transition: none !important;
+}
+.skill {
+  transform:
+    translate3d(calc(var(--scroll-velocity, 0) * var(--skill-drift, 2px)),
+                calc(var(--section-ease, 0) * -10px + var(--scroll-velocity, 0) * -4px), 0)
+    scale(1);
+  transition: border-color .3s ease !important;
+}
+.skill:nth-child(odd) { --skill-drift: -2px; }
+.skill:nth-child(even) { --skill-drift: 2px; }
+
+/* CONTACT — deliberately calmer: the statement stays anchored and breathes. */
+.contact {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  padding: 0 3vw;
+  display: block;
+}
+.contact-title {
+  position: absolute;
+  z-index: 2;
+  top: 20%;
+  left: 3vw;
+  width: 94vw;
+  max-width: none;
+  font-size: clamp(76px, 11.5vw, 205px);
+  line-height: .70;
+  letter-spacing: -.105em;
+  transform:
+    translate3d(calc(var(--contact-x, 0px) + var(--scroll-velocity, 0) * -8px),
+                calc(var(--contact-y, 0px) + var(--scroll-velocity, 0) * -7px), 0)
+    skewX(calc(var(--scroll-skew, 0deg) * .65))
+    scaleY(var(--scroll-stretch, 1));
+  filter: blur(min(2px, var(--scroll-blur, 0px)));
+  transition: none !important;
+}
+.contact-title em {
+  margin-left: 9vw;
+  transform: translateX(calc(var(--scroll-velocity, 0) * 5px));
+  display: block;
+}
+.contact-bottom {
+  position: absolute;
+  z-index: 3;
+  left: 3vw;
+  right: 3vw;
+  bottom: 7vh;
+  min-height: 44px;
+  align-items: start;
+  transform: translate3d(calc(var(--scroll-velocity, 0) * -2px),
+                          calc(var(--contact-y, 0px) + var(--scroll-velocity, 0) * -3px), 0);
+  filter: blur(min(1px, var(--scroll-blur, 0px)));
+  transition: none !important;
+}
+.contact-bottom a:first-child {
+  align-self: start;
+}
+
+/* The section labels remain crisp enough to preserve the editorial grid. */
+.panel-meta { backface-visibility: hidden; }
+
+@media (max-width: 800px) {
+  .intro .display {
+    filter: blur(min(1.5px, var(--scroll-blur, 0px)));
+  }
+  .work-item { filter: blur(min(1px, var(--scroll-blur, 0px))); }
+  .contact-title {
+    top: 24%;
+    left: 4vw;
+    width: 92vw;
+    font-size: 18vw;
+    line-height: .72;
+  }
+  .contact-title em { margin-left: 7vw; }
+  .contact-bottom {
+    bottom: 5vh;
+    grid-template-columns: 1fr;
+    gap: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro .display,
+  .intro p,
+  .intro .edge-note,
+  .work-item,
+  .work-footer,
+  .exp,
+  .experience .edge-note,
+  .stack-title,
+  .skill,
+  .contact-title,
+  .contact-bottom {
+    filter: none !important;
+    transform: none !important;
+  }
+}
+
+/* =========================================================
+   V14 — SCROLL TYPOGRAPHY SAFETY / VISIBILITY FIX
+   The previous pass accidentally made content dependent on a
+   scroll-visible class that was not initialized. Text must NEVER
+   disappear; scroll is only allowed to distort/move it.
+   ========================================================= */
+.intro > *, .work > *, .experience > *, .stack > *,
+.certifications-home > *, .contact > *,
+.intro .display, .intro p, .intro .edge-note,
+.work-item, .work-footer,
+.exp, .experience .edge-note,
+.stack-title, .skill, .stack .panel-meta,
+.cert-home-card, .contact-title, .contact-bottom {
+  opacity: 1 !important;
+}
+
+.intro .display { --reveal-y: 0px; }
+.intro p, .intro .edge-note { --reveal-y: 0px; }
+.work-item, .work-footer { --reveal-y: 0px; }
+.exp, .experience .edge-note { --reveal-y: 0px; }
+
+/* Continuous editorial response to scroll velocity. */
+.intro .display {
+  transform:
+    translate3d(var(--about-x, 0px), var(--about-y, 0px), 0)
+    skewX(calc(var(--about-skew, 0deg) + var(--scroll-skew, 0deg)))
+    scaleX(var(--about-stretch, 1));
+  filter: blur(var(--scroll-blur, 0px));
+}
+
+.intro p, .intro .edge-note {
+  transform: translate3d(0, var(--about-y, 0px), 0)
+    skewX(var(--scroll-skew, 0deg));
+  filter: blur(var(--scroll-blur, 0px));
+}
+
+.work-item {
+  transform:
+    translate3d(var(--row-x, 0px), var(--work-y, 0px), 0)
+    skewX(var(--work-skew, 0deg))
+    scaleX(var(--scroll-stretch, 1));
+  filter: blur(var(--scroll-blur, 0px));
+}
+
+.work-footer {
+  transform: translate3d(0, var(--work-y, 0px), 0);
+  filter: blur(calc(var(--scroll-blur, 0px) * .7));
+}
+
+.exp {
+  transform: translate3d(
+    calc(var(--experience-x, 0px) + var(--exp-x, 0px)),
+    var(--experience-y, 0px), 0
+  ) skewX(calc(var(--scroll-skew, 0deg) * .55));
+  filter: blur(calc(var(--scroll-blur, 0px) * .65));
+}
+
+.stack-title {
+  transform: translate3d(var(--stack-x, 0px), var(--stack-y, 0px), 0)
+    skewX(calc(var(--scroll-skew, 0deg) * .8))
+    scaleX(var(--scroll-stretch, 1));
+  filter: blur(var(--scroll-blur, 0px));
+}
+
+.skill {
+  transform: translate3d(0, calc(var(--section-ease, 0) * -12px), 0)
+    scale(calc(1 + (var(--scroll-stretch, 1) - 1) * .25));
+}
+
+.cert-home-card {
+  transform: translate3d(0, var(--cert-y, 0px), 0) !important;
+  filter: blur(calc(var(--scroll-blur, 0px) * .4));
+}
+
+.contact-title {
+  transform: translate3d(var(--contact-x, 0px), var(--contact-y, 0px), 0)
+    skewX(calc(var(--scroll-skew, 0deg) * .8))
+    scaleX(var(--scroll-stretch, 1));
+  filter: blur(var(--scroll-blur, 0px));
+}
+
+.contact-bottom {
+  transform: translate3d(0, var(--contact-y, 0px), 0);
+  filter: blur(calc(var(--scroll-blur, 0px) * .45));
+}
+
+/* Do not let transition rules fight the continuous scroll variables. */
+.intro .display, .intro p, .intro .edge-note,
+.work-item, .work-footer, .exp, .experience .edge-note,
+.stack-title, .skill, .cert-home-card,
+.contact-title, .contact-bottom {
+  transition-property: opacity, background-color, color, border-color, padding;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro .display, .intro p, .intro .edge-note,
+  .work-item, .work-footer, .exp, .experience .edge-note,
+  .stack-title, .skill, .cert-home-card,
+  .contact-title, .contact-bottom {
+    transform: none !important;
+    filter: none !important;
+  }
+}
+
+/* =========================================================
+   V15 — CONTACT VERTICAL BALANCE
+   Keep the closing statement visually centered/lower in the
+   viewport while preserving the existing scroll distortion.
+   ========================================================= */
+.contact-title {
+  top: 34% !important;
+}
+
+.contact-bottom {
+  bottom: 32px !important;
+}
+
+@media (max-width: 800px) {
+  .contact-title {
+    top: 31% !important;
+  }
+}
+
+
+/* =========================================================
+   FINAL FIX — SCROLL MOTION SOURCE OF TRUTH
+   The previous V31 override forced every element to use undefined
+   --scroll-x / --scroll-y variables, which silently neutralized the
+   section-specific motion written by script.js. This final layer keeps
+   the motion compositor-friendly and lets script.js own the variables.
+   ========================================================= */
+
+.intro .display,
+.intro p,
+.intro .edge-note,
+.work-item,
+.work-footer,
+.exp,
+.experience .edge-note,
+.stack-title,
+.skill,
+.stack .panel-meta,
+.contact-title,
+.contact-bottom {
+  opacity: 1 !important;
+  will-change: transform, filter;
+  backface-visibility: hidden;
+  transition: none !important;
+}
+
+.intro .display {
+  transform:
+    translate3d(calc(var(--about-x, 0px) + var(--about-drift, 0px)), var(--about-y, 0px), 0)
+    skewX(var(--about-skew, 0deg))
+    scaleY(var(--about-stretch, 1));
+  filter: blur(min(2.2px, var(--scroll-blur, 0px)));
+}
+.intro p {
+  transform: translate3d(calc(var(--scroll-velocity, 0) * -5px), calc(var(--section-center, 0) * -5px), 0);
+  filter: blur(min(1px, var(--scroll-blur, 0px)));
+}
+.intro .edge-note {
+  transform: translate3d(calc(var(--scroll-velocity, 0) * 3px), calc(var(--section-center, 0) * -3px), 0);
+}
+
+.work-item {
+  transform:
+    translate3d(calc(var(--row-x, 0px) + var(--scroll-velocity, 0) * var(--row-drift, 8px)),
+                calc(var(--work-y, 0px) + var(--scroll-velocity, 0) * -7px), 0)
+    skewX(var(--work-skew, 0deg))
+    scaleY(var(--scroll-stretch, 1));
+  filter: blur(min(1.7px, var(--scroll-blur, 0px)));
+}
+.work-footer {
+  transform: translate3d(calc(var(--scroll-velocity, 0) * -3px), calc(var(--work-y, 0px) + var(--scroll-velocity, 0) * -4px), 0);
+  filter: blur(min(1px, var(--scroll-blur, 0px)));
+}
+
+.exp {
+  transform:
+    translate3d(calc(var(--experience-x, 0px) + var(--exp-x, 0px) + var(--scroll-velocity, 0) * var(--exp-drift, 7px)),
+                calc(var(--experience-y, 0px) + var(--scroll-velocity, 0) * -5px), 0)
+    skewX(calc(var(--scroll-skew, 0deg) * .35))
+    scaleY(calc(2 - var(--scroll-stretch, 1)));
+  filter: blur(min(1.25px, var(--scroll-blur, 0px)));
+}
+.experience .edge-note {
+  transform: translate3d(calc(var(--scroll-velocity, 0) * 4px), calc(var(--experience-y, 0px) + var(--scroll-velocity, 0) * -3px), 0);
+}
+
+.stack-title {
+  transform:
+    translate3d(calc(var(--stack-x, 0px) + var(--scroll-velocity, 0) * -7px),
+                calc(var(--stack-y, 0px) + var(--scroll-velocity, 0) * -10px), 0)
+    skewX(calc(var(--scroll-skew, 0deg) * .55))
+    scaleY(var(--scroll-stretch, 1));
+  filter: blur(min(1.8px, var(--scroll-blur, 0px)));
+}
+.skill {
+  transform: translate3d(calc(var(--scroll-velocity, 0) * var(--skill-drift, 2px)),
+                          calc(var(--section-ease, 0) * -10px + var(--scroll-velocity, 0) * -4px), 0);
+}
+
+.contact {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+}
+.contact-title {
+  position: absolute;
+  z-index: 2;
+  top: 34% !important;
+  left: 3vw;
+  width: 94vw;
+  max-width: none;
+  transform:
+    translate3d(calc(var(--contact-x, 0px) + var(--scroll-velocity, 0) * -4px),
+                calc(var(--contact-y, 0px) + var(--scroll-velocity, 0) * -3px), 0)
+    skewX(calc(var(--scroll-skew, 0deg) * .45))
+    scaleY(var(--scroll-stretch, 1));
+  filter: blur(min(1.6px, var(--scroll-blur, 0px)));
+}
+.contact-title em {
+  transform: translateX(calc(var(--scroll-velocity, 0) * 3px));
+}
+.contact-bottom {
+  position: absolute;
+  z-index: 3;
+  left: 3vw;
+  right: 3vw;
+  bottom: 32px !important;
+  transform: translate3d(calc(var(--scroll-velocity, 0) * -1px), calc(var(--contact-y, 0px) + var(--scroll-velocity, 0) * -1px), 0);
+  filter: blur(min(1px, var(--scroll-blur, 0px)));
+}
+
+@media (max-width: 800px) {
+  .contact-title { top: 31% !important; }
+}
+
+
+/* =========================================================
+   V17 — STABLE EDITORIAL LAYOUT / NO SECTION SCROLL DISTORTION
+   The previous continuous typography motion made the closing
+   contact composition drift behind the fixed navigation. Disable
+   section transform/filter motion and keep the layout in normal,
+   predictable positions. Native smooth scrolling remains enabled.
+   ========================================================= */
+
+/* Anchor targets account for the fixed 72px navigation frame. */
+#about, #work, .experience, #stack, #certifications, #contact {
+  scroll-margin-top: 72px;
+}
+
+/* Do not let the old scroll-motion layers move or blur content. */
+.intro .display,
+.intro p,
+.intro .edge-note,
+.work-item,
+.work-footer,
+.exp,
+.experience .edge-note,
+.stack-title,
+.skill,
+.stack .panel-meta,
+.contact-title,
+.contact-title em,
+.contact-bottom {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+  animation: none !important;
+  will-change: auto !important;
+}
+
+/* Preserve the intended static layout of each section. */
+.contact {
+  position: relative !important;
+  min-height: 100svh !important;
+  overflow: hidden !important;
+  padding: 72px 3vw 0 !important;
+}
+
+.contact .panel-meta {
+  position: absolute !important;
+  top: 24px !important;
+  left: 3vw !important;
+  right: 3vw !important;
+  z-index: 5 !important;
+}
+
+/* The closing statement sits clearly BELOW the fixed navigation,
+   rather than being pulled toward/behind the top frame. */
+.contact-title {
+  position: absolute !important;
+  z-index: 2 !important;
+  top: 54% !important;
+  left: 3vw !important;
+  width: 94vw !important;
+  max-width: none !important;
+  margin: 0 !important;
+  line-height: .66 !important;
+  transform: translateY(-50%) !important;
+}
+
+.contact-title em {
+  display: block !important;
+  transform: none !important;
+}
+
+.contact-bottom {
+  position: absolute !important;
+  z-index: 3 !important;
+  left: 3vw !important;
+  right: 3vw !important;
+  bottom: 24px !important;
+  transform: none !important;
+}
+
+/* Keep the contact section visually independent from the footer. */
+.contact + footer {
+  position: relative !important;
+  z-index: 4 !important;
+}
+
+@media (max-width: 800px) {
+  .contact {
+    min-height: 100svh !important;
+    padding-top: 64px !important;
+  }
+  .contact .panel-meta {
+    top: 18px !important;
+  }
+  .contact-title {
+    top: 52% !important;
+    width: 94vw !important;
+  }
+  .contact-bottom {
+    bottom: 18px !important;
+  }
+}
+
+
+/* =========================================================
+   V18 — SUBTLE SCROLL BLUR / STRETCH
+   Stable layout from V17 is preserved. Only typography reacts
+   to scroll velocity; nothing is translated vertically.
+   ========================================================= */
+
+/* Shared editorial text motion */
+.intro .display,
+.intro p,
+.intro .edge-note,
+.work-item .work-num,
+.work-item .work-title,
+.work-item .work-info,
+.work-footer,
+.exp-date,
+.exp-company,
+.exp-role,
+.exp-text,
+.experience .edge-note,
+.stack-title,
+.skill,
+.stack .panel-meta,
+.cert-home-title,
+.cert-home-copy,
+.cert-home-top,
+.cert-home-bottom,
+.cert-home-foot,
+.contact-title,
+.contact-title em,
+.contact-bottom,
+.contact-bottom a,
+.contact-bottom span {
+  transform-origin: center center;
+  will-change: transform, filter;
+}
+
+/* The distortion is intentionally small: clean at rest, visible only
+   while moving. ScaleY gives the stretched editorial look without
+   changing the section's actual layout geometry. */
+.intro .display,
+.intro p,
+.intro .edge-note,
+.work-item .work-title,
+.work-item .work-info,
+.exp-company,
+.exp-role,
+.exp-text,
+.experience .edge-note,
+.stack-title,
+.cert-home-title,
+.cert-home-copy,
+.contact-title,
+.contact-title em {
+  transform: skewX(calc(var(--scroll-skew, 0deg) * .35))
+             scaleX(calc(1 + (var(--scroll-stretch, 1) - 1) * .55))
+             scaleY(var(--scroll-stretch, 1));
+  filter: blur(min(2.2px, var(--scroll-blur, 0px)));
+}
+
+/* Smaller labels get less distortion for readability. */
+.intro .edge-note,
+.work-item .work-num,
+.work-footer,
+.exp-date,
+.stack .panel-meta,
+.cert-home-top,
+.cert-home-bottom,
+.cert-home-foot,
+.contact-bottom {
+  transform: skewX(calc(var(--scroll-skew, 0deg) * .18))
+             scaleX(calc(1 + (var(--scroll-stretch, 1) - 1) * .25))
+             scaleY(calc(1 + (var(--scroll-stretch, 1) - 1) * .45));
+  filter: blur(min(1px, calc(var(--scroll-blur, 0px) * .55)));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro .display, .intro p, .intro .edge-note,
+  .work-item .work-num, .work-item .work-title, .work-item .work-info,
+  .work-footer, .exp-date, .exp-company, .exp-role, .exp-text,
+  .experience .edge-note, .stack-title, .skill, .stack .panel-meta,
+  .cert-home-title, .cert-home-copy, .cert-home-top, .cert-home-bottom,
+  .cert-home-foot, .contact-title, .contact-title em, .contact-bottom,
+  .contact-bottom a, .contact-bottom span {
+    transform: none !important;
+    filter: none !important;
+  }
+}
+
+
+/* =========================================================
+   V19 — BLUR ONLY / HEAVY SCROLL MOTION
+   No stretch, skew, parallax, or layout movement. Typography
+   becomes strongly blurred only while the page is moving.
+   ========================================================= */
+
+.intro .display,
+.intro p,
+.intro .edge-note,
+.work-item .work-num,
+.work-item .work-title,
+.work-item .work-info,
+.work-footer,
+.exp-date,
+.exp-company,
+.exp-role,
+.exp-text,
+.experience .edge-note,
+.stack-title,
+.skill,
+.stack .panel-meta,
+.cert-home-title,
+.cert-home-copy,
+.cert-home-top,
+.cert-home-bottom,
+.cert-home-foot,
+.contact-title,
+.contact-title em,
+.contact-bottom,
+.contact-bottom a,
+.contact-bottom span {
+  transform: none !important;
+  filter: blur(var(--scroll-blur, 0px)) !important;
+  will-change: filter;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro .display, .intro p, .intro .edge-note,
+  .work-item .work-num, .work-item .work-title, .work-item .work-info,
+  .work-footer, .exp-date, .exp-company, .exp-role, .exp-text,
+  .experience .edge-note, .stack-title, .skill, .stack .panel-meta,
+  .cert-home-title, .cert-home-copy, .cert-home-top, .cert-home-bottom,
+  .cert-home-foot, .contact-title, .contact-title em, .contact-bottom,
+  .contact-bottom a, .contact-bottom span {
+    transform: none !important;
+    filter: none !important;
+  }
+}
+
+/* V20 — zero-lag cursor tracking: movement is applied directly by pointermove. */
+.cursor,
+.cursor-trail {
+    transition: none !important;
+    will-change: transform;
+}
+
+/* V21 — consistent strong scroll blur on subpages */
+html.is-scrolling .project-title,
+html.is-scrolling .project-kicker,
+html.is-scrolling .project-meta,
+html.is-scrolling .project-copy,
+html.is-scrolling .project-image,
+html.is-scrolling .detail-section,
+html.is-scrolling .detail-label,
+html.is-scrolling .detail-text,
+html.is-scrolling .detail-number,
+html.is-scrolling .cert-card,
+html.is-scrolling .cert-hero,
+html.is-scrolling .cert-intro,
+html.is-scrolling .cert-archive,
+html.is-scrolling .cert-footer,
+html.is-scrolling .subpage-blur {
+  filter: blur(var(--scroll-blur, 0px));
+  will-change: filter;
+}
+.topbar, #cursor, .cursor, .custom-cursor, .project-nav,
+.cert-modal, .cert-modal * { filter: none !important; }
+
+
+/* V22 — PERFORMANCE BASELINE
+   Keep the hero typography stable while scrolling. Blur remains handled by
+   the lightweight scroll system; no scale/stretch/skew is applied. */
+.hero-word{
+  transform: var(--hero-transform, none) !important;
+}
+.hero-word{
+  will-change: transform, filter;
+}
+
+
+/* V22 — SUBPAGE SCROLL BLUR
+   Text/content blur only; images are intentionally excluded to avoid expensive
+   full-resolution filter repaints and keep wheel scrolling smooth. */
+.subpage-blur-target{
+  filter: blur(var(--subpage-scroll-blur, 0px));
+  will-change: filter;
+}
+@media (prefers-reduced-motion: reduce){
+  .subpage-blur-target{filter:none!important;will-change:auto}
+}
+
+
+/* =========================================================
+   V23 — CLEAN HERO MOTION / FAST SELECTED WORK HOVER
+   ========================================================= */
+
+/* Hero name: keep typography stable and use only subtle optical motion. */
+.hero-word,
+.hero-word.second,
+.hero-word.third,
+#heroWord,
+#heroWord2,
+#heroWord3 {
+  transform: none !important;
+  scale: none !important;
+  skew: none !important;
+  will-change: opacity, filter;
+}
+
+/* If the old scroll system writes transforms inline, neutralize only the
+   name while preserving its original static position. */
+.hero-word[style],
+#heroWord[style],
+#heroWord2[style],
+#heroWord3[style] {
+  transform: none !important;
+}
+
+/* Selected Work: hover should react immediately instead of waiting for
+   the slow global magnetic/cursor transition. */
+.selected-work .work-item,
+.selected-work .project-item,
+.selected-work a,
+.work-list .work-item,
+.work-list .project-item {
+  transition:
+    color .16s ease,
+    opacity .16s ease,
+    transform .16s cubic-bezier(.2,.8,.2,1) !important;
+}
+
+/* Faster cursor state on work links. */
+.selected-work .work-item:hover,
+.selected-work .project-item:hover,
+.selected-work a:hover,
+.work-list .work-item:hover,
+.work-list .project-item:hover {
+  transition-duration: .10s !important;
+}
+
+/* Don't let generic cursor transitions make the hover feel delayed. */
+.selected-work .cursor-view,
+.work-list .cursor-view {
+  transition-duration: .12s !important;
+}
+
+
+/* V24 — About editorial content */
+.about-editorial{width:100%;margin-top:clamp(60px,8vw,120px);padding-bottom:clamp(50px,6vw,90px);}
+.about-editorial__head{display:flex;justify-content:space-between;padding-bottom:18px;border-bottom:1px solid currentColor;font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.62;}
+.about-editorial__grid{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid currentColor;}
+.about-editorial__grid article{min-height:170px;padding:24px 22px 28px 0;margin-right:22px;border-right:1px solid currentColor;display:flex;flex-direction:column;justify-content:space-between;}
+.about-editorial__grid article:last-child{border-right:0;margin-right:0;}
+.about-editorial__grid b{font-size:11px;opacity:.5;}
+.about-editorial__grid strong{display:block;font-size:14px;letter-spacing:.04em;font-weight:500;margin-bottom:8px;}
+.about-editorial__grid p{margin:0;max-width:190px;font-size:12px;line-height:1.5;opacity:.58;}
+.about-flow{display:flex;align-items:center;justify-content:space-between;gap:18px;padding-top:24px;font-size:clamp(18px,2vw,34px);letter-spacing:-.035em;}
+.about-flow i{font-style:normal;opacity:.32;font-size:.7em;}
+.about-editorial__grid article{transition:opacity .18s ease;}
+.about-editorial__grid article:hover{opacity:.58;}
+@media(max-width:900px){.about-editorial__grid{grid-template-columns:repeat(2,1fr)}.about-editorial__grid article:nth-child(2){border-right:0;margin-right:0}.about-editorial__grid article:nth-child(-n+2){border-bottom:1px solid currentColor}.about-flow{flex-wrap:wrap;justify-content:flex-start}}
+@media(max-width:560px){.about-editorial__grid{grid-template-columns:1fr}.about-editorial__grid article{border-right:0!important;margin-right:0;padding-right:0;border-bottom:1px solid currentColor}.about-editorial__grid article:last-child{border-bottom:0}.about-flow{font-size:23px;gap:9px}}
+
+
+/* =========================================================
+   V25 — ABOUT PROFILE / FINAL INTEGRATION
+   The profile content belongs to the About section itself,
+   not after Contact. Keep the existing visual language intact.
+   ========================================================= */
+.intro p#aboutText{
+  right:3vw;
+  top:34%;
+  bottom:auto;
+  max-width:330px;
+  font-size:clamp(13px,.95vw,16px);
+  line-height:1.45;
+}
+
+.about-profile-grid{
+  width:100%;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  border-top:1px solid currentColor;
+  border-bottom:1px solid currentColor;
+  margin-top:clamp(30px,5vw,70px);
+}
+.about-profile-card{
+  min-height:190px;
+  padding:22px 24px 26px 0;
+  margin-right:24px;
+  border-right:1px solid currentColor;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.about-profile-card:last-child{border-right:0;margin-right:0;}
+.about-profile-card>span,
+.about-profile-quote>span{
+  font:10px var(--mono);
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  opacity:.52;
+}
+.about-profile-card strong{
+  display:block;
+  font-size:clamp(20px,2.1vw,34px);
+  line-height:.94;
+  letter-spacing:-.045em;
+  font-weight:500;
+}
+.about-profile-card p{
+  position:static!important;
+  max-width:300px!important;
+  margin:0!important;
+  font-size:12px!important;
+  line-height:1.5!important;
+  opacity:.58;
+}
+.about-profile-quote{
+  display:grid;
+  grid-template-columns:25% 1fr;
+  gap:30px;
+  padding:25px 0 10px;
+}
+.about-profile-quote p{
+  position:static!important;
+  max-width:900px!important;
+  margin:0!important;
+  font-size:clamp(24px,3vw,52px)!important;
+  line-height:1.02!important;
+  letter-spacing:-.035em;
+}
+.about-profile-quote em{font-family:Georgia,serif;font-weight:400;}
+
+@media(max-width:900px){
+  .about-profile-grid{grid-template-columns:1fr;}
+  .about-profile-card{min-height:150px;border-right:0!important;border-bottom:1px solid currentColor;margin-right:0;}
+  .about-profile-card:last-child{border-bottom:0;}
+  .about-profile-quote{grid-template-columns:1fr;gap:14px;}
+}
+@media(max-width:560px){
+  .intro p#aboutText{right:6vw;left:6vw;top:56%;bottom:auto;max-width:none;}
+}
+
+
+/* V26 — About final refinement: cleaner hierarchy and interest strip */
+.intro-stage{min-height:clamp(500px,64vh,760px);}
+.about-profile-grid{margin-top:clamp(18px,3vw,42px);}
+.about-profile-card{min-height:180px;padding-top:20px;padding-bottom:22px;}
+.about-profile-card p{max-width:270px!important;}
+.about-profile-quote{padding-top:clamp(28px,4vw,52px);padding-bottom:clamp(28px,4vw,48px);}
+.about-profile-quote p{max-width:980px!important;}
+.about-editorial{margin-top:clamp(28px,4vw,58px);padding-bottom:clamp(34px,4vw,60px);}
+.about-editorial__grid article{min-height:185px;padding:22px 20px 24px 0;}
+.about-editorial__grid article>div{display:flex;flex-direction:column;gap:8px;}
+.about-editorial__grid p{max-width:210px;line-height:1.55;}
+.about-interests{border-top:1px solid currentColor;padding:clamp(28px,3.5vw,48px) 0 clamp(30px,4vw,54px);}
+.about-interests__head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;font:10px var(--mono);letter-spacing:.14em;text-transform:uppercase;opacity:.55;}
+.about-interests__grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid currentColor;border-bottom:1px solid currentColor;}
+.about-interests__grid span{padding:20px 18px 20px 0;font-size:clamp(16px,1.45vw,23px);letter-spacing:-.025em;border-right:1px solid currentColor;}
+.about-interests__grid span:nth-child(3n){border-right:0;}
+.about-interests__grid span:nth-child(n+4){border-top:1px solid currentColor;}
+.about-interests>p{margin:20px 0 0 auto;max-width:500px;font-size:13px;line-height:1.55;opacity:.58;}
+@media(max-width:900px){
+  .intro-stage{min-height:560px;}
+  .about-interests__grid{grid-template-columns:repeat(2,1fr);}
+  .about-interests__grid span:nth-child(3n){border-right:1px solid currentColor;}
+  .about-interests__grid span:nth-child(2n){border-right:0;}
+  .about-interests__grid span:nth-child(n+3){border-top:1px solid currentColor;}
+}
+@media(max-width:560px){
+  .intro-stage{min-height:500px;}
+  .about-interests__grid{grid-template-columns:1fr;}
+  .about-interests__grid span{border-right:0!important;border-top:1px solid currentColor;}
+  .about-interests__grid span:first-child{border-top:0;}
+  .about-interests>p{max-width:none;}
+}
+
+
+/* V27 — About overlap fix
+   Keep the intro description inside the hero stage so it can never
+   drift into the profile / approach / interest content below. */
+.intro-stage{
+  position:relative;
+  overflow:visible;
+}
+.intro-stage > #aboutText{
+  position:absolute !important;
+  top:34% !important;
+  right:3vw !important;
+  bottom:auto !important;
+  left:auto !important;
+  z-index:8;
+  max-width:min(360px,28vw) !important;
+}
+.about-profile-grid{
+  position:relative;
+  z-index:2;
+}
+.about-interests__head span:last-child{
+  white-space:nowrap;
+}
+.about-interests>p{
+  position:static !important;
+  clear:both;
+}
+@media(max-width:900px){
+  .intro-stage > #aboutText{
+    top:52% !important;
+    right:5vw !important;
+    max-width:38vw !important;
+  }
+}
+@media(max-width:560px){
+  .intro-stage > #aboutText{
+    top:58% !important;
+    left:6vw !important;
+    right:6vw !important;
+    max-width:none !important;
+  }
+}
+
+/* V28 — ABOUT TEXT FLOW FIX
+   The base `.intro p` rule is intentionally absolute for the hero copy.
+   It must never leak into the editorial cards below. Keep every card
+   paragraph in normal document flow so the Areas of Interest section
+   cannot receive stacked/overlapping text from My Approach. */
+.about-editorial__grid article p,
+.about-editorial__grid article > div > p {
+  position: static !important;
+  inset: auto !important;
+  right: auto !important;
+  left: auto !important;
+  top: auto !important;
+  bottom: auto !important;
+  width: auto !important;
+  max-width: 210px !important;
+  margin: 0 !important;
+  transform: none !important;
+  filter: none !important;
+  z-index: auto !important;
+}
+
+/* Keep the four approach cards independent from the hero typography. */
+.about-editorial__grid article > div {
+  position: static !important;
+  min-width: 0;
+}
+
+/* The explanatory sentence belongs below the interest grid, never inside it. */
+.about-interests > p {
+  position: static !important;
+  inset: auto !important;
+  width: min(500px, 100%) !important;
+  max-width: 500px !important;
+  margin: 20px 0 0 auto !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+@media (max-width: 900px) {
+  .about-editorial__grid article p,
+  .about-editorial__grid article > div > p {
+    max-width: 240px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .about-editorial__grid article p,
+  .about-editorial__grid article > div > p,
+  .about-interests > p {
+    max-width: none !important;
+  }
+}
+
+
+/* =========================================================
+   GLASS FLOATING INFORMATION — FINAL
+   DFR / ABOUT / WORK / STACK / CERTIFICATIONS / CONTACT
+   ========================================================= */
+
+.topbar {
+    position: fixed;
+    z-index: 200;
+    top: 18px;
+    left: 3vw;
+    right: 3vw;
+
+    height: 54px;
+    padding: 0 18px;
+
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+
+    /* Glass surface */
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 999px;
+
+    /* Frosted glass */
+    -webkit-backdrop-filter: blur(18px) saturate(135%);
+    backdrop-filter: blur(18px) saturate(135%);
+
+    /* Soft glass depth — no raised/drop-shadow effect */
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.16),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.06);
+
+    color: #ffffff;
+    mix-blend-mode: normal;
+    isolation: isolate;
+}
+
+.topbar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.08),
+        rgba(255, 255, 255, 0.015)
+    );
+}
+
+.topbar .brand,
+.topbar nav,
+.topbar .open {
+    position: relative;
+    z-index: 1;
+    mix-blend-mode: difference;
+}
+
+.topbar .brand {
+    justify-self: start;
+}
+
+.topbar nav {
+    justify-self: center;
+}
+
+.topbar .open {
+    justify-self: end;
+}
+
+/* Keep the floating glass compact on smaller screens */
+@media (max-width: 700px) {
+    .topbar {
+        top: 12px;
+        left: 12px;
+        right: 12px;
+        height: 50px;
+        padding: 0 14px;
+    }
+
+    .topbar nav {
+        gap: 14px;
+    }
+}
+
+@media (max-width: 560px) {
+    .topbar {
+        grid-template-columns: auto 1fr auto;
+    }
+
+    .topbar nav {
+        gap: 10px;
+        font-size: 8px;
+    }
+}
+
+/* =========================================================
+   FLOATING INFORMATION — TRUE INVERSE TYPOGRAPHY
+   Same white + difference technique used by Selected Work.
+   Text automatically becomes black on light areas and white
+   on dark areas, including when the floating glass crosses
+   section boundaries.
+   ========================================================= */
+.topbar,
+.topbar .brand,
+.topbar .brand span,
+.topbar nav,
+.topbar nav a,
+.topbar .open,
+.topbar .open span,
+.topbar .open i {
+    color: #fff !important;
+    mix-blend-mode: difference !important;
+}
+
+/* Keep the glass surface itself neutral; only its contents invert. */
+.topbar::before {
+    mix-blend-mode: normal;
+}
+
+/* The status dot follows the same inverse treatment as the text. */
+.topbar .open i {
+    background: #fff !important;
+    box-shadow: none;
+}
+
+/* =========================================================
+   SPOTIFY PLAYLIST — GLASS MINI PLAYER
+   ========================================================= */
+.spotify-player {
+    position: fixed;
+    z-index: 260;
+    top: 82px;
+    right: 3vw;
+    width: min(360px, calc(100vw - 32px));
+    padding: 10px;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 18px;
+    background: rgba(255,255,255,.10);
+    -webkit-backdrop-filter: blur(20px) saturate(135%);
+    backdrop-filter: blur(20px) saturate(135%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.14), inset 0 -1px 0 rgba(255,255,255,.05);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px) scale(.98);
+    transition: opacity .22s ease, transform .22s ease, visibility .22s ease;
+}
+
+.spotify-player.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.spotify-player-head {
+    height: 26px;
+    padding: 0 4px 7px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+    mix-blend-mode: difference;
+    font: 9px var(--mono);
+    letter-spacing: .08em;
+}
+
+.spotify-close,
+.music-trigger {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: #fff !important;
+    cursor: pointer;
+    font: inherit;
+    mix-blend-mode: difference !important;
+}
+
+.spotify-close {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    font-size: 18px;
+    line-height: 1;
+}
+
+.music-trigger {
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    margin-left: 8px;
+    display: inline-grid;
+    place-items: center;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 50%;
+    font-size: 13px;
+}
+
+.spotify-player iframe {
+    display: block;
+    width: 100%;
+    height: 152px;
+    border: 0;
+    border-radius: 12px;
+}
+
+@media (max-width: 700px) {
+    .spotify-player {
+        top: 70px;
+        right: 12px;
+    }
+    .open > span {
+        display: none;
+    }
+}
+
+/* =========================================================
+   BIG TEXT UI REFINEMENT — 2026
+   Keeps the existing editorial identity while giving the
+   interactive layer a stronger design-system feel.
+   ========================================================= */
+
+:root{
+  --ui-radius:999px;
+  --ui-line:rgba(255,255,255,.24);
+  --ui-ease:cubic-bezier(.2,.75,.2,1);
+}
+
+/* Floating navigation now behaves like a real interaction surface */
+.topbar nav a{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  min-height:32px;
+  padding:0 11px;
+  border-radius:var(--ui-radius);
+  transition:background .3s var(--ui-ease), color .3s var(--ui-ease), transform .3s var(--ui-ease);
+}
+.topbar nav a::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border:1px solid currentColor;
+  border-radius:inherit;
+  opacity:0;
+  transform:scale(.9);
+  transition:opacity .25s ease, transform .35s var(--ui-ease);
+  pointer-events:none;
+}
+.topbar nav a:hover::before,
+.topbar nav a:focus-visible::before{opacity:.45;transform:scale(1)}
+.topbar nav a:focus-visible{outline:none}
+
+.music-trigger{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  border:1px solid currentColor;
+  display:grid;
+  place-items:center;
+  transition:transform .35s var(--ui-ease),background .25s ease,color .25s ease;
+}
+.music-trigger:hover{transform:rotate(10deg) scale(1.07)}
+
+/* Big-text inspired CTA system */
+.hero-actions{
+  position:absolute;
+  left:3vw;
+  bottom:6.4vh;
+  z-index:9;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.big-cta{
+  --cta-bg:#f4f4f0;
+  --cta-fg:#101010;
+  min-height:54px;
+  padding:7px 8px 7px 20px;
+  border-radius:var(--ui-radius);
+  display:inline-flex;
+  align-items:center;
+  gap:26px;
+  border:1px solid rgba(255,255,255,.34);
+  font-family:'DM Mono',monospace;
+  font-size:10px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  text-decoration:none;
+  overflow:hidden;
+  transition:transform .35s var(--ui-ease),background .3s ease,color .3s ease,border-color .3s ease;
+}
+.big-cta span{position:relative;z-index:1}
+.big-cta i{
+  position:relative;
+  z-index:1;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-style:normal;
+  font-size:17px;
+  transition:transform .45s var(--ui-ease),background .3s ease,color .3s ease;
+}
+.big-cta--light{background:var(--cta-bg);color:var(--cta-fg)}
+.big-cta--light i{background:#111;color:#fff}
+.big-cta--ghost{background:rgba(255,255,255,.06);color:#fff;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.big-cta--ghost i{background:#fff;color:#111}
+.big-cta:hover{transform:translateY(-3px)}
+.big-cta:hover i{transform:rotate(45deg) scale(1.06)}
+.big-cta:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+
+/* More graphic project rows: arrow affordance appears only when useful */
+.work-item::after{
+  content:"↗";
+  position:absolute;
+  right:3vw;
+  top:50%;
+  width:44px;
+  height:44px;
+  border:1px solid currentColor;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-size:18px;
+  opacity:0;
+  transform:translate(12px,-50%) rotate(-20deg);
+  transition:opacity .3s ease,transform .4s var(--ui-ease),background .3s ease,color .3s ease;
+  z-index:3;
+}
+.work-item:hover::after,
+.work-item:focus-visible::after{opacity:1;transform:translate(0,-50%) rotate(0)}
+
+/* Pills in the interest section become interactive-looking labels */
+.about-interests__grid span{
+  border-radius:var(--ui-radius)!important;
+  transition:transform .3s var(--ui-ease),background .3s ease,color .3s ease;
+}
+.about-interests__grid span:hover{transform:translateY(-3px)}
+
+/* Certification links use the same CTA language */
+.cert-home-bottom a,
+.cert-home-foot a{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  width:max-content;
+  padding:10px 15px;
+  border:1px solid currentColor;
+  border-radius:var(--ui-radius);
+  transition:background .3s ease,color .3s ease,transform .3s var(--ui-ease);
+}
+.cert-home-bottom a:hover,
+.cert-home-foot a:hover{transform:translateY(-2px)}
+
+/* Strong final action instead of ending on utility links only */
+.contact-mega-cta{
+  width:calc(100% - 6vw);
+  margin:5vh 3vw 0;
+  padding:18px 18px 18px 26px;
+  border:1px solid rgba(255,255,255,.32);
+  border-radius:var(--ui-radius);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  color:#fff;
+  text-decoration:none;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(19px,2.2vw,36px);
+  font-weight:600;
+  letter-spacing:-.035em;
+  transition:background .35s ease,color .35s ease,transform .4s var(--ui-ease);
+}
+.contact-mega-cta i{
+  width:56px;
+  height:56px;
+  flex:0 0 56px;
+  border-radius:50%;
+  background:#fff;
+  color:#111;
+  display:grid;
+  place-items:center;
+  font-style:normal;
+  font-size:24px;
+  transition:transform .5s var(--ui-ease);
+}
+.contact-mega-cta:hover{background:#fff;color:#111;transform:translateY(-4px)}
+.contact-mega-cta:hover i{background:#111;color:#fff;transform:rotate(45deg)}
+.contact-mega-cta:focus-visible{outline:2px solid #fff;outline-offset:4px}
+
+/* Make keyboard focus visible across the custom UI */
+a:focus-visible,button:focus-visible{outline:2px solid currentColor;outline-offset:4px}
+
+@media(max-width:900px){
+  .hero-actions{bottom:8.5vh;gap:7px}
+  .big-cta{min-height:46px;padding:5px 6px 5px 14px;gap:14px;font-size:8px}
+  .big-cta i{width:34px;height:34px}
+  .work-item::after{display:none}
+}
+@media(max-width:640px){
+  .hero-actions{left:14px;right:14px;bottom:68px;display:grid;grid-template-columns:1fr 1fr}
+  .big-cta{justify-content:space-between;width:100%;gap:8px;padding-left:12px}
+  .topbar nav a{padding:0 5px;min-height:28px}
+  .contact-mega-cta{width:calc(100% - 28px);margin-left:14px;margin-right:14px;padding:10px 10px 10px 17px;font-size:17px}
+  .contact-mega-cta i{width:44px;height:44px;flex-basis:44px;font-size:18px}
+}
+
+/* =========================================================
+   V30 — HIGH-REFRESH SCROLL PERFORMANCE
+   Preserve the existing optical blur language while reducing work on
+   off-screen/small elements. requestAnimationFrame follows 60/90/120/144Hz
+   displays automatically; actual FPS still depends on device/browser.
+   ========================================================= */
+
+/* Avoid permanently promoting dozens of text layers. Promote only while moving. */
+.subpage-blur-target{
+  filter:none!important;
+  will-change:auto!important;
+  backface-visibility:hidden;
+}
+.subpage-blur-target.subpage-inview{
+  filter:blur(var(--subpage-scroll-blur,0px))!important;
+}
+html.perf-scrolling .subpage-blur-target.subpage-inview{
+  will-change:filter!important;
+}
+
+/* Keep the signature scroll blur on the large/editorial type. Small labels stay
+   crisp, reducing filter surfaces without changing the overall motion language. */
+.intro .display,
+.work-item .work-title,
+.exp-company,
+.stack-title,
+.cert-home-title,
+.contact-title{
+  filter:blur(var(--scroll-blur,0px))!important;
+  will-change:auto!important;
+  backface-visibility:hidden;
+}
+html.perf-scrolling .intro .display,
+html.perf-scrolling .work-item .work-title,
+html.perf-scrolling .exp-company,
+html.perf-scrolling .stack-title,
+html.perf-scrolling .cert-home-title,
+html.perf-scrolling .contact-title{
+  will-change:filter!important;
+}
+
+/* Small/secondary content no longer gets its own expensive blur layer. */
+.intro p,.intro .edge-note,
+.work-item .work-num,.work-item .work-info,.work-footer,
+.exp-date,.exp-role,.exp-text,.experience .edge-note,
+.skill,.stack .panel-meta,
+.cert-home-copy,.cert-home-top,.cert-home-bottom,.cert-home-foot,
+.contact-title em,.contact-bottom,.contact-bottom a,.contact-bottom span{
+  filter:none!important;
+  will-change:auto!important;
+}
+
+/* Fixed glass stays visually identical but gets its own compositor surface. */
+.topbar{
+  transform:translateZ(0);
+  backface-visibility:hidden;
+  contain:paint;
+}
+.spotify-player{transform:translateZ(0);backface-visibility:hidden}
+
+/* Images/cards are isolated so hover and lazy decoding don't dirty adjacent rows. */
+.cert-card,.work-item,.skill{backface-visibility:hidden}
+.cert-placeholder img{transform:translateZ(0)}
+
+@media (prefers-reduced-motion:reduce){
+  .subpage-blur-target,.subpage-blur-target.subpage-inview,
+  .intro .display,.work-item .work-title,.exp-company,.stack-title,
+  .cert-home-title,.contact-title{filter:none!important;will-change:auto!important}
+}
+
+
+/* =========================================================
+   V31 — BRAND REFINEMENT / CORE DISCIPLINES
+   Editorial 4-column system. Deliberately no pill/glass cards.
+   ========================================================= */
+.about-disciplines{
+  width:100%;
+  border-top:1px solid currentColor;
+  padding:clamp(30px,4vw,54px) 0 clamp(36px,4.8vw,70px);
+}
+.about-disciplines__head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+  font:10px var(--mono);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  opacity:.56;
+}
+.about-disciplines__grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  border-top:1px solid currentColor;
+  border-bottom:1px solid currentColor;
+}
+.discipline-card{
+  position:relative;
+  min-height:clamp(250px,25vw,390px);
+  padding:18px clamp(16px,1.8vw,28px) 22px 0;
+  margin-right:clamp(16px,1.8vw,28px);
+  border-right:1px solid currentColor;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+.discipline-card:last-child{border-right:0;margin-right:0;padding-right:0}
+.discipline-card__top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font:10px var(--mono);
+  letter-spacing:.08em;
+  opacity:.55;
+}
+.discipline-card__top i{
+  font-style:normal;
+  font-size:15px;
+  opacity:0;
+  transform:translate3d(-8px,8px,0);
+  transition:opacity .28s ease,transform .38s cubic-bezier(.2,.75,.2,1);
+}
+.discipline-card h3{
+  margin:auto 0 18px;
+  max-width:100%;
+  font-size:clamp(24px,2.5vw,43px);
+  line-height:.88;
+  letter-spacing:-.055em;
+  font-weight:500;
+  transition:transform .38s cubic-bezier(.2,.75,.2,1);
+}
+.discipline-card p{
+  position:static!important;
+  inset:auto!important;
+  width:auto!important;
+  max-width:235px!important;
+  margin:0!important;
+  font-size:12px!important;
+  line-height:1.55!important;
+  letter-spacing:0!important;
+  opacity:.58!important;
+  transform:none!important;
+}
+.discipline-card:hover h3{transform:translate3d(7px,0,0)}
+.discipline-card:hover .discipline-card__top i{opacity:1;transform:translate3d(0,0,0)}
+.about-disciplines__statement{
+  position:static!important;
+  inset:auto!important;
+  width:auto!important;
+  max-width:560px!important;
+  margin:22px 0 0 auto!important;
+  text-align:right;
+  font-size:clamp(13px,1.1vw,16px)!important;
+  line-height:1.5!important;
+  letter-spacing:-.015em!important;
+  opacity:.68!important;
+  transform:none!important;
+}
+@media(max-width:980px){
+  .about-disciplines__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .discipline-card{min-height:280px}
+  .discipline-card:nth-child(2){border-right:0;margin-right:0;padding-right:0}
+  .discipline-card:nth-child(-n+2){border-bottom:1px solid currentColor}
+}
+@media(max-width:600px){
+  .about-disciplines__grid{grid-template-columns:1fr}
+  .discipline-card,
+  .discipline-card:nth-child(n){
+    min-height:220px;
+    border-right:0;
+    border-bottom:1px solid currentColor;
+    margin-right:0;
+    padding-right:0;
+  }
+  .discipline-card:last-child{border-bottom:0}
+  .discipline-card h3{font-size:clamp(34px,11vw,58px)}
+  .about-disciplines__statement{text-align:left;margin-left:0!important;margin-right:0!important}
+}
+@media(hover:none){
+  .discipline-card__top i{opacity:.45;transform:none}
+  .discipline-card:hover h3{transform:none}
+}
+
+
+/* =========================================================
+   V32 — DOWNLOAD CV
+   Persistent but compact: available in the floating navigation on
+   every page, with a second text action in the closing contact row.
+   ========================================================= */
+.cv-trigger{
+  height:34px;
+  min-width:58px;
+  padding:0 10px 0 11px;
+  border:1px solid currentColor;
+  border-radius:999px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  color:inherit;
+  text-decoration:none;
+  font:9px var(--mono);
+  letter-spacing:.05em;
+  line-height:1;
+  text-transform:uppercase;
+  white-space:nowrap;
+  transition:transform .35s cubic-bezier(.2,.7,.2,1),background .25s ease,color .25s ease;
+}
+.cv-trigger span,
+.cv-trigger b{
+  color:inherit!important;
+  font:inherit;
+  font-weight:400;
+  line-height:1;
+}
+.cv-trigger b{
+  font-size:12px;
+  transition:transform .35s cubic-bezier(.2,.7,.2,1);
+}
+.cv-trigger:hover{
+  transform:translateY(-2px);
+}
+.cv-trigger:hover b{
+  transform:translateY(2px);
+}
+.cv-trigger:focus-visible{
+  outline:2px solid currentColor;
+  outline-offset:3px;
+}
+
+/* Contact keeps the same editorial utility-row language. */
+.contact-bottom{
+  grid-template-columns:1fr auto auto auto!important;
+  align-items:end;
+}
+.contact-bottom .cv-download-link{
+  width:max-content;
+  border-bottom:1px solid currentColor;
+  padding-bottom:1px;
+  text-decoration:none;
+  transition:opacity .25s ease,transform .3s cubic-bezier(.2,.7,.2,1);
+}
+.contact-bottom .cv-download-link:hover{
+  opacity:.62;
+  transform:translateY(-2px)!important;
+}
+
+/* Certificate archive has a light fixed bar; keep the CV control
+   visually consistent with that page rather than forcing an inverse. */
+.cert-page .cv-trigger{
+  color:var(--cert-ink)!important;
+  border-color:currentColor!important;
+  mix-blend-mode:normal!important;
+}
+.cert-page .cv-trigger span,
+.cert-page .cv-trigger b{
+  color:inherit!important;
+  mix-blend-mode:normal!important;
+}
+
+@media(max-width:900px){
+  .open > span#availability,
+  .open > i + span:not(.cv-trigger span){
+    display:none;
+  }
+  .cv-trigger{
+    height:32px;
+    min-width:54px;
+    padding:0 9px;
+    font-size:8px;
+  }
+}
+
+@media(max-width:640px){
+  .contact-bottom{
+    grid-template-columns:1fr auto!important;
+    grid-auto-rows:auto;
+    row-gap:10px!important;
+    column-gap:16px!important;
+  }
+  .contact-bottom a:first-child{
+    grid-column:1/-1;
+  }
+  .contact-bottom .cv-download-link{
+    justify-self:start;
+  }
+  .contact-bottom #phone{
+    justify-self:end;
+  }
+}
+
+/* Confidential case-study page — the structure is shown, not sensitive data. */
+.majadigi-page{background:var(--cream);color:var(--black)}
+.majadigi-hero{
+  min-height:100svh;
+  padding:0 3vw;
+  position:relative;
+  display:flex;
+  align-items:flex-end;
+  background:var(--cream);
+  color:var(--black);
+  overflow:hidden;
+}
+.majadigi-meta{
+  position:absolute;left:3vw;right:3vw;top:102px;
+  display:flex;justify-content:space-between;
+  padding-bottom:10px;border-bottom:1px solid currentColor;
+  font:9px var(--mono);text-transform:uppercase;letter-spacing:.08em;
+}
+.majadigi-back{position:absolute;left:3vw;top:145px;font:9px var(--mono);text-transform:uppercase}
+.majadigi-heading{width:100%;padding:0 0 10vh}
+.majadigi-heading>p:first-child{margin:0 0 22px;font:9px var(--mono);letter-spacing:.08em;text-transform:uppercase;opacity:.58}
+.majadigi-heading h1{margin:0;font-size:clamp(100px,16vw,290px);line-height:.68;letter-spacing:-.105em;font-weight:700}
+.majadigi-heading>p:last-child{max-width:720px;margin:38px 0 0 auto;font-size:clamp(15px,1.5vw,23px);line-height:1.35;letter-spacing:-.025em}
+.majadigi-content{padding:11vh 3vw 14vh;background:var(--cream)}
+.majadigi-intro{display:grid;grid-template-columns:1fr 1.2fr;gap:8vw;padding-bottom:11vh;border-bottom:1px solid var(--black)}
+.majadigi-intro h2,.majadigi-copy h2{margin:10px 0 0;font-size:clamp(48px,7vw,116px);line-height:.78;letter-spacing:-.075em;font-weight:600}
+.majadigi-small{font:9px var(--mono);letter-spacing:.08em;text-transform:uppercase;opacity:.55}
+.majadigi-facts{border-top:1px solid var(--black)}
+.majadigi-facts div{display:flex;justify-content:space-between;gap:25px;padding:14px 0;border-bottom:1px solid var(--black);font:10px var(--mono);text-transform:uppercase}
+.majadigi-facts b{font-weight:500;text-align:right;max-width:58%}
+.majadigi-section{padding:12vh 0;border-bottom:1px solid var(--black)}
+.majadigi-section-head{display:flex;justify-content:space-between;gap:20px;margin-bottom:8vh;font:9px var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.majadigi-copy{display:grid;grid-template-columns:1fr 1fr;gap:8vw;align-items:end}
+.majadigi-copy p{max-width:570px;margin:0 0 0 auto;font-size:15px;line-height:1.65;letter-spacing:-.012em}
+.majadigi-pipeline{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid var(--black);border-bottom:1px solid var(--black)}
+.majadigi-pipeline div{min-height:190px;padding:16px;border-right:1px solid var(--black);display:flex;flex-direction:column;justify-content:space-between}
+.majadigi-pipeline div:last-child{border-right:0}
+.majadigi-pipeline span{font:9px var(--mono);opacity:.48}
+.majadigi-pipeline strong{font-size:clamp(15px,1.55vw,26px);line-height:.95;letter-spacing:-.045em;font-weight:500}
+.majadigi-responsibilities{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--black)}
+.majadigi-responsibilities article{min-height:260px;padding:18px 24px 22px 0;border-bottom:1px solid var(--black)}
+.majadigi-responsibilities article:nth-child(odd){border-right:1px solid var(--black);margin-right:24px}
+.majadigi-responsibilities span{font:9px var(--mono);opacity:.5}
+.majadigi-responsibilities h3{margin:72px 0 14px;font-size:clamp(25px,3vw,48px);line-height:.9;letter-spacing:-.055em;font-weight:500}
+.majadigi-responsibilities p{max-width:480px;margin:0;font-size:13px;line-height:1.55;opacity:.64}
+.majadigi-confidential{display:grid;grid-template-columns:.7fr 1.3fr;gap:8vw;align-items:start}
+.majadigi-confidential .stamp{font:9px var(--mono);text-transform:uppercase;border:1px solid var(--black);border-radius:999px;width:max-content;padding:10px 14px}
+.majadigi-confidential p{margin:0;font-size:clamp(28px,4.5vw,74px);line-height:.95;letter-spacing:-.055em}
+.majadigi-final{padding-top:12vh}
+.majadigi-final span{font:9px var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.majadigi-final h2{margin:28px 0 0;font-size:clamp(78px,13vw,220px);line-height:.7;letter-spacing:-.095em}
+.majadigi-page footer{background:var(--black);color:var(--cream)}
+
+@media(max-width:900px){
+  .majadigi-intro,.majadigi-copy,.majadigi-confidential{grid-template-columns:1fr;gap:50px}
+  .majadigi-copy p{margin:0}
+  .majadigi-pipeline{grid-template-columns:repeat(3,1fr)}
+  .majadigi-pipeline div:nth-child(3){border-right:0}
+  .majadigi-pipeline div:nth-child(-n+3){border-bottom:1px solid var(--black)}
+}
+@media(max-width:600px){
+  .majadigi-hero{padding:0 14px}
+  .majadigi-meta{left:14px;right:14px;top:90px}
+  .majadigi-back{left:14px;top:132px}
+  .majadigi-heading{padding-bottom:11vh}
+  .majadigi-heading h1{font-size:clamp(78px,26vw,140px)}
+  .majadigi-heading>p:last-child{margin-top:28px;font-size:15px}
+  .majadigi-content{padding:10vh 14px 12vh}
+  .majadigi-pipeline{grid-template-columns:1fr 1fr}
+  .majadigi-pipeline div{min-height:150px}
+  .majadigi-pipeline div:nth-child(n){border-right:1px solid var(--black);border-bottom:1px solid var(--black)}
+  .majadigi-pipeline div:nth-child(even){border-right:0}
+  .majadigi-pipeline div:nth-last-child(-n+2){border-bottom:0}
+  .majadigi-responsibilities{grid-template-columns:1fr}
+  .majadigi-responsibilities article:nth-child(n){border-right:0;margin-right:0}
+  .majadigi-responsibilities h3{margin-top:52px}
+}
+@media(hover:none){
+}
+
+/* =========================================================
+   V50 — FERAlUI-INSPIRED AMBIENT SKY / MESH BACKGROUND
+   Slow painterly gradient motion using compositor-friendly transforms.
+   No per-frame gradient redraw; pointer response is a single rAF write.
+   ========================================================= */
+:root{
+  --ambient-pointer-x:0px;
+  --ambient-pointer-y:0px;
+}
+
+.has-ambient-sky{
+  isolation:isolate;
+}
+
+.ambient-sky{
+  position:absolute;
+  inset:-20%;
+  z-index:-1;
+  overflow:hidden;
+  pointer-events:none;
+  contain:paint;
+  transform:translateZ(0);
+}
+
+.ambient-sky__field{
+  position:absolute;
+  inset:0;
+  transform:translate3d(
+    var(--ambient-pointer-x),
+    var(--ambient-pointer-y),
+    0
+  );
+  will-change:transform;
+}
+
+.ambient-sky__blob{
+  position:absolute;
+  width:78vmax;
+  height:78vmax;
+  border-radius:50%;
+  transform:translate3d(0,0,0);
+  transform-origin:50% 50%;
+  will-change:transform;
+  backface-visibility:hidden;
+}
+
+/* Light sections: warm silver / paper mesh. */
+[data-ambient-theme="light"] .ambient-sky{
+  opacity:.64;
+}
+[data-ambient-theme="light"] .ambient-sky__blob{
+  mix-blend-mode:multiply;
+}
+[data-ambient-theme="light"] .ambient-sky__blob--a{
+  left:-24%; top:-35%;
+  background:radial-gradient(circle at 42% 42%, rgba(160,160,156,.42) 0 12%, rgba(196,196,191,.26) 31%, rgba(238,238,235,0) 68%);
+}
+[data-ambient-theme="light"] .ambient-sky__blob--b{
+  right:-30%; top:0%;
+  background:radial-gradient(circle at 52% 48%, rgba(255,255,255,.88) 0 9%, rgba(214,214,209,.35) 32%, rgba(238,238,235,0) 70%);
+}
+[data-ambient-theme="light"] .ambient-sky__blob--c{
+  left:22%; bottom:-52%;
+  background:radial-gradient(circle at 50% 45%, rgba(180,180,176,.33) 0 10%, rgba(218,218,213,.20) 34%, rgba(238,238,235,0) 69%);
+}
+[data-ambient-theme="light"] .ambient-sky__blob--d{
+  right:10%; bottom:-46%;
+  width:62vmax; height:62vmax;
+  background:radial-gradient(circle at 50% 50%, rgba(126,126,123,.20), rgba(238,238,235,0) 66%);
+}
+
+/* Dark sections: graphite / pearl aurora. */
+[data-ambient-theme="dark"] .ambient-sky{
+  opacity:.78;
+}
+[data-ambient-theme="dark"] .ambient-sky__blob{
+  mix-blend-mode:screen;
+}
+[data-ambient-theme="dark"] .ambient-sky__blob--a{
+  left:-28%; top:-45%;
+  background:radial-gradient(circle at 46% 46%, rgba(255,255,255,.14) 0 8%, rgba(118,118,118,.14) 32%, rgba(17,17,17,0) 69%);
+}
+[data-ambient-theme="dark"] .ambient-sky__blob--b{
+  right:-34%; top:-8%;
+  background:radial-gradient(circle at 48% 48%, rgba(210,210,206,.13) 0 10%, rgba(91,91,91,.12) 31%, rgba(17,17,17,0) 68%);
+}
+[data-ambient-theme="dark"] .ambient-sky__blob--c{
+  left:16%; bottom:-55%;
+  background:radial-gradient(circle at 50% 45%, rgba(255,255,255,.10) 0 8%, rgba(150,150,146,.09) 35%, rgba(17,17,17,0) 70%);
+}
+[data-ambient-theme="dark"] .ambient-sky__blob--d{
+  right:6%; bottom:-40%;
+  width:64vmax; height:64vmax;
+  background:radial-gradient(circle at 50% 50%, rgba(210,210,206,.09), rgba(17,17,17,0) 65%);
+}
+
+/* Independent paths make the field feel fluid rather than like one rotating image. */
+.ambient-sky__blob--a{animation:ambientDriftA 19s cubic-bezier(.45,.05,.55,.95) infinite alternate;}
+.ambient-sky__blob--b{animation:ambientDriftB 24s cubic-bezier(.42,0,.58,1) infinite alternate;}
+.ambient-sky__blob--c{animation:ambientDriftC 28s cubic-bezier(.45,.05,.55,.95) infinite alternate;}
+.ambient-sky__blob--d{animation:ambientDriftD 22s cubic-bezier(.42,0,.58,1) infinite alternate;}
+
+@keyframes ambientDriftA{
+  0%{transform:translate3d(-4%,-3%,0) scale(.92) rotate(-5deg)}
+  50%{transform:translate3d(15%,10%,0) scale(1.08) rotate(7deg)}
+  100%{transform:translate3d(4%,18%,0) scale(1.0) rotate(-2deg)}
+}
+@keyframes ambientDriftB{
+  0%{transform:translate3d(7%,-9%,0) scale(1.02) rotate(6deg)}
+  52%{transform:translate3d(-16%,9%,0) scale(.92) rotate(-8deg)}
+  100%{transform:translate3d(-3%,20%,0) scale(1.09) rotate(3deg)}
+}
+@keyframes ambientDriftC{
+  0%{transform:translate3d(-12%,13%,0) scale(1.03) rotate(4deg)}
+  45%{transform:translate3d(11%,-8%,0) scale(.94) rotate(-7deg)}
+  100%{transform:translate3d(18%,-2%,0) scale(1.06) rotate(5deg)}
+}
+@keyframes ambientDriftD{
+  0%{transform:translate3d(10%,7%,0) scale(.9) rotate(-4deg)}
+  55%{transform:translate3d(-10%,-12%,0) scale(1.08) rotate(8deg)}
+  100%{transform:translate3d(-18%,6%,0) scale(.98) rotate(-2deg)}
+}
+
+/* Hero gets a slightly stronger living surface; content stays crisp. */
+.hero[data-ambient-theme="dark"] .ambient-sky,
+.hero[data-ambient-theme="light"] .ambient-sky{
+  opacity:.92;
+}
+
+/* Selected Work remains restrained so project typography stays dominant. */
+.work .ambient-sky{
+  opacity:.52;
+}
+
+/* Contact receives a slightly more atmospheric closing motion. */
+#contact .ambient-sky{
+  opacity:.9;
+}
+
+/* Existing contact texture remains, but sits quietly over the moving field. */
+#contact::before{
+  z-index:0;
+  opacity:.55;
+}
+#contact > :not(.ambient-sky){
+  z-index:1;
+}
+
+/* Sub-page hero support. */
+.project-hero.has-ambient-sky,
+.chinook-hero.has-ambient-sky,
+.unesa-hero.has-ambient-sky,
+.majadigi-hero.has-ambient-sky,
+.cert-hero.has-ambient-sky{
+  isolation:isolate;
+}
+
+@media (max-width:800px){
+  .ambient-sky{inset:-28%;}
+  .ambient-sky__field{transform:none;}
+  .ambient-sky__blob{width:92vmax;height:92vmax;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .ambient-sky__field{transform:none!important;}
+  .ambient-sky__blob{animation:none!important;}
+  .ambient-sky__blob--a{transform:translate3d(3%,4%,0) scale(1.02);}
+  .ambient-sky__blob--b{transform:translate3d(-4%,5%,0) scale(.98);}
+  .ambient-sky__blob--c{transform:translate3d(5%,-3%,0) scale(1.01);}
+  .ambient-sky__blob--d{transform:translate3d(-2%,2%,0) scale(.97);}
+}
+
+/* Keep the ambient layer out of legacy section-entry transforms. */
+.panel > .ambient-sky{transform:translateZ(0)!important;transition:none!important;}
+
+/* Only visible sections animate; off-screen fields are paused to protect high-refresh scrolling. */
+.ambient-sky__blob{animation-play-state:paused;}
+.has-ambient-sky.ambient-active .ambient-sky__blob{animation-play-state:running;}
+
+/* =========================================================
+   V51 — AMBIENT GRADIENT VISIBILITY FIX
+   Fixes the old negative stacking layer and makes motion
+   intentionally visible while preserving the monochrome brand.
+   ========================================================= */
+.ambient-sky{
+  z-index:0 !important;
+  inset:-18% !important;
+  opacity:1 !important;
+}
+
+/* Because ambient-sky is prepended as the first child, z-index:0
+   keeps it above each section's solid background but underneath
+   the section content that follows it in the stacking order. */
+.has-ambient-sky{
+  isolation:isolate;
+}
+
+.ambient-sky__field{
+  opacity:.96;
+}
+
+/* A subtle base wash makes the animated field immediately perceptible. */
+[data-ambient-theme="light"] .ambient-sky{
+  background:
+    radial-gradient(circle at 12% 18%, rgba(25,25,24,.09), transparent 32%),
+    radial-gradient(circle at 88% 70%, rgba(0,0,0,.055), transparent 38%);
+}
+[data-ambient-theme="dark"] .ambient-sky{
+  background:
+    radial-gradient(circle at 16% 20%, rgba(255,255,255,.065), transparent 30%),
+    radial-gradient(circle at 82% 76%, rgba(255,255,255,.04), transparent 36%);
+}
+
+/* Light pages — moving graphite/silver clouds. */
+[data-ambient-theme="light"] .ambient-sky__blob--a{
+  background:radial-gradient(circle at 44% 44%, rgba(48,48,46,.34) 0 7%, rgba(118,118,114,.25) 26%, rgba(238,238,235,0) 67%) !important;
+}
+[data-ambient-theme="light"] .ambient-sky__blob--b{
+  background:radial-gradient(circle at 52% 48%, rgba(255,255,255,.94) 0 9%, rgba(148,148,144,.24) 33%, rgba(238,238,235,0) 69%) !important;
+}
+[data-ambient-theme="light"] .ambient-sky__blob--c{
+  background:radial-gradient(circle at 50% 45%, rgba(72,72,70,.25) 0 8%, rgba(164,164,159,.20) 34%, rgba(238,238,235,0) 70%) !important;
+}
+[data-ambient-theme="light"] .ambient-sky__blob--d{
+  background:radial-gradient(circle at 50% 50%, rgba(26,26,25,.16), rgba(238,238,235,0) 64%) !important;
+}
+
+/* Dark pages — moving pearl / graphite light. */
+[data-ambient-theme="dark"] .ambient-sky__blob--a{
+  background:radial-gradient(circle at 46% 46%, rgba(255,255,255,.27) 0 7%, rgba(150,150,146,.20) 30%, rgba(17,17,17,0) 67%) !important;
+}
+[data-ambient-theme="dark"] .ambient-sky__blob--b{
+  background:radial-gradient(circle at 48% 48%, rgba(232,232,226,.22) 0 8%, rgba(112,112,108,.16) 32%, rgba(17,17,17,0) 68%) !important;
+}
+[data-ambient-theme="dark"] .ambient-sky__blob--c{
+  background:radial-gradient(circle at 50% 45%, rgba(255,255,255,.19) 0 7%, rgba(166,166,160,.13) 35%, rgba(17,17,17,0) 70%) !important;
+}
+[data-ambient-theme="dark"] .ambient-sky__blob--d{
+  background:radial-gradient(circle at 50% 50%, rgba(220,220,214,.14), rgba(17,17,17,0) 64%) !important;
+}
+
+/* Faster than V50 so motion is noticeable without becoming busy. */
+.ambient-sky__blob--a{animation-duration:10s !important;}
+.ambient-sky__blob--b{animation-duration:13s !important;}
+.ambient-sky__blob--c{animation-duration:16s !important;}
+.ambient-sky__blob--d{animation-duration:12s !important;}
+
+/* Work remains readable, but the field is no longer effectively invisible. */
+.work .ambient-sky{opacity:.82 !important;}
+.hero .ambient-sky{opacity:1 !important;}
+#contact .ambient-sky{opacity:.95 !important;}
+
+@media (max-width:800px){
+  .ambient-sky{inset:-24% !important;}
+}

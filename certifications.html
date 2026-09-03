@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Certifications — Daffa Fazly Rashidan.">
+<title>Certifications — Daffa Fazly</title>
+<link rel="stylesheet" href="style.css?v=37">
+<style>
+.cert-page{background:var(--black);color:var(--cream);cursor:none;min-height:100vh}
+.cert-page{position:relative;isolation:isolate}
+.cert-page .topbar{z-index:300}
+.cert-main,.cert-hero,.cert-intro,.cert-archive,.cert-footer{position:relative;z-index:1}
+.cert-placeholder,.cert-placeholder img{backface-visibility:hidden}
+.cert-placeholder{isolation:isolate}
+.cert-placeholder img{position:relative;z-index:1;object-fit:contain;max-width:100%;max-height:100%}
+.cert-card{transform:translateZ(0);will-change:transform}
+.cert-card:hover{transform:translate3d(0,-7px,0)}
+
+.cert-main{background:var(--black);overflow:hidden}
+.cert-hero{min-height:100svh;position:relative;padding:0 3vw;display:flex;align-items:flex-end;overflow:hidden}
+.cert-meta{position:absolute;top:102px;left:3vw;right:3vw;display:flex;justify-content:space-between;font:9px var(--mono);text-transform:uppercase;letter-spacing:.02em}
+.cert-back{position:absolute;top:142px;left:3vw;font:9px var(--mono);text-transform:uppercase;opacity:.7}
+.cert-heading{padding-bottom:8vh;max-width:1100px}
+.cert-heading .eyebrow{font:10px var(--mono);text-transform:uppercase;margin:0 0 20px}
+.cert-heading h1{font-size:clamp(88px,15vw,240px);line-height:.76;letter-spacing:-.09em;margin:0;text-transform:uppercase}
+.cert-heading h1 em{font-family:Georgia,serif;font-weight:400;letter-spacing:-.07em}
+.cert-heading p{max-width:620px;font-size:14px;line-height:1.55;margin:36px 0 0;color:#c9c9c5}
+.cert-index{position:absolute;right:3vw;bottom:8vh;font:10px var(--mono);text-transform:uppercase;writing-mode:vertical-rl;transform:rotate(180deg);opacity:.7}
+.cert-scroll{position:absolute;right:3vw;bottom:5vh;font:9px var(--mono);text-transform:uppercase}
+.cert-intro{background:var(--cream);color:var(--black);padding:120px 3vw 80px}
+.cert-intro-grid{display:grid;grid-template-columns:1fr 1.35fr;gap:8vw;align-items:start;max-width:1500px;margin:auto}
+.cert-intro h2{font-size:clamp(54px,8vw,125px);line-height:.82;letter-spacing:-.075em;margin:0;text-transform:uppercase}
+.cert-intro h2 em{font-family:Georgia,serif;font-weight:400}
+.cert-intro p{font-size:15px;line-height:1.7;max-width:650px;margin:0}
+.cert-note{margin-top:32px;border-top:1px solid #111;padding-top:12px;font:9px var(--mono);text-transform:uppercase;display:flex;justify-content:space-between;gap:20px}
+.cert-archive{background:var(--cream);color:var(--black);padding:40px 3vw 130px}
+.cert-grid{max-width:1500px;margin:auto;display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.cert-card{position:relative;background:#d7d7d3;border:1px solid #111;min-height:430px;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:18px;transition:transform .45s cubic-bezier(.2,.7,.2,1),background .35s ease}
+.cert-card:nth-child(1){grid-column:span 7;min-height:520px}
+.cert-card:nth-child(2){grid-column:span 5}
+.cert-card:nth-child(3){grid-column:span 5}
+.cert-card:nth-child(4){grid-column:span 7;min-height:500px}
+.cert-card:nth-child(5),.cert-card:nth-child(6){grid-column:span 6}
+.cert-card:hover{transform:translateY(-7px);background:#111;color:#eee}
+.cert-card:hover .cert-placeholder{background:#eee;color:#111;border-color:#eee}
+.cert-card:hover .cert-arrow{transform:translate(4px,-4px)}
+.cert-top{display:flex;justify-content:space-between;font:9px var(--mono);text-transform:uppercase;position:relative;z-index:2}
+.cert-placeholder{position:absolute;inset:52px 18px 74px;background:#111;color:#eee;border:1px solid #111;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:background .35s ease,color .35s ease,border-color .35s ease}
+.cert-placeholder:before{content:"";position:absolute;width:70%;height:70%;border:1px solid currentColor;transform:rotate(-7deg)}
+.cert-placeholder:after{content:"CERTIFICATE";position:absolute;font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase;opacity:.8}
+.cert-placeholder span{position:absolute;font-size:clamp(50px,7vw,105px);font-weight:700;letter-spacing:-.09em;line-height:.8;opacity:.14;transform:rotate(-7deg)}
+.cert-bottom{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:end;gap:20px}
+.cert-name{font-size:clamp(23px,2.4vw,38px);font-weight:700;line-height:.9;letter-spacing:-.05em;text-transform:uppercase}
+.cert-meta-bottom{text-align:right;font:8px var(--mono);text-transform:uppercase;line-height:1.5;max-width:190px}
+.cert-arrow{font-size:24px;transition:transform .35s ease}
+.cert-footer{background:var(--black);color:var(--cream);padding:110px 3vw 90px;display:grid;grid-template-columns:1fr 1fr;gap:8vw}
+.cert-footer h2{font-size:clamp(55px,9vw,135px);line-height:.78;letter-spacing:-.08em;margin:0}
+.cert-footer h2 em{font-family:Georgia,serif;font-weight:400}
+.cert-footer-copy{font-size:15px;line-height:1.7;max-width:540px;padding-top:10px}
+.cert-footer-copy a{display:inline-block;margin-top:30px;border-bottom:1px solid currentColor;padding-bottom:8px;font:10px var(--mono);text-transform:uppercase}
+.cert-reveal{opacity:0;transform:translate3d(0,36px,0);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.cert-reveal.is-visible{opacity:1;transform:translate3d(0,0,0)}
+.cert-card.cert-reveal:nth-child(2){transition-delay:.05s}.cert-card.cert-reveal:nth-child(3){transition-delay:.1s}.cert-card.cert-reveal:nth-child(4){transition-delay:.15s}.cert-card.cert-reveal:nth-child(5){transition-delay:.2s}.cert-card.cert-reveal:nth-child(6){transition-delay:.25s}
+@media(max-width:900px){.cert-intro-grid,.cert-footer{grid-template-columns:1fr}.cert-grid{grid-template-columns:1fr}.cert-card,.cert-card:nth-child(n){grid-column:span 1;min-height:430px}.cert-card:nth-child(1),.cert-card:nth-child(4){min-height:500px}.cert-heading h1{font-size:clamp(70px,18vw,150px)}.cert-index{display:none}}
+@media(prefers-reduced-motion:reduce){.cert-reveal{opacity:1;transform:none;transition:none}.cert-card{transition:none}.cert-card:hover{transform:none}}
+
+.cert-placeholder img{width:100%;height:100%;object-fit:contain;display:block;padding:14px;box-sizing:border-box}
+.cert-placeholder img{transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.cert-card:hover .cert-placeholder img{transform:scale(1.015)}
+.cert-modal{position:fixed;inset:0;z-index:10000;display:none;align-items:center;justify-content:center;padding:4vw}
+.cert-modal.is-open{display:flex}
+.cert-modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.84);backdrop-filter:blur(4px)}
+.cert-modal-dialog{position:relative;z-index:1;width:min(1200px,94vw);max-height:90vh;background:#efefeb;border:1px solid #111;padding:14px}
+.cert-modal-dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;background:#d8d8d3}
+.cert-modal-close{position:absolute;right:12px;top:12px;width:38px;height:38px;border:1px solid #111;background:#efefeb;color:#111;font:24px/1 Arial;cursor:pointer;z-index:2}
+.cert-modal-caption{display:flex;justify-content:space-between;gap:20px;padding:12px 2px 2px;font:8px var(--mono);text-transform:uppercase}
+@media(max-width:700px){.cert-modal{padding:14px}.cert-modal-dialog{width:100%;padding:8px}.cert-modal-dialog img{max-height:72vh}.cert-modal-caption{display:block;line-height:1.6}.cert-modal-caption span{display:block}}
+
+
+/* V30 — REAL CERTIFICATE ARCHIVE + HIGH-REFRESH PERFORMANCE */
+.cert-grid{grid-auto-flow:dense}
+.cert-card{grid-column:span 6;min-height:420px;transform:translate3d(0,0,0);will-change:auto;content-visibility:auto;contain-intrinsic-size:420px;contain:layout paint style}
+.cert-card:nth-child(6n+1){grid-column:span 7;min-height:500px}
+.cert-card:nth-child(6n+2){grid-column:span 5;min-height:440px}
+.cert-card:nth-child(6n+3){grid-column:span 5;min-height:440px}
+.cert-card:nth-child(6n+4){grid-column:span 7;min-height:500px}
+.cert-card:nth-child(6n+5),.cert-card:nth-child(6n+6){grid-column:span 6;min-height:440px}
+.cert-card:hover,.cert-card:focus-visible{will-change:transform;outline:none}
+.cert-placeholder:before,.cert-placeholder:after{display:none!important}
+.cert-placeholder img{padding:10px;transform:translateZ(0);backface-visibility:hidden}
+.cert-card:focus-visible{box-shadow:inset 0 0 0 2px currentColor}
+.cert-original-link{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:0 12px;border:1px solid currentColor;text-decoration:none;color:inherit;white-space:nowrap}
+.cert-original-link:hover,.cert-original-link:focus-visible{background:#111;color:#efefeb;outline:none}
+.cert-modal-caption{align-items:center}
+@media(max-width:900px){.cert-card,.cert-card:nth-child(n){grid-column:span 1;min-height:430px;contain-intrinsic-size:430px}.cert-card:nth-child(6n+1),.cert-card:nth-child(6n+4){min-height:480px}}
+@media(max-width:700px){.cert-original-link{margin-top:8px}.cert-modal-caption{display:block}}
+
+
+/* =========================================================
+   V31 — CERTIFICATE PAGE UI FIX
+   Keep the glass surface neutral; only the information inside
+   it uses Difference blending. This prevents the entire pill
+   from inverting into a black bar on the light archive.
+   ========================================================= */
+.cert-page .topbar{
+  z-index:12000!important;
+  background:rgba(255,255,255,.10)!important;
+  color:#fff!important;
+  border:1px solid rgba(255,255,255,.24)!important;
+  border-bottom:1px solid rgba(255,255,255,.24)!important;
+  border-radius:999px!important;
+  -webkit-backdrop-filter:blur(18px) saturate(135%)!important;
+  backdrop-filter:blur(18px) saturate(135%)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16),inset 0 -1px 0 rgba(255,255,255,.06)!important;
+  mix-blend-mode:normal!important;
+  isolation:auto!important;
+  contain:none!important;
+}
+.cert-page .topbar::before{
+  mix-blend-mode:normal!important;
+  background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.015))!important;
+}
+/* Reset the accumulated per-child blend rules first. */
+.cert-page .topbar *,
+.cert-page .topbar a,
+.cert-page .topbar button,
+.cert-page .topbar span,
+.cert-page .topbar i{
+  mix-blend-mode:normal!important;
+  color:#fff!important;
+}
+/* One Difference layer per information group = true inverse typography. */
+.cert-page .topbar .brand,
+.cert-page .topbar nav,
+.cert-page .topbar .open{
+  mix-blend-mode:difference!important;
+  color:#fff!important;
+}
+.cert-page .topbar .open i{
+  background:#fff!important;
+  box-shadow:none!important;
+}
+
+/* Fine-pointer cursor: explicit light/dark states are more reliable here
+   than blending the cursor through the archive's isolated paint layers. */
+@media (pointer:fine){
+  .cert-page,
+  .cert-page a,
+  .cert-page button,
+  .cert-page [role="button"]{cursor:none!important}
+  .cert-page .cursor{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    z-index:20000!important;
+    mix-blend-mode:normal!important;
+  }
+  .cert-page .cursor-core{background:#111!important}
+  .cert-page .cursor-ring{border-color:#111!important;background:transparent!important}
+  .cert-page .cursor.active .cursor-ring{background:#111!important;border-color:#111!important}
+  .cert-page .cursor-word{background:#111!important;color:#fff!important}
+  .cert-page .cursor.on-dark .cursor-core{background:#fff!important}
+  .cert-page .cursor.on-dark .cursor-ring{border-color:#fff!important;background:transparent!important}
+  .cert-page .cursor.on-dark.active .cursor-ring{background:#fff!important;border-color:#fff!important}
+  .cert-page .cursor.on-dark .cursor-word{background:#fff!important;color:#111!important}
+}
+@media (pointer:coarse){
+  .cert-page{cursor:auto!important}
+  .cert-page .cursor{display:none!important}
+}
+
+</style>
+</head>
+<body class="cert-page">
+<div class="cursor" id="cursor"><div class="cursor-core"></div><div class="cursor-ring"></div><div class="cursor-word">VIEW</div></div>
+<div class="spotify-player" id="spotifyPlayer" aria-hidden="true">
+  <div class="spotify-player-head"><span>NOW PLAYING</span><button class="spotify-close" type="button" aria-label="Close Spotify player">×</button></div>
+  <iframe title="Spotify playlist" src="https://open.spotify.com/embed/playlist/6gwqYtj0OmXuu1uK5KG71b?utm_source=generator&theme=0" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+</div>
+
+<header class="topbar">
+  <a class="brand magnetic" href="index.html">DFR<span>.</span></a>
+  <nav>
+    <a class="magnetic" href="index.html#about">About</a>
+    <a class="magnetic" href="index.html#work">Work</a>
+    <a class="magnetic" href="index.html#stack">Stack</a>
+    <a class="magnetic" href="certifications.html">Certifications</a>
+    <a class="magnetic" href="index.html#contact">Contact</a>
+  </nav>
+  <div class="open"><i></i><span>Available for opportunities</span><a class="cv-trigger magnetic" href="assets/docs/Daffa-Fazly-Rashidan-CV.pdf" download="Daffa-Fazly-Rashidan-CV.pdf" aria-label="Download Daffa Fazly Rashidan CV"><span>CV</span><b aria-hidden="true">↓</b></a><button class="music-trigger magnetic" type="button" aria-label="Open Spotify playlist" aria-expanded="false">♫</button></div>
+</header>
+
+<main class="cert-main">
+<section class="cert-hero">
+  <div class="cert-meta"><span>06 — CREDENTIALS</span><span>LEARNING / CREDENTIALS / PROOF</span></div>
+  <a class="cert-back magnetic" href="index.html">← BACK TO PORTFOLIO</a>
+  <div class="cert-heading cert-reveal">
+    <p class="eyebrow">18 credentials / one evolving practice</p>
+    <h1>CERTI<br><em>FIED.</em></h1>
+    <p>A curated archive of certifications, workshops, competitions, professional training, and organizational experiences that support the work behind every project.</p>
+  </div>
+  <div class="cert-index">ARCHIVE / 2022—2024</div>
+  <div class="cert-scroll">SCROLL TO ARCHIVE ↓</div>
+</section>
+
+<section class="cert-intro">
+  <div class="cert-intro-grid cert-reveal">
+    <h2>PROOF<br>BEHIND<br><em>THE WORK.</em></h2>
+    <div>
+      <p>Each credential belongs to a larger story: strengthening analytics, business intelligence, cloud fundamentals, communication, leadership, and professional practice. Select any card to preview the certificate, then open the original PDF when you want the full document.</p>
+      <div class="cert-note"><span>STATUS</span><span>18 ORIGINAL CERTIFICATES / LIGHTWEIGHT WEB PREVIEWS</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="cert-archive">
+  <div class="cert-grid">
+    <article class="cert-card cert-reveal cursor-view" role="button" tabindex="0" data-pdf="assets/certificates/originals/18-celerates-dabi-completion.pdf" aria-label="Open Data Analyst & Business Intelligence - Completion Certificate">
+      <div class="cert-top"><span>01 / DATA & BI</span><span>2024</span></div>
+      <div class="cert-placeholder"><img src="assets/certificates/cert-18-celerates-dabi-completion.webp" alt="Data Analyst & Business Intelligence - Completion Certificate" loading="lazy" decoding="async"></div>
+      <div class="cert-bottom"><div class="cert-name">DABI Program<br>Completion</div><div class="cert-meta-bottom">Celerates<br>Completion Certificate</div><div class="cert-arrow">↗</div></div>
+    </article>
+    <article class="cert-card cert-reveal cursor-view" role="button" tabindex="0" data-pdf="assets/certificates/originals/07-aws-cloud-essentials.pdf" aria-label="Open AWS Cloud Essentials Knowledge Badge Assessment">
+      <div class="cert-top"><span>02 / CLOUD</span><span>2024</span></div>
+      <div class="cert-placeholder"><img src="assets/certificates/cert-07-aws-cloud-essentials.webp" alt="AWS Cloud Essentials Knowledge Badge Assessment" loading="lazy" decoding="async"></div>
+      <div class="cert-bottom"><div class="cert-name">AWS Cloud<br>Essentials</div><div class="cert-meta-bottom">AWS Training & Certification<br>Knowledge Badge</div><div class="cert-arrow">↗</div></div>
+    </article>
+    <article class="cert-card cert-reveal cursor-view" role="button" tabindex="0" data-pdf="assets/certificates/originals/02-infographic-competition-unair.pdf" aria-label="Open Satu Data Universitas Airlangga - Infographic Competition Participant">
+      <div class="cert-top"><span>03 / COMPETITION</span><span>—</span></div>
+      <div class="cert-placeholder"><img src="assets/certificates/cert-02-infographic-competition-unair.webp" alt="Satu Data Universitas Airlangga - Infographic Competition Participant" loading="lazy" decoding="async"></div>
+      <div class="cert-bottom"><div class="cert-name">Infographic<br>Competition</div><div class="cert-meta-bottom">Satu Data Universitas Airlangga<br>Participant</div><div class="cert-arrow">↗</div></div>
+    </article>
+    <article class="cert-card cert-reveal cursor-view" role="button" tabindex="0" data-pdf="assets/certificates/originals/15-celerates-business-acumen.pdf" aria-label="Open Celerates Business Acumen Class">
+      <div class="cert-top"><span>04 / BUSINESS</span><span>2024</span></div>
+      <div class="cert-placeholder"><img src="assets/certificates/cert-15-celerates-business-acumen.webp" alt="Celerates Business Acumen Class" loading="lazy" decoding="async"></div>
+      <div class="cert-bottom"><div class="cert-name">Business<br>Acumen</div><div class="cert-meta-bottom">Celerates<br>Soft Skill Class</div><div class="cert-arrow">↗</div></div>
+    </article>
+    <article class="cert-card cert-reveal cursor-view" role="button" tabindex="0" data-pdf="assets/certificates/originals/13-celerates-hr-interview-cv.pdf" aria-label="Open Celerates HR Interview & CV Preparation">
+      <div class="cert-top"><span>05 / CAREER</span><span>2024</span></div>
+      <div class="cert-placeholder"><img src="assets/certificates/cert-13-celerates-hr-interview-cv.webp" alt="Celerates HR Interview & CV Preparation" loading="lazy" decoding="async"></div>
+      <div class="cert-bottom"><div class="cert-name">HR Interview<br>& CV Prep</div><div class="cert-meta-bottom">Celerates<br>Soft Skill Class</div><div class="cert-arrow">↗</div></div>
+    </article>
+    <article class="cert-card cert-reveal cursor-view" role="button" tabindex="0" data-pdf="assets/certificates/originals/14-celerates-personal-branding.pdf" aria-label="Open Celerates Personal Branding Class">
+      <div class="cert-top"><span>06 / BRANDING</span><span>2024</span></div>
+      <div class="cert-placeholder"><img src="assets/certificates/cert-14-celerates-personal-branding.webp" alt="Celerates Personal Branding Class" loading="lazy" decoding="async"></div>
+      <div class="cert-bottom"><div class="cert-name">Personal<br>Branding</div><div class="cert-meta-bottom">Celerates<br>Soft Skill Class</div><div class="cert-arrow">↗</div></div>
+    </article>
+    <article class="cert-card cert-reveal cursor-view" role="button" tabindex="0" data-pdf="assets/certificates/originals/16-celerates-public-speaking.pdf" aria-label="Open Celerates Public Speaking Class">
+      <div class="cert-top"><span>07 / SPEAKING</span><span>2024</span></div>
+      <div class="cert-placeholder"><img src="assets/certificates/cert-16-celerates-public-speaking.webp" alt="Celerates Public Speaking Class" loading="lazy" decoding="async"></div>
+      <div class="cert-bottom"><div class="cert-name">Public<br>Speaking</div><div class="cert-meta-bottom">Celerates<br>Soft Skill Class</div><div class="cert-arrow">↗</div></div>
+    </article>
+    <article class="cert-card cert-reveal cursor-view" role="button" tabindex="0" data-pdf="assets/certificates/originals/17-celerates-english-talk.pdf" aria-label="Open Celerates English Talk Class">
+      <div class="cert-top"><span>08 / ENGLISH</span><span>2024</span></div>
+      <div class="cert-placeholder"><img src="assets/certificates/cert-17-celerates-english-talk.webp" alt="Celerates English Talk Class" loading="lazy" decoding="async"></div>
+      <div class="cert-bottom"><div class="cert-name">English<br>Talk</div><div class="cert-meta-bottom">Celerates<br>Soft Skill Class</div><div class="cert-arrow">↗</div></div>
+    </article>
+    <article class="cert-card cert-reveal cursor-view" role="button" tabindex="0" data-pdf="assets/certificates/originals/01-beijong-contribution.pdf" aria-label="Open Bejijong Contribution Appreciation">
+      <div class="cert-top"><span>09 / COMMUNITY</span><span>2024</span></div>
+      <div class="cert-placeholder"><img src="assets/certificates/cert-01-beijong-contribution.webp" alt="Bejijong Contribution Appreciation" loading="lazy" decoding="async"></div>
+      <div class="cert-bottom"><div class="cert-name">Bejijong<br>Contribution</div><div class="cert-meta-bottom">Pemerintah Desa Bejijong<br>Appreciation</div><div class="cert-arrow">↗</div></div>
+    </article>
+    <article class="cert-card cert-reveal cursor-view" role="button" tabindex="0" data-pdf="assets/certificates/originals/04-action-2024-committee.pdf" aria-label="Open ACTION 2024 - Committee Certificate">
+      <div class="cert-top"><span>10 / COMMITTEE</span><span>2024</span></div>
+      <div class="cert-placeholder"><img src="assets/certificates/cert-04-action-2024-committee.webp" alt="ACTION 2024 - Committee Certificate" loading="lazy" decoding="async"></div>
+      <div class="cert-bottom"><div class="cert-name">ACTION<br>2024</div><div class="cert-meta-bottom">HIMA Sains Data Unesa<br>Committee</div><div class="cert-arrow">↗</div></div>
+    </article>
+    <article class="cert-card cert-reveal cursor-view" role="button" tabindex="0" data-pdf="assets/certificates/originals/05-reloud-2024-committee.pdf" aria-label="Open RELOUD 2024 - Committee Certificate">
+      <div class="cert-top"><span>11 / COMMITTEE</span><span>2024</span></div>
+      <div class="cert-placeholder"><img src="assets/certificates/cert-05-reloud-2024-committee.webp" alt="RELOUD 2024 - Committee Certificate" loading="lazy" decoding="async"></div>
+      <div class="cert-bottom"><div class="cert-name">RELOUD<br>2024</div><div class="cert-meta-bottom">HIMA Sains Data Unesa<br>Committee</div><div class="cert-arrow">↗</div></div>
+    </article>
+    <article class="cert-card cert-reveal cursor-view" role="button" tabindex="0" data-pdf="assets/certificates/originals/12-tenar-2024-committee.pdf" aria-label="Open TENAR 2024 - Committee Certificate">
+      <div class="cert-top"><span>12 / COMMITTEE</span><span>2024</span></div>
+      <div class="cert-placeholder"><img src="assets/certificates/cert-12-tenar-2024-committee.webp" alt="TENAR 2024 - Committee Certificate" loading="lazy" decoding="async"></div>
+      <div class="cert-bottom"><div class="cert-name">TENAR<br>2024</div><div class="cert-meta-bottom">HIMA Sains Data Unesa<br>Committee</div><div class="cert-arrow">↗</div></div>
+    </article>
+    <article class="cert-card cert-reveal cursor-view" role="button" tabindex="0" data-pdf="assets/certificates/originals/08-lkmm-td.pdf" aria-label="Open LKMM-TD - Participant Certificate">
+      <div class="cert-top"><span>13 / LEADERSHIP</span><span>2023</span></div>
+      <div class="cert-placeholder"><img src="assets/certificates/cert-08-lkmm-td.webp" alt="LKMM-TD - Participant Certificate" loading="lazy" decoding="async"></div>
+      <div class="cert-bottom"><div class="cert-name">LKMM-TD</div><div class="cert-meta-bottom">HIMATIKA & Sains Data Unesa<br>Participant</div><div class="cert-arrow">↗</div></div>
+    </article>
+    <article class="cert-card cert-reveal cursor-view" role="button" tabindex="0" data-pdf="assets/certificates/originals/06-mathematics-career-experiences.pdf" aria-label="Open Mathematics Career Experiences 2023">
+      <div class="cert-top"><span>14 / CAREER</span><span>2023</span></div>
+      <div class="cert-placeholder"><img src="assets/certificates/cert-06-mathematics-career-experiences.webp" alt="Mathematics Career Experiences 2023" loading="lazy" decoding="async"></div>
+      <div class="cert-bottom"><div class="cert-name">Mathematics<br>Career Experiences</div><div class="cert-meta-bottom">HIMA Matematika FMIPA Unesa<br>Participant</div><div class="cert-arrow">↗</div></div>
+    </article>
+    <article class="cert-card cert-reveal cursor-view" role="button" tabindex="0" data-pdf="assets/certificates/originals/10-transformasi-digital-nasional.pdf" aria-label="Open Tantangan dan Manfaat Transformasi Digital Nasional">
+      <div class="cert-top"><span>15 / DIGITAL</span><span>2023</span></div>
+      <div class="cert-placeholder"><img src="assets/certificates/cert-10-transformasi-digital-nasional.webp" alt="Tantangan dan Manfaat Transformasi Digital Nasional" loading="lazy" decoding="async"></div>
+      <div class="cert-bottom"><div class="cert-name">Digital<br>Transformation</div><div class="cert-meta-bottom">S1 Sains Data FMIPA Unesa<br>General Lecture</div><div class="cert-arrow">↗</div></div>
+    </article>
+    <article class="cert-card cert-reveal cursor-view" role="button" tabindex="0" data-pdf="assets/certificates/originals/11-scientific-article-writing.pdf" aria-label="Open Scientific Article Writing Workshop">
+      <div class="cert-top"><span>16 / WRITING</span><span>2022</span></div>
+      <div class="cert-placeholder"><img src="assets/certificates/cert-11-scientific-article-writing.webp" alt="Scientific Article Writing Workshop" loading="lazy" decoding="async"></div>
+      <div class="cert-bottom"><div class="cert-name">Scientific Article<br>Writing</div><div class="cert-meta-bottom">BEM FMIPA Unesa<br>Workshop</div><div class="cert-arrow">↗</div></div>
+    </article>
+    <article class="cert-card cert-reveal cursor-view" role="button" tabindex="0" data-pdf="assets/certificates/originals/09-lorong-gelap-pacaran-virtual.pdf" aria-label="Open Lorong Gelap Pacaran Virtual Webinar">
+      <div class="cert-top"><span>17 / WEBINAR</span><span>2023</span></div>
+      <div class="cert-placeholder"><img src="assets/certificates/cert-09-lorong-gelap-pacaran-virtual.webp" alt="Lorong Gelap Pacaran Virtual Webinar" loading="lazy" decoding="async"></div>
+      <div class="cert-bottom"><div class="cert-name">Virtual Dating<br>Awareness</div><div class="cert-meta-bottom">Direktorat PPIS Unesa<br>Webinar</div><div class="cert-arrow">↗</div></div>
+    </article>
+    <article class="cert-card cert-reveal cursor-view" role="button" tabindex="0" data-pdf="assets/certificates/originals/03-jumat-bersih-eco-campus.pdf" aria-label="Open Jumat Bersih - Eco Campus FMIPA Unesa">
+      <div class="cert-top"><span>18 / ECO CAMPUS</span><span>2022</span></div>
+      <div class="cert-placeholder"><img src="assets/certificates/cert-03-jumat-bersih-eco-campus.webp" alt="Jumat Bersih - Eco Campus FMIPA Unesa" loading="lazy" decoding="async"></div>
+      <div class="cert-bottom"><div class="cert-name">Jum’at<br>Bersih</div><div class="cert-meta-bottom">Eco Campus FMIPA Unesa<br>Participant</div><div class="cert-arrow">↗</div></div>
+    </article>
+  </div>
+</section>
+
+<section class="cert-footer">
+  <h2 class="cert-reveal">KEEP<br><em>LEARNING.</em></h2>
+  <div class="cert-footer-copy cert-reveal"><p>The archive keeps every credential easy to scan without turning the page into a document dump. Lightweight previews keep scrolling responsive, while every card still links to the original certificate PDF.</p><a class="magnetic" href="index.html#contact">WORK WITH ME ↗</a></div>
+</section>
+</main><div class="cert-modal" id="certModal" aria-hidden="true"><div class="cert-modal-backdrop" data-cert-close></div><div class="cert-modal-dialog" role="dialog" aria-modal="true" aria-label="Certificate preview"><button class="cert-modal-close" type="button" data-cert-close aria-label="Close certificate preview">×</button><img id="certModalImage" src="" alt=""><div class="cert-modal-caption"><span id="certModalLabel">CERTIFICATE PREVIEW</span><a class="cert-original-link" id="certOriginalLink" href="#" target="_blank" rel="noopener">OPEN ORIGINAL PDF ↗</a></div></div></div>
+<footer><span>DAFFA FAZLY RASHIDAN</span><span>CREDENTIALS / ARCHIVE</span><span>© 2026</span></footer>
+<script>
+const cursor=document.getElementById('cursor');
+const mouse={x:innerWidth/2,y:innerHeight/2},pos={x:innerWidth/2,y:innerHeight/2};
+let cursorRaf=0;
+function animateCursor(){
+  const dx=mouse.x-pos.x,dy=mouse.y-pos.y;
+  pos.x+=dx*.28;pos.y+=dy*.28;
+  cursor.style.transform=`translate3d(${pos.x}px,${pos.y}px,0)`;
+  if(Math.abs(dx)>.08||Math.abs(dy)>.08) cursorRaf=requestAnimationFrame(animateCursor);
+  else cursorRaf=0;
+}
+addEventListener('pointermove',e=>{mouse.x=e.clientX;mouse.y=e.clientY;const dark=e.target.closest?.('.cert-card,.cert-footer,body > footer,.cert-modal-backdrop');cursor.classList.toggle('on-dark',!!dark);if(!cursorRaf)cursorRaf=requestAnimationFrame(animateCursor)},{passive:true});
+document.querySelectorAll('a,.cursor-view').forEach(el=>{el.addEventListener('mouseenter',()=>cursor.classList.add('active'));el.addEventListener('mouseleave',()=>cursor.classList.remove('active'))});
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target)}}),{threshold:.08,rootMargin:'0px 0px -5% 0px'});
+document.querySelectorAll('.cert-reveal').forEach(el=>io.observe(el));
+
+const modal=document.getElementById('certModal'),mi=document.getElementById('certModalImage'),ml=document.getElementById('certModalLabel'),mol=document.getElementById('certOriginalLink');
+function openCert(card){
+  const img=card.querySelector('.cert-placeholder img');if(!img)return;
+  mi.src=img.src;mi.alt=img.alt;
+  ml.textContent=(card.querySelector('.cert-name')?.innerText||'CERTIFICATE PREVIEW').replace(/\n/g,' / ');
+  mol.href=card.dataset.pdf||'#';
+  modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
+}
+function closeCert(){modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';mi.src='';mol.href='#'}
+document.querySelectorAll('.cert-card.cursor-view').forEach(card=>{
+  card.addEventListener('click',()=>openCert(card));
+  card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openCert(card)}});
+});
+document.querySelectorAll('[data-cert-close]').forEach(el=>el.addEventListener('click',closeCert));
+addEventListener('keydown',e=>{if(e.key==='Escape')closeCert()});
+</script>
+<script src="subpage-motion.js"></script>
+<script>
+(() => {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  const targets = [
+    ...document.querySelectorAll('.panel'),
+    ...document.querySelectorAll('.project-hero, .chinook-hero, .unesa-hero, .majadigi-hero, .cert-hero')
+  ];
+
+  const uniqueTargets = [...new Set(targets)];
+
+  function inferTheme(el) {
+    if (el.classList.contains('hero')) return 'light';
+    if (el.dataset.theme) return el.dataset.theme;
+    if (el.classList.contains('cert-hero') || el.classList.contains('majadigi-hero')) return 'light';
+    if (el.closest('.cert-page') || el.closest('.majadigi-page')) return 'light';
+    return 'dark';
+  }
+
+  uniqueTargets.forEach((el, index) => {
+    if (el.querySelector(':scope > .ambient-sky')) return;
+
+    el.classList.add('has-ambient-sky');
+    el.dataset.ambientTheme = inferTheme(el);
+    el.style.setProperty('--ambient-seed', String(index % 5));
+
+    const layer = document.createElement('div');
+    layer.className = 'ambient-sky';
+    layer.setAttribute('aria-hidden', 'true');
+    layer.innerHTML = `
+      <div class="ambient-sky__field">
+        <i class="ambient-sky__blob ambient-sky__blob--a"></i>
+        <i class="ambient-sky__blob ambient-sky__blob--b"></i>
+        <i class="ambient-sky__blob ambient-sky__blob--c"></i>
+        <i class="ambient-sky__blob ambient-sky__blob--d"></i>
+      </div>`;
+    el.prepend(layer);
+  });
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        entry.target.classList.toggle('ambient-active', entry.isIntersecting);
+      });
+    }, { rootMargin: '18% 0px', threshold: 0.01 });
+    uniqueTargets.forEach((el) => observer.observe(el));
+  } else {
+    uniqueTargets.forEach((el) => el.classList.add('ambient-active'));
+  }
+
+  if (reducedMotion.matches || window.matchMedia('(pointer: coarse)').matches) return;
+
+  let raf = 0;
+  let nextX = 0;
+  let nextY = 0;
+  const root = document.documentElement;
+
+  function commitPointer() {
+    root.style.setProperty('--ambient-pointer-x', `${(nextX * 10).toFixed(2)}px`);
+    root.style.setProperty('--ambient-pointer-y', `${(nextY * 7).toFixed(2)}px`);
+    raf = 0;
+  }
+
+  window.addEventListener('pointermove', (event) => {
+    nextX = (event.clientX / Math.max(1, window.innerWidth) - 0.5) * 2;
+    nextY = (event.clientY / Math.max(1, window.innerHeight) - 0.5) * 2;
+    if (!raf) raf = requestAnimationFrame(commitPointer);
+  }, { passive: true });
+})();
+
+</script>
+</body>
+</html>

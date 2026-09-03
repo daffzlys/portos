@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="UNESA Mobile Application — usability testing and user interface improvement case study by Daffa Fazly Rashidan, published on IEEE Xplore.">
+<title>UNESA Mobile — Daffa Fazly</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.unesa-page{background:var(--black);color:var(--cream);cursor:none}.unesa-main{background:var(--black)}
+.unesa-hero{min-height:100svh;position:relative;padding:0 3vw;display:flex;align-items:flex-end;overflow:hidden}.unesa-meta{position:absolute;top:102px;left:3vw;right:3vw;display:flex;justify-content:space-between;font:9px var(--mono);text-transform:uppercase}.unesa-back{position:absolute;top:145px;left:3vw;font:9px var(--mono);text-transform:uppercase;opacity:.7}.unesa-heading{padding-bottom:10vh;max-width:1200px}.unesa-heading p{font:8px var(--mono);text-transform:uppercase;letter-spacing:.08em}.unesa-heading h1{margin:18px 0 24px;font-size:clamp(78px,14.5vw,240px);line-height:.67;letter-spacing:-.105em}.unesa-heading>p:last-child{max-width:720px;font:15px/1.4 var(--sans);color:#aaa;text-transform:none;letter-spacing:-.02em}.unesa-pub{position:absolute;right:3vw;bottom:10vh;width:min(310px,28vw);border-top:1px solid #444;padding-top:10px;font:8px/1.5 var(--mono);text-transform:uppercase;color:#aaa}.unesa-pub strong{display:block;color:var(--cream);font-weight:500;margin-bottom:8px}.unesa-pub a{text-decoration:underline;text-underline-offset:3px}.unesa-content{background:var(--cream);color:var(--black);padding:10vh 3vw 14vh}.unesa-intro{display:grid;grid-template-columns:1.25fr .75fr;gap:9vw;padding-bottom:9vh}.unesa-intro h2{font-size:clamp(55px,7vw,120px);line-height:.76;letter-spacing:-.08em;margin:0 0 28px}.unesa-intro p{max-width:720px;font-size:20px;line-height:1.28;letter-spacing:-.03em}.unesa-facts{display:grid;align-content:start}.unesa-facts div{border-top:1px solid #111;padding:10px 0;display:flex;justify-content:space-between;gap:20px;font:9px var(--mono);text-transform:uppercase}.unesa-facts b{font-weight:500;text-align:right;max-width:60%}.unesa-section{margin:0 0 17vh}.unesa-section-head{display:flex;justify-content:space-between;border-top:1px solid #111;padding-top:9px;margin-bottom:7vh;font:8px var(--mono);text-transform:uppercase}.unesa-copy{max-width:930px}.unesa-copy h2{margin:0 0 28px;font-size:clamp(58px,7.7vw,132px);line-height:.73;letter-spacing:-.085em}.unesa-copy p{max-width:760px;font-size:18px;line-height:1.42;letter-spacing:-.025em;margin:0 0 20px}.unesa-award{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:end;border-top:1px solid #111;border-bottom:1px solid #111;padding:24px 0;margin-top:45px}.unesa-award b{font-size:clamp(32px,4vw,64px);line-height:.9;letter-spacing:-.06em}.unesa-award span{font:8px var(--mono);text-transform:uppercase;text-align:right}.unesa-gallery{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;align-items:start}.unesa-shot{margin:0;border:1px solid #111;background:#f2f2ee;padding:8px}.unesa-shot img{display:block;width:100%;height:auto}.unesa-shot figcaption{font:7px/1.3 var(--mono);text-transform:uppercase;padding:9px 3px 3px}.unesa-before-after{display:grid;grid-template-columns:1fr 1fr;gap:14px}.unesa-side{border-top:1px solid #111;padding-top:10px}.unesa-side>h3{margin:0 0 18px;font:9px var(--mono);text-transform:uppercase}.unesa-side .unesa-gallery{grid-template-columns:repeat(3,minmax(0,1fr))}.unesa-side.after{background:#111;color:var(--cream);padding:10px 10px 14px}.unesa-side.after{border-top:0}.unesa-side.after .unesa-shot{border-color:#444;background:#181818}.unesa-side.after .unesa-shot figcaption{color:#aaa}.unesa-results{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}.unesa-metric{border-top:1px solid #111;padding:18px 0 28px}.unesa-metric strong{display:block;font-size:clamp(50px,7vw,120px);line-height:.8;letter-spacing:-.08em}.unesa-metric span{display:block;margin-top:14px;font:8px var(--mono);text-transform:uppercase}.unesa-result-copy{padding-left:3vw}.unesa-result-copy p{font-size:18px;line-height:1.42;max-width:620px}.unesa-quote{margin-top:35px;border-left:2px solid #111;padding-left:20px;font-size:22px;line-height:1.2;letter-spacing:-.035em}.unesa-pipeline{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.unesa-step{border-top:1px solid #111;padding-top:14px}.unesa-step b{display:block;font-size:clamp(28px,3.2vw,50px);line-height:.9;letter-spacing:-.06em;margin-bottom:15px}.unesa-step span{font:8px/1.4 var(--mono);text-transform:uppercase}.unesa-features{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.unesa-feature{border:1px solid #111;padding:22px 18px;min-height:170px}.unesa-feature b{display:block;font-size:28px;line-height:.9;letter-spacing:-.05em;margin-bottom:18px}.unesa-feature p{font-size:14px;line-height:1.35;margin:0}.unesa-final{border-top:1px solid #111;padding-top:10vh;display:grid;grid-template-columns:1.2fr .8fr;gap:9vw}.unesa-final h2{margin:0;font-size:clamp(60px,8.5vw,145px);line-height:.7;letter-spacing:-.09em}.unesa-final p{font-size:18px;line-height:1.4}.unesa-final a{display:inline-flex;margin-top:20px;border:1px solid #111;padding:13px 16px;font:9px var(--mono);text-transform:uppercase;transition:.2s}.unesa-final a:hover{background:#111;color:var(--cream)}
+@media(max-width:900px){.unesa-pub{position:static;width:auto;margin:0 0 9vh}.unesa-hero{display:block;padding-top:24vh}.unesa-heading{padding-bottom:5vh}.unesa-intro,.unesa-before-after,.unesa-results,.unesa-final{grid-template-columns:1fr;gap:50px}.unesa-gallery{grid-template-columns:repeat(3,minmax(0,1fr))}.unesa-pipeline{grid-template-columns:1fr 1fr}.unesa-features{grid-template-columns:1fr}.unesa-result-copy{padding-left:0}.unesa-content{padding:9vh 5vw 12vh}.unesa-meta{left:5vw;right:5vw}.unesa-back{left:5vw}}
+@media(max-width:520px){.unesa-gallery,.unesa-side .unesa-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.unesa-pipeline{grid-template-columns:1fr}.unesa-heading h1{font-size:23vw}}
+</style>
+</head>
+<body class="project-page unesa-page">
+<div class="cursor" id="cursor"><div class="cursor-core"></div><div class="cursor-ring"></div><div class="cursor-word">VIEW</div></div>
+<div class="spotify-player" id="spotifyPlayer" aria-hidden="true">
+  <div class="spotify-player-head"><span>NOW PLAYING</span><button class="spotify-close" type="button" aria-label="Close Spotify player">×</button></div>
+  <iframe title="Spotify playlist" src="https://open.spotify.com/embed/playlist/6gwqYtj0OmXuu1uK5KG71b?utm_source=generator&theme=0" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+</div>
+
+<header class="topbar">
+  <a class="brand magnetic" href="index.html">DFR<span>.</span></a>
+  <nav><a class="magnetic" href="index.html#about">About</a><a class="magnetic" href="index.html#work">Work</a><a class="magnetic" href="index.html#stack">Stack</a><a class="magnetic" href="certifications.html">Certifications</a><a class="magnetic" href="index.html#contact">Contact</a></nav>
+  <div class="open"><i></i><span>Available for opportunities</span><a class="cv-trigger magnetic" href="assets/docs/Daffa-Fazly-Rashidan-CV.pdf" download="Daffa-Fazly-Rashidan-CV.pdf" aria-label="Download Daffa Fazly Rashidan CV"><span>CV</span><b aria-hidden="true">↓</b></a><button class="music-trigger magnetic" type="button" aria-label="Open Spotify playlist" aria-expanded="false">♫</button></div>
+</header>
+<main class="unesa-main">
+<section class="unesa-hero">
+  <div class="unesa-meta"><span>03 — SELECTED WORK</span><span>UX RESEARCH / MOBILE APP</span></div>
+  <a class="unesa-back magnetic" href="index.html#work">← BACK TO WORK</a>
+  <div class="unesa-heading reveal reveal-up"><p>CASE STUDY / IEEE PUBLICATION</p><h1>UNESA<br>MOBILE.</h1><p>A user-centered redesign study for the UNESA Siakadu mobile application, combining usability testing, UX research, and interface improvement.</p></div>
+  <div class="unesa-pub reveal reveal-up"><strong>IEEE XPLORE / 2024</strong><span>Utilizing Usability Testing for User Interface Improvement: Case Study on Unesa’s Academic Mobile Application</span><br><a href="https://ieeexplore.ieee.org/document/10823907" target="_blank" rel="noreferrer">READ THE PUBLICATION ↗</a></div>
+  <div class="hero-scroll-note">SCROLL TO EXPLORE ↓</div>
+</section>
+<section class="unesa-content">
+  <div class="unesa-intro reveal reveal-up">
+    <div><span class="small-label">THE PROJECT</span><h2>DESIGN<br>THROUGH<br>FEEDBACK.</h2><p>The project evaluated the UNESA Siakadu academic mobile application and translated user feedback into concrete interface and feature improvements. The study followed a user-focused cycle of needs identification, prototyping, usability testing, evaluation, and refinement.</p></div>
+    <div class="unesa-facts"><div><span>PUBLICATION</span><b>IEEE Xplore</b></div><div><span>RESPONDENTS</span><b>37 initial / 42 post-update</b></div><div><span>METHOD</span><b>Mixed methods</b></div><div><span>ROLE</span><b>Research · UI/UX · Usability</b></div></div>
+  </div>
+
+  <section class="unesa-section reveal reveal-up">
+    <div class="unesa-section-head"><span>01 / WHY IT MATTERS</span><span>ACADEMIC MOBILE EXPERIENCE</span></div>
+    <div class="unesa-copy"><h2>AN APP<br>BUILT AROUND<br>REAL NEEDS.</h2><p>Siakadu supports academic and administrative tasks including class schedules, attendance, KRS/KHS, payment information, and access to campus news. The research identified opportunities to make those interactions more intuitive and useful for students and lecturers.</p><div class="unesa-award"><b>USER-CENTRIC<br>REDESIGN</b><span>FROM OBSERVATION<br>TO PROTOTYPE</span></div></div>
+  </section>
+
+  <section class="unesa-section reveal reveal-up">
+    <div class="unesa-section-head"><span>02 / BEFORE & AFTER</span><span>INTERFACE EVOLUTION</span></div>
+    <div class="unesa-before-after">
+      <div class="unesa-side"><h3>01 — BEFORE / EXISTING SYSTEM</h3><div class="unesa-gallery">
+        <figure class="unesa-shot reveal reveal-scale"><img src="assets/projects/unesa/before-home.png" alt="Existing Siakadu homepage" loading="lazy" decoding="async"><figcaption>Homepage</figcaption></figure>
+        <figure class="unesa-shot reveal reveal-scale"><img src="assets/projects/unesa/before-notifications.png" alt="Existing Siakadu notifications" loading="lazy" decoding="async"><figcaption>Notifications</figcaption></figure>
+        <figure class="unesa-shot reveal reveal-scale"><img src="assets/projects/unesa/before-schedule.png" alt="Existing Siakadu course schedule" loading="lazy" decoding="async"><figcaption>Course schedule</figcaption></figure>
+        <figure class="unesa-shot reveal reveal-scale"><img src="assets/projects/unesa/before-attendance.png" alt="Existing Siakadu attendance" loading="lazy" decoding="async"><figcaption>Attendance</figcaption></figure>
+        <figure class="unesa-shot reveal reveal-scale"><img src="assets/projects/unesa/before-krs.png" alt="Existing Siakadu KRS percentage" loading="lazy" decoding="async"><figcaption>KRS percentage</figcaption></figure>
+        <figure class="unesa-shot reveal reveal-scale"><img src="assets/projects/unesa/before-profile.png" alt="Existing Siakadu profile" loading="lazy" decoding="async"><figcaption>Profile</figcaption></figure>
+      </div></div>
+      <div class="unesa-side after"><h3>02 — AFTER / IMPROVED PROTOTYPE</h3><div class="unesa-gallery">
+        <figure class="unesa-shot reveal reveal-scale"><img src="assets/projects/unesa/after-submission.png" alt="Improved assignment submission page" loading="lazy" decoding="async"><figcaption>Submission</figcaption></figure>
+        <figure class="unesa-shot reveal reveal-scale"><img src="assets/projects/unesa/after-course.png" alt="Improved course page" loading="lazy" decoding="async"><figcaption>Course</figcaption></figure>
+        <figure class="unesa-shot reveal reveal-scale"><img src="assets/projects/unesa/after-schedule.png" alt="Improved course schedule" loading="lazy" decoding="async"><figcaption>Schedule</figcaption></figure>
+        <figure class="unesa-shot reveal reveal-scale"><img src="assets/projects/unesa/after-plagiarism.png" alt="Plagiarism similarity report" loading="lazy" decoding="async"><figcaption>Plagiarism check</figcaption></figure>
+        <figure class="unesa-shot reveal reveal-scale"><img src="assets/projects/unesa/after-assignments.png" alt="Improved assignment list" loading="lazy" decoding="async"><figcaption>Assignment list</figcaption></figure>
+        <figure class="unesa-shot reveal reveal-scale"><img src="assets/projects/unesa/after-profile.png" alt="Improved profile page" loading="lazy" decoding="async"><figcaption>Profile</figcaption></figure>
+      </div></div>
+    </div>
+  </section>
+
+  <section class="unesa-section reveal reveal-up">
+    <div class="unesa-section-head"><span>03 / RESEARCH METHOD</span><span>USER-CENTERED PIPELINE</span></div>
+    <div class="unesa-pipeline">
+      <div class="unesa-step"><b>01</b><span>Identify<br>user needs</span></div><div class="unesa-step"><b>02</b><span>Prototype<br>key improvements</span></div><div class="unesa-step"><b>03</b><span>Usability<br>testing</span></div><div class="unesa-step"><b>04</b><span>Evaluate<br>feedback</span></div><div class="unesa-step"><b>05</b><span>Refine<br>the interface</span></div>
+    </div>
+    <div class="unesa-copy" style="margin-top:55px"><p>The study used questionnaires, interviews, and observation. Initial findings were translated into Figma prototypes, then tested again to compare the impact of the proposed improvements.</p></div>
+  </section>
+
+  <section class="unesa-section reveal reveal-up">
+    <div class="unesa-section-head"><span>04 / WHAT CHANGED</span><span>FEATURE IMPROVEMENTS</span></div>
+    <div class="unesa-features">
+      <article class="unesa-feature reveal reveal-up"><b>ASSIGNMENT<br>SUBMISSION</b><p>Students can upload assignment answers directly through the application, with task context prepared by course.</p></article>
+      <article class="unesa-feature reveal reveal-up"><b>PLAGIARISM<br>CHECK</b><p>A similarity-check workflow was added after submission so students can inspect originality before finalizing work.</p></article>
+      <article class="unesa-feature reveal reveal-up"><b>DEADLINE<br>NOTIFICATIONS</b><p>Assignment deadlines were added to notifications to help students manage upcoming academic tasks.</p></article>
+      <article class="unesa-feature reveal reveal-up"><b>CLEARER<br>INFORMATION</b><p>Course, schedule, assignment, profile, and academic information were reorganized for clearer access.</p></article>
+      <article class="unesa-feature reveal reveal-up"><b>RESPONSIVE<br>INTERFACE</b><p>The improved design focused on accessibility and a more intuitive experience across devices.</p></article>
+      <article class="unesa-feature reveal reveal-up"><b>USER<br>FEEDBACK LOOP</b><p>Observed pain points and questionnaire results were converted into iterative design decisions rather than assumptions.</p></article>
+    </div>
+  </section>
+
+  <section class="unesa-section reveal reveal-up">
+    <div class="unesa-section-head"><span>05 / RESULTS</span><span>USABILITY TESTING</span></div>
+    <div class="unesa-results">
+      <div><div class="unesa-metric"><strong>29/42</strong><span>FELT VERY HELPED BY TASK COLLECTION + PLAGIARISM FEATURES</span></div><div class="unesa-metric"><strong>21/42</strong><span>VERY SATISFIED WITH ASSIGNMENT DEADLINE NOTIFICATIONS</span></div><div class="unesa-metric"><strong>18/42</strong><span>GAVE THE HIGHEST SCORE FOR FEATURE MEMORABILITY</span></div></div>
+      <div class="unesa-result-copy"><p>Before the update, only 7 of 37 respondents gave the highest score for their overall experience. After the update, the study reported improvements in perceived helpfulness, memorability, interface intuitiveness, design appeal, and information clarity.</p><p class="unesa-quote">“The redesign turns recurring user complaints into concrete product changes.”</p></div>
+    </div>
+  </section>
+
+  <section class="unesa-section reveal reveal-up">
+    <div class="unesa-section-head"><span>06 / TAKEAWAY</span><span>FROM UX TO PRODUCT VALUE</span></div>
+    <div class="unesa-copy"><h2>LISTEN.<br>TEST.<br>IMPROVE.</h2><p>The strongest part of this project is not a single screen. It is the process: observe how people use the system, identify friction, prototype a response, test it again, and use the evidence to guide the next iteration.</p></div>
+  </section>
+
+  <section class="unesa-final reveal reveal-up">
+    <div><span class="small-label">07 / PUBLICATION</span><h2>PUBLISHED<br>ON IEEE<br>XPLORE.</h2></div>
+    <div><p>This work was published as “Utilizing Usability Testing for User Interface Improvement: Case Study on Unesa’s Academic Mobile Application.” The paper documents the research design, usability evaluation, interface improvements, and post-update findings.</p><a class="magnetic" href="https://ieeexplore.ieee.org/document/10823907" target="_blank" rel="noreferrer">OPEN IEEE XPLORE ↗</a></div>
+  </section>
+</section>
+</main>
+<footer><span>DAFFA FAZLY RASHIDAN</span><span>UNESA MOBILE / IEEE</span><span>© 2026</span></footer>
+<script src="project.js"></script>
+<script src="subpage-motion.js"></script>
+<script>
+(() => {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  const targets = [
+    ...document.querySelectorAll('.panel'),
+    ...document.querySelectorAll('.project-hero, .chinook-hero, .unesa-hero, .majadigi-hero, .cert-hero')
+  ];
+
+  const uniqueTargets = [...new Set(targets)];
+
+  function inferTheme(el) {
+    if (el.classList.contains('hero')) return 'light';
+    if (el.dataset.theme) return el.dataset.theme;
+    if (el.classList.contains('cert-hero') || el.classList.contains('majadigi-hero')) return 'light';
+    if (el.closest('.cert-page') || el.closest('.majadigi-page')) return 'light';
+    return 'dark';
+  }
+
+  uniqueTargets.forEach((el, index) => {
+    if (el.querySelector(':scope > .ambient-sky')) return;
+
+    el.classList.add('has-ambient-sky');
+    el.dataset.ambientTheme = inferTheme(el);
+    el.style.setProperty('--ambient-seed', String(index % 5));
+
+    const layer = document.createElement('div');
+    layer.className = 'ambient-sky';
+    layer.setAttribute('aria-hidden', 'true');
+    layer.innerHTML = `
+      <div class="ambient-sky__field">
+        <i class="ambient-sky__blob ambient-sky__blob--a"></i>
+        <i class="ambient-sky__blob ambient-sky__blob--b"></i>
+        <i class="ambient-sky__blob ambient-sky__blob--c"></i>
+        <i class="ambient-sky__blob ambient-sky__blob--d"></i>
+      </div>`;
+    el.prepend(layer);
+  });
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        entry.target.classList.toggle('ambient-active', entry.isIntersecting);
+      });
+    }, { rootMargin: '18% 0px', threshold: 0.01 });
+    uniqueTargets.forEach((el) => observer.observe(el));
+  } else {
+    uniqueTargets.forEach((el) => el.classList.add('ambient-active'));
+  }
+
+  if (reducedMotion.matches || window.matchMedia('(pointer: coarse)').matches) return;
+
+  let raf = 0;
+  let nextX = 0;
+  let nextY = 0;
+  const root = document.documentElement;
+
+  function commitPointer() {
+    root.style.setProperty('--ambient-pointer-x', `${(nextX * 10).toFixed(2)}px`);
+    root.style.setProperty('--ambient-pointer-y', `${(nextY * 7).toFixed(2)}px`);
+    raf = 0;
+  }
+
+  window.addEventListener('pointermove', (event) => {
+    nextX = (event.clientX / Math.max(1, window.innerWidth) - 0.5) * 2;
+    nextY = (event.clientY / Math.max(1, window.innerHeight) - 0.5) * 2;
+    if (!raf) raf = requestAnimationFrame(commitPointer);
+  }, { passive: true });
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+{
+  "name": "DAFFA FAZLY RASHIDAN",
+  "headline": "DAFFA FAZLY",
+  "subheadline": "Data Science / Analytics / Information Design",
+  "location": "Surabaya, East Java",
+  "availability": "Available for opportunities",
+  "email": "zle.rshdn@gmail.com",
+  "linkedin": "https://www.linkedin.com/in/daffa-fazly-rashidan-67aa472b0",
+  "about": "Fresh graduate in Data Science from Universitas Negeri Surabaya. I work at the intersection of data, technology, and visual communication — from raw datasets and analytics to machine learning, business intelligence, and decision-ready insights.",
+  "work": [
+    [
+      "01",
+      "PUBLIC SENTIMENT",
+      "Makan Bergizi Gratis",
+      "IndoBERTweet · 126K+ posts",
+      "85.50% accuracy · 0.8563 weighted F1"
+    ],
+    [
+      "02",
+      "CHINOOK",
+      "Sales & Performance Analytics",
+      "SQL · Tableau · Power BI",
+      "Business Intelligence Dashboard"
+    ],
+    [
+      "03",
+      "UNESA MOBILE",
+      "IEEE International Publication",
+      "Usability Testing · UX Research",
+      "2024"
+    ],
+    [
+      "04",
+      "MAJADIGI",
+      "Executive Dashboard Dataset",
+      "PostgreSQL · Pentaho · ETL",
+      "Public Sector Analytics"
+    ]
+  ],
+  "experience": [
+    [
+      "2025",
+      "SEAL — DISKOMINFO JAWA TIMUR",
+      "Data Analyst Intern",
+      "ETL pipelines, government data integration, data quality, centralized data mart, and executive dashboard datasets."
+    ],
+    [
+      "2024",
+      "CELERATES ACCELERATION PROGRAM",
+      "Data Analyst & Business Intelligence",
+      "Pentaho ETL, PostgreSQL, SQL, Tableau, Power BI, and business analytics case studies."
+    ],
+    [
+      "2022—2026",
+      "UNIVERSITAS NEGERI SURABAYA",
+      "Bachelor of Data Science · GPA 3.68 / 4.00",
+      "Machine Learning, Data Analytics, Data Engineering, Artificial Intelligence, Business Intelligence."
+    ]
+  ],
+  "skills": [
+    "Python",
+    "SQL",
+    "PostgreSQL",
+    "Pandas",
+    "NumPy",
+    "Scikit-learn",
+    "PyTorch",
+    "TensorFlow",
+    "Tableau",
+    "Power BI",
+    "Pentaho",
+    "Git",
+    "GitHub",
+    "NLP",
+    "Machine Learning",
+    "Deep Learning",
+    "ETL",
+    "Business Intelligence"
+  ],
+  "phone": "083135364504"
+}

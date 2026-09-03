@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Public Sentiment — analysis of public sentiment toward the Makan Bergizi Gratis program on Platform X using IndoBERTweet.">
+<title>Public Sentiment — Daffa Fazly</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="project-page mbg-page">
+
+<div class="cursor" id="cursor"><div class="cursor-core"></div><div class="cursor-ring"></div><div class="cursor-word">VIEW</div></div>
+
+<div class="spotify-player" id="spotifyPlayer" aria-hidden="true">
+  <div class="spotify-player-head"><span>NOW PLAYING</span><button class="spotify-close" type="button" aria-label="Close Spotify player">×</button></div>
+  <iframe title="Spotify playlist" src="https://open.spotify.com/embed/playlist/6gwqYtj0OmXuu1uK5KG71b?utm_source=generator&theme=0" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+</div>
+
+<header class="topbar">
+  <a class="brand magnetic" href="index.html">DFR<span>.</span></a>
+  <nav>
+    <a class="magnetic" href="index.html#about">About</a>
+    <a class="magnetic" href="index.html#work">Work</a>
+    <a class="magnetic" href="index.html#stack">Stack</a><a class="magnetic" href="certifications.html">Certifications</a>
+    <a class="magnetic" href="index.html#contact">Contact</a>
+  </nav>
+  <div class="open"><i></i><span>Available for opportunities</span><a class="cv-trigger magnetic" href="assets/docs/Daffa-Fazly-Rashidan-CV.pdf" download="Daffa-Fazly-Rashidan-CV.pdf" aria-label="Download Daffa Fazly Rashidan CV"><span>CV</span><b aria-hidden="true">↓</b></a><button class="music-trigger magnetic" type="button" aria-label="Open Spotify playlist" aria-expanded="false">♫</button></div>
+</header>
+
+<main class="project-main">
+  <section class="project-hero mbg-hero">
+    <div class="project-meta"><span>01 — SELECTED WORK</span><span>DATA SCIENCE / NLP</span></div>
+    <a class="project-back magnetic" href="index.html#work">← BACK TO WORK</a>
+    <div class="project-heading reveal reveal-up">
+      <p>CASE STUDY / PUBLIC POLICY</p>
+      <h1>PUBLIC<br>SENTIMENT</h1>
+      <p>Mapping how public opinion around the Makan Bergizi Gratis programme changed across 126,365 posts on Platform X.</p>
+    </div>
+    <div class="hero-scroll-note">SCROLL TO EXPLORE ↓</div>
+  </section>
+
+  <section class="project-content">
+    <div class="project-intro reveal reveal-up">
+      <div>
+        <span class="small-label">THE QUESTION</span>
+        <p>How did public sentiment around MBG change as the policy moved from campaign discourse to transition, trials, and early implementation?</p>
+      </div>
+      <div class="project-facts">
+        <div><span>DATA</span><b>126,365 tweets</b></div>
+        <div><span>PERIOD</span><b>Nov 2023 — Mar 2025</b></div>
+        <div><span>MODEL</span><b>IndoBERTweet</b></div>
+        <div><span>LABELS</span><b>Positive / Neutral / Negative</b></div>
+      </div>
+    </div>
+
+    <section class="mbg-stat-strip reveal reveal-up" aria-label="Key results">
+      <div><strong>85.50%</strong><span>TEST ACCURACY</span></div>
+      <div><strong>0.8563</strong><span>WEIGHTED F1</span></div>
+      <div><strong>60.6%</strong><span>NEGATIVE OVERALL</span></div>
+      <div><strong>17 MO</strong><span>OBSERVATION WINDOW</span></div>
+    </section>
+
+    <section class="mbg-section reveal reveal-up">
+      <div class="mbg-section-head"><span>01 / OVERVIEW</span><span>THE SIGNAL</span></div>
+      <div class="mbg-two-col">
+        <div class="mbg-copy">
+          <h2>NEGATIVE<br>DOMINATED.</h2>
+          <p>Across 126,365 cleaned tweets, negative sentiment was the largest class at 60.6%, followed by positive at 26.6% and neutral at 12.8%.</p>
+          <p>This is a map of observed discourse on Platform X — not a direct measurement of policy approval.</p>
+        </div>
+        <figure class="mbg-figure mbg-donut mbg-figure--square reveal reveal-scale">
+          <img src="assets/projects/mbg/overall-sentiment.png" alt="Overall sentiment distribution: negative 60.6 percent, positive 26.6 percent, neutral 12.8 percent" loading="eager" decoding="async">
+          <figcaption>FIG. 01 — OVERALL SENTIMENT DISTRIBUTION</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="mbg-section reveal reveal-up">
+      <div class="mbg-section-head"><span>02 / POLICY PHASES</span><span>THREE PERIODS</span></div>
+      <div class="mbg-copy wide">
+        <h2>THE NEGATIVE<br>SHARE FELL.</h2>
+        <p>Negative sentiment declined from 72.0% during the campaign to 63.9% during transition and trials, then to 54.8% during early implementation. Positive sentiment reached 29.9% in the final phase.</p>
+      </div>
+      <figure class="mbg-figure full mbg-figure--landscape reveal reveal-scale">
+        <img src="assets/projects/mbg/phase-comparison.png" alt="Sentiment distribution across the three MBG policy phases" loading="lazy" decoding="async">
+        <figcaption>FIG. 02 — SENTIMENT DISTRIBUTION ACROSS POLICY PHASES</figcaption>
+      </figure>
+    </section>
+
+    <section class="mbg-section reveal reveal-up">
+      <div class="mbg-section-head"><span>03 / DATA VOLUME</span><span>PHASE BY PHASE</span></div>
+      <div class="mbg-two-col mbg-two-col--reverse">
+        <figure class="mbg-figure mbg-figure--landscape reveal reveal-scale">
+          <img src="assets/projects/mbg/phase-volume.png" alt="Tweet volume across the three MBG policy phases" loading="lazy" decoding="async">
+          <figcaption>FIG. 03 — TWEET VOLUME BY POLICY PHASE</figcaption>
+        </figure>
+        <div class="mbg-copy">
+          <h2>DISCUSSION<br>EXPANDED.</h2>
+          <p>Phase 1 contains 12,326 tweets (9.0%), Phase 2 contains 64,795 (47.1%), and Phase 3 contains 60,331 (43.9%).</p>
+          <p>The larger volume in the latter phases reflects a broader period of transition and early implementation, where discussion increasingly followed concrete policy developments.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mbg-section reveal reveal-up">
+      <div class="mbg-section-head"><span>04 / TEMPORAL DYNAMICS</span><span>WHEN DISCUSSION SPIKED</span></div>
+      <div class="mbg-copy wide">
+        <h2>OPINION MOVES<br>WITH EVENTS.</h2>
+        <p>The monthly series shows several sharp increases in discussion volume, including February 2024 and January–February 2025. The daily series exposes the finer-grained spikes behind those monthly totals.</p>
+      </div>
+      <figure class="mbg-figure full mbg-figure--wide reveal reveal-scale chart-frame">
+        <img src="assets/projects/mbg/monthly-volume.png" alt="Monthly tweet volume from November 2023 to March 2025 with three policy phases" loading="lazy" decoding="async">
+        <figcaption>FIG. 04 — MONTHLY TWEET VOLUME, NOVEMBER 2023 — MARCH 2025</figcaption>
+      </figure>
+      <figure class="mbg-figure full mbg-daily-figure mbg-figure--wide reveal reveal-scale chart-frame">
+        <img src="assets/projects/mbg/daily-timeseries.png" alt="Daily positive, neutral and negative sentiment dynamics from November 2023 to March 2025" loading="lazy" decoding="async">
+        <figcaption>FIG. 05 — DAILY SENTIMENT DYNAMICS, 28 NOVEMBER 2023 — 31 MARCH 2025</figcaption>
+      </figure>
+    </section>
+
+    <section class="mbg-section reveal reveal-up">
+      <div class="mbg-section-head"><span>05 / MODEL PERFORMANCE</span><span>INDOBERTWEET</span></div>
+      <div class="mbg-model-grid">
+        <div class="mbg-copy">
+          <h2>85.50%<br>ACCURACY.</h2>
+          <p>The fine-tuned IndoBERTweet model reached 85.50% accuracy and a 0.8563 weighted F1-score on the test set.</p>
+          <div class="metric-list">
+            <div><span>NEGATIVE F1</span><b>0.8350</b></div>
+            <div><span>NEUTRAL F1</span><b>0.9048</b></div>
+            <div><span>POSITIVE F1</span><b>0.7384</b></div>
+          </div>
+        </div>
+        <figure class="mbg-figure mbg-figure--portrait reveal reveal-scale">
+          <img src="assets/projects/mbg/learning-curve.png" alt="Training and validation loss learning curve for IndoBERTweet" loading="lazy" decoding="async">
+          <figcaption>FIG. 06 — TRAINING / VALIDATION LOSS</figcaption>
+        </figure>
+        <figure class="mbg-figure mbg-figure--square reveal reveal-scale">
+          <img src="assets/projects/mbg/confusion-matrix.png" alt="Confusion matrix for the IndoBERTweet test set" loading="lazy" decoding="async">
+          <figcaption>FIG. 07 — CONFUSION MATRIX</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="mbg-section reveal reveal-up">
+      <div class="mbg-section-head"><span>06 / INTERPRETATION</span><span>WHAT CHANGED</span></div>
+      <div class="mbg-copy wide interpretation-copy">
+        <h2>FROM POLITICAL<br>DEBATE TO<br>IMPLEMENTATION.</h2>
+        <p>The research identifies a consistent shift in the character of the conversation. Early discourse was strongly tied to political polarization and the initial policy proposal. As the programme moved toward trials and implementation, attention increasingly moved toward funding mechanisms, price per portion, operational quality, and delivery in the field.</p>
+        <p>The decline in negative share should therefore be read as a change in the composition of observed discourse, not as proof that public approval increased.</p>
+      </div>
+    </section>
+
+    <section class="mbg-section mbg-method reveal reveal-up">
+      <div class="mbg-section-head"><span>07 / METHOD</span><span>PIPELINE</span></div>
+      <div class="method-line">
+        <span>SCRAPING</span><i>→</i><span>MINIMALIST FILTERING</span><i>→</i><span>INDOBERTWEET</span><i>→</i><span>CLASS WEIGHTING</span><i>→</i><span>SENTIMENT</span><i>→</i><span>N-GRAM</span>
+      </div>
+      <div class="method-note">Keywords included “makan siang gratis”, “makan bergizi gratis”, “#mbg”, and “mbg”.</div>
+    </section>
+
+    <section class="mbg-section mbg-final reveal reveal-up">
+      <div class="mbg-section-head"><span>08 / TAKEAWAY</span><span>THE SIGNAL</span></div>
+      <div class="final-line"><span>NEGATIVE</span><strong>72.0%</strong><em>→</em><span>54.8%</span></div>
+      <p class="final-note">A changing discourse across three policy phases — not a simple approval score.</p>
+    </section>
+  </section>
+</main>
+
+<footer><span>DAFFA FAZLY RASHIDAN</span><span>PUBLIC SENTIMENT / MBG</span><span>© 2026</span></footer>
+<script src="project.js"></script>
+<script src="subpage-motion.js"></script>
+<script>
+(() => {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  const targets = [
+    ...document.querySelectorAll('.panel'),
+    ...document.querySelectorAll('.project-hero, .chinook-hero, .unesa-hero, .majadigi-hero, .cert-hero')
+  ];
+
+  const uniqueTargets = [...new Set(targets)];
+
+  function inferTheme(el) {
+    if (el.classList.contains('hero')) return 'light';
+    if (el.dataset.theme) return el.dataset.theme;
+    if (el.classList.contains('cert-hero') || el.classList.contains('majadigi-hero')) return 'light';
+    if (el.closest('.cert-page') || el.closest('.majadigi-page')) return 'light';
+    return 'dark';
+  }
+
+  uniqueTargets.forEach((el, index) => {
+    if (el.querySelector(':scope > .ambient-sky')) return;
+
+    el.classList.add('has-ambient-sky');
+    el.dataset.ambientTheme = inferTheme(el);
+    el.style.setProperty('--ambient-seed', String(index % 5));
+
+    const layer = document.createElement('div');
+    layer.className = 'ambient-sky';
+    layer.setAttribute('aria-hidden', 'true');
+    layer.innerHTML = `
+      <div class="ambient-sky__field">
+        <i class="ambient-sky__blob ambient-sky__blob--a"></i>
+        <i class="ambient-sky__blob ambient-sky__blob--b"></i>
+        <i class="ambient-sky__blob ambient-sky__blob--c"></i>
+        <i class="ambient-sky__blob ambient-sky__blob--d"></i>
+      </div>`;
+    el.prepend(layer);
+  });
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        entry.target.classList.toggle('ambient-active', entry.isIntersecting);
+      });
+    }, { rootMargin: '18% 0px', threshold: 0.01 });
+    uniqueTargets.forEach((el) => observer.observe(el));
+  } else {
+    uniqueTargets.forEach((el) => el.classList.add('ambient-active'));
+  }
+
+  if (reducedMotion.matches || window.matchMedia('(pointer: coarse)').matches) return;
+
+  let raf = 0;
+  let nextX = 0;
+  let nextY = 0;
+  const root = document.documentElement;
+
+  function commitPointer() {
+    root.style.setProperty('--ambient-pointer-x', `${(nextX * 10).toFixed(2)}px`);
+    root.style.setProperty('--ambient-pointer-y', `${(nextY * 7).toFixed(2)}px`);
+    raf = 0;
+  }
+
+  window.addEventListener('pointermove', (event) => {
+    nextX = (event.clientX / Math.max(1, window.innerWidth) - 0.5) * 2;
+    nextY = (event.clientY / Math.max(1, window.innerHeight) - 0.5) * 2;
+    if (!raf) raf = requestAnimationFrame(commitPointer);
+  }, { passive: true });
+})();
+
+</script>
+</body>
+</html>
